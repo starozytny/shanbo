@@ -25,7 +25,7 @@
                     </p>
 
                     <div class="actions">
-                        <a href="{{ path('app_contact') }}" class="btn btn-danger">🤝 Restons en contact !</a>
+                        <a href="#restons-en-contact" class="btn btn-danger">🤝 Restons en contact !</a>
                         <a href="#mon-travail" class="btn btn-outline-danger">💪 Mon travail</a>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     Je garderai ton adresse e-mail exclusivement pour cet usage.
                 </p>
 
-                <form method="POST">
+                <form action="{{ path('app_stay_touch') }}" method="POST">
                     <input type="email" name="email" id="email" placeholder="Adresse e-mail">
                     <button type="submit" class="btn btn-danger">
                         <span class="icon-email"></span>
@@ -87,11 +87,16 @@
 
                     <input type="hidden" name="critere" value="critere">
                 </form>
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-primary" style="margin-top: 12px;">
+                        <p>{{ flashMessage }} 👌</p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 
-    <div class="form-contact">
+    <div class="form-contact" id="restons-en-contact">
         <div class="form-contact-container">
             <div class="col-1">
                 <div class="home-contact-title">

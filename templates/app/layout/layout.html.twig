@@ -38,7 +38,7 @@
             'target': true
         },
         {
-            'path': path('app_contact'),
+            'path': "#restons-en-contact",
             'label': 'Coucou',
             'name': 'contact'
         },
@@ -55,15 +55,6 @@
                 'path': path('app_logout'),
                 'label': 'Déconnexion',
                 'name': 'logout'
-            }
-        ] %}
-        {% set menu = menu | merge(menuLogged) %}
-    {% else %}
-        {% set menuLogged = [
-            {
-                'path': path('app_login'),
-                'label': 'Mon espace',
-                'name': 'login'
             }
         ] %}
         {% set menu = menu | merge(menuLogged) %}
