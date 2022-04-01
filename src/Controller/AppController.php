@@ -49,7 +49,7 @@ class AppController extends AbstractController
     }
 
     /**
-     * @Route("/nous-contacter", name="app_contact")
+     * @Route("/contact", name="app_contact")
      */
     public function contact(): Response
     {

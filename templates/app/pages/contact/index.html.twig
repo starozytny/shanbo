@@ -1,6 +1,6 @@
 {% extends 'app/layout/layout.html.twig' %}
 
-{% block title %}Nous contacter{% endblock %}
+{% block title %}Restons en contact ! {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -9,7 +9,7 @@
 
 {% block main_content %}
     <div class="main-content">
-        <h1>Nous contacter</h1>
+        <h1>Restons en contact !</h1>
 
         <div id="contact">
             {% include "dashboard/layout/components/spinner.html.twig" %}
