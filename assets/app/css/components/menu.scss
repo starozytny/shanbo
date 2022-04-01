@@ -48,13 +48,19 @@ nav.fixed{
     opacity: 0.6;
     @include fontSemibold();
 
+    span{
+      transition: all 0.2s ease-in-out;
+    }
+
     [class^="icon-"]{
       display: inline-block;
       margin-right: 8px;
     }
 
     &:hover{
-      transform: translateY(-5px);
+      span{
+        transform: translateY(-5px);
+      }
     }
 
     &.active{
@@ -117,6 +123,10 @@ nav.fixed{
   }
   .nav-header-logo{
     padding: 0;
+
+    a{
+      font-size: 26px;
+    }
   }
   .nav-mobile{ display: none; }
   .nav-body{
@@ -130,8 +140,9 @@ nav.fixed{
     }
 
     a, .item-dropdown > span{
-      padding: 24px 12px;
+      padding: 32px 12px;
       color: var(--txt);
+      font-size: 18px;
     }
 
     .item-dropdown{
