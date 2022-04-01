@@ -45,7 +45,7 @@ nav.fixed{
     @include flex(row, center, flex-start);
     padding: 12px;
     width: calc(100% - 24px);
-    color: var(--fond);
+    color: var(--txt);
     opacity: 0.6;
     @include fontSemibold();
 
