@@ -15,8 +15,6 @@
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
                     <a rel="nofollow" href="{{ path('app_logout') }}">Me déconnecter</a>
-                {% else %}
-                    <a rel="nofollow" href="{{ path('app_login') }}">Mon espace</a>
                 {% endif %}
             </div>
         </div>
