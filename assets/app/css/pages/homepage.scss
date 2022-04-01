@@ -79,7 +79,7 @@
       }
 
       .present{
-        padding: 128px 48px 0 12px;
+        padding: 128px 48px 128px 12px;
         margin-bottom: 0;
 
         h1{
@@ -96,6 +96,7 @@
 
         .actions{
           @include flex(row, flex-start, flex-start);
+          margin-top: 32px;
 
           a{
             &:not(:last-child){
@@ -125,6 +126,32 @@
         h1{
           font-size: 56px;
         }
+
+        .actions{
+          a{
+            width: auto;
+            padding: 16px 32px 15px 32px;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .home-header{
+    .home-header-container{
+      @include maxscreen();
+
+      .present{
+        padding-left: 0;
       }
     }
   }
