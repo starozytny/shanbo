@@ -98,7 +98,7 @@ function MenuItem (props){
 function Item({ el, active }){
     return (
         <div className="item">
-            <a href={el.path} className={ active === el.name ? "active" : "" }>
+            <a href={el.path} className={ active === el.name ? "active" : "" } target={el.target ? "_blank" : ""}>
                 {el.icon && <span className={`icon-${el.icon}`} />}
                 <span>{el.label}</span>
             </a>
