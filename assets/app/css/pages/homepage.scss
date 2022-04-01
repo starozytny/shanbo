@@ -5,6 +5,30 @@
 
   .home-header-container{
     padding: 24px 12px;
+
+    & > .col-1{
+      &:hover{
+        & + .col-2{
+          .image{
+            img{
+              transform: scale(1.03);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .image{
+    overflow: hidden;
+
+    img{
+      transition: all 0.5s ease-in-out;
+
+      &:hover{
+        transform: scale(1.03);
+      }
+    }
   }
 
   .present{
