@@ -82,6 +82,69 @@
   }
 }
 
+.home-contact{
+  .home-contact-container{
+    padding: 48px 12px;
+  }
+
+  .home-contact-title{
+    @include flex(column, center, center);
+
+    &:after{
+      content: "";
+      background-color: var(--color0);
+      display: block;
+      width: 48px;
+      height: 4px;
+      margin: 24px 0;
+    }
+  }
+
+  .home-contact-content{
+    @include flex(column, center, center);
+    max-width: 525px;
+    margin: 0 auto;
+
+    p{
+      text-align: center;
+      line-height: 1.32;
+    }
+
+    .links{
+      margin: 12px 0;
+      @include fontSemibold();
+
+      a{
+        color: var(--color0);
+        border-bottom: 1px solid transparent;
+
+        &:not(:last-child){
+          margin-right: 8px;
+        }
+
+        &:hover{
+          border-color: var(--color0);
+        }
+      }
+    }
+
+    form{
+      margin-top: 24px;
+      @include flex(row, stretch, flex-start);
+
+      input{
+        width: calc(100% - 203px);
+        border-radius: 4px 0 0 4px;
+      }
+
+      .btn-danger{
+        background-color: var(--color0);
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+}
+
 //                      __   _  ___ ____  _  _     __
 //                     | _| / |/ _ \___ \| || |   |_ |
 //    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
@@ -133,6 +196,27 @@
       }
     }
   }
+
+  .home-contact {
+    .home-contact-container {
+      padding: 128px 0;
+    }
+
+    .home-contact-content{
+      form{
+        width: 74%;
+        margin-top: 48px;
+      }
+
+      .links{
+        margin: 24px 0;
+      }
+    }
+
+    h2{
+      font-size: 32px;
+    }
+  }
 }
 
 //                      __   _ ____  ___   ___    __
@@ -159,6 +243,15 @@
             font-size: 18px;
           }
         }
+      }
+    }
+  }
+
+  .home-contact {
+
+    .home-contact-content{
+      p{
+        font-size: 17px;
       }
     }
   }

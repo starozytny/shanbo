@@ -60,7 +60,7 @@ h1{
 }
 
 h2{
-    @include fontSemibold();
+    @include fontBold();
     text-transform: uppercase;
 }
 
