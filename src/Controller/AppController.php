@@ -68,6 +68,14 @@ class AppController extends AbstractController
     }
 
     /**
+     * @Route("/nous-contacter", name="app_contact_old")
+     */
+    public function contactOld(): Response
+    {
+        return $this->redirectToRoute('app_homepage', ['_fragment' => 'restons-en-contact']);
+    }
+
+    /**
      * @Route("/rester-informer", name="app_stay_touch")
      */
     public function inform(Request $request): \Symfony\Component\HttpFoundation\RedirectResponse
