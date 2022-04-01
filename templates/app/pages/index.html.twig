@@ -46,8 +46,8 @@
             <div class="home-contact-content">
                 <p>
                     N'hésites pas à me contacter à travers mon compte Instagram ou mon compte LinkedIn !
-                    Que ce soit pour discuter d'un projet, d'échanger des informations en programmation web,
-                    de parler de technologies ou tout simplement discuter. 🙆‍
+                    Que ce soit pour discuter d'un projet, échanger des informations en programmation web,
+                    parler de technologies ou tout simplement discuter. 🙆‍
                 </p>
 
                 <div class="links">
@@ -84,8 +84,36 @@
                         <span class="icon-email"></span>
                         <span>Reste informé !</span>
                     </button>
+
+                    <input type="hidden" name="critere" value="critere">
                 </form>
             </div>
         </div>
     </div>
+
+    <div class="form-contact">
+        <div class="form-contact-container">
+            <div class="col-1">
+                <h2>Discutons</h2>
+                <p>
+                    Tu peux me laisser un petit message avec ce formulaire si le coeur t'en dit ! <br>
+                </p>
+                
+                <div class="image">
+                    <img src="{{ asset('build/app/images/contact.jpg') }}" alt="illustration photo contact">
+                </div>
+            </div>
+            <div class="col-2">
+                <div id="contact">
+                    {% include "dashboard/layout/components/spinner.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('homepage') }}
 {% endblock %}

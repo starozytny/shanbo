@@ -1,5 +1,9 @@
 @import "../vars/vars";
 
+.btn-danger{
+  background-color: var(--color0);
+}
+
 .home-header{
   background-color: var(--color3);
 
@@ -138,7 +142,6 @@
       }
 
       .btn-danger{
-        background-color: var(--color0);
         border-radius: 0 4px 4px 0;
       }
     }
