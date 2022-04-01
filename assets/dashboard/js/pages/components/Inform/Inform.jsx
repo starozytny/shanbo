@@ -5,8 +5,8 @@ import Sort              from "@commonComponents/functions/sort";
 
 import { InformList }      from "./InformList";
 
-const URL_DELETE_ELEMENT    = 'api_contact_delete';
-const URL_DELETE_GROUP      = 'api_contact_delete_group';
+const URL_DELETE_ELEMENT    = 'api_inform_delete';
+const URL_DELETE_GROUP      = 'api_inform_delete_group';
 const MSG_DELETE_ELEMENT    = 'Supprimer ce contact ?';
 const MSG_DELETE_GROUP      = 'Aucun contact sélectionné.';
 const SORTER = Sort.compareCreatedAt;
