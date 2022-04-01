@@ -1,1 +1,85 @@
 @import "../vars/vars";
+
+.home-header{
+  background-color: var(--color3);
+
+  .home-header-container{
+    padding: 24px 12px;
+  }
+
+  .present{
+    margin-bottom: 24px;
+
+    h1{
+      color: var(--fond);
+    }
+
+    .subtitle{
+      @include flex(row, center, flex-start);
+      @include fontSemibold();
+      color: var(--color0);
+      margin-bottom: 8px;
+
+      &:before{
+        content: "";
+        background-color: var(--color0);
+        display: inline-block;
+        width: 48px;
+        height: 4px;
+        margin-right: 8px;
+      }
+    }
+
+    p{
+      color: var(--grey2);
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .home-header{
+    .home-header-container{
+      @include flex(row, flex-start, flex-start);
+      padding: 0;
+
+      .present{
+        padding: 128px 48px 0 12px;
+        margin-bottom: 0;
+
+        h1{
+          font-size: 46px;
+        }
+
+        .subtitle{
+          font-size: 18px;
+        }
+
+        p{
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .home-header{
+    .home-header-container{
+      .present{
+        padding-left: 32px;
+      }
+    }
+  }
+}

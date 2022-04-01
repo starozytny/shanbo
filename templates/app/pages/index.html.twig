@@ -2,8 +2,37 @@
 
 {% block title %}Chanbora Chhun développeur web et photographe à Marseille{% endblock %}
 
-{% block main_content %}
-<div class="main-content">
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('homepage') }}
+{% endblock %}
 
-</div>
+
+{% block main_content %}
+    <div class="home-header">
+        <div class="home-header-container">
+            <div class="col-1">
+                <div class="present">
+                    <div class="subtitle">Explorateur développeur</div>
+                    <h1>Salut, je m'appelle
+                        Chanbora Chhun. <br>
+                        Je suis Développeur Web à Marseille.</h1>
+                    <p>
+                        Depuis quelques années, je développe des sites web, principalement,
+                        avec le framework Symfony, le grand Javascript et du Sass. Récemment,
+                        je me suis mis au React dans certains de mes projets !
+                    </p>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="image">
+                    <img src="{{ asset('build/app/images/homepage.jpg') }}" alt="illustration chanbora chhun">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+    </div>
 {% endblock %}
