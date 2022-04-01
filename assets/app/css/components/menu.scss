@@ -46,6 +46,7 @@ nav.fixed{
     width: calc(100% - 24px);
     color: var(--fond);
     opacity: 0.6;
+    @include fontSemibold();
 
     [class^="icon-"]{
       display: inline-block;
@@ -58,6 +59,7 @@ nav.fixed{
 
     &.active{
       opacity: 1;
+      border-bottom: 2px solid var(--color0);
     }
   }
 
@@ -130,7 +132,6 @@ nav.fixed{
     a, .item-dropdown > span{
       padding: 24px 12px;
       color: var(--txt);
-      opacity: 0.8;
     }
 
     .item-dropdown{
