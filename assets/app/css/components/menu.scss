@@ -7,6 +7,7 @@ nav.fixed{
   width: 100%;
   background-color: var(--alpha);
   z-index: 1000;
+  box-shadow: 0 4px 12px var(--greyShadow);
 
   & + main{
     margin-top: 52px;
