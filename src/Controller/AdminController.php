@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Changelog;
 use App\Entity\Contact;
+use App\Entity\Inform;
 use App\Entity\Notification;
 use App\Entity\Settings;
 use App\Entity\User;
@@ -138,5 +139,13 @@ class AdminController extends AbstractController
         return $this->render('admin/pages/changelog/index.html.twig', [
             'donnees' => $objs
         ]);
+    }
+
+    /**
+     * @Route("/rester-informer", name="stay_touch_index")
+     */
+    public function inform(Request $request, SerializerInterface $serializer): Response
+    {
+        return $this->getRenderView($request, $serializer, Inform::class, 'admin/pages/inform/index.html.twig');
     }
 }

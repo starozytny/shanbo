@@ -70,7 +70,7 @@ class AppController extends AbstractController
     /**
      * @Route("/rester-informer", name="app_stay_touch")
      */
-    public function inform(Request $request)
+    public function inform(Request $request): \Symfony\Component\HttpFoundation\RedirectResponse
     {
         if($request->isMethod("POST")){
             $em = $this->doctrine->getManager();

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\InformRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=InformRepository::class)
@@ -14,11 +15,13 @@ class Inform extends DataEntity
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"admin:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"admin:read"})
      */
     private $email;
 
@@ -59,5 +62,14 @@ class Inform extends DataEntity
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     * @Groups({"admin:read"})
+     */
+    public function getCreatedAtAgo(): ?string
+    {
+        return $this->getHowLongAgo($this->createdAt);
     }
 }
