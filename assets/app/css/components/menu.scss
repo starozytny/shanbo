@@ -19,6 +19,12 @@ nav.fixed{
   img{
     width: 82px;
   }
+
+  a{
+    @include fontBold();
+    font-size: 22px;
+    color: var(--txt);
+  }
 }
 
 .nav-mobile{
