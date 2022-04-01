@@ -14,21 +14,30 @@
             'name': 'accueil'
         },
         {
-            'dropdown': true,
-            'label': 'Dropdown',
-            'items': [
-                {
-                    'path': path('app_homepage'),
-                    'label': 'Item 1',
-                    'name': 'item-2'
-                },
-                {
-                    'path': path('app_homepage'),
-                    'label': 'Item 2',
-                    'name': 'item-2'
-                }
-            ]
-        }
+            'path': path('app_homepage'),
+            'label': 'Instagram',
+            'name': 'instagram'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'LinkedIn',
+            'name': 'linkedin'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'Github',
+            'name': 'github'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'Unsplash',
+            'name': 'unsplash'
+        },
+        {
+            'path': path('app_homepage'),
+            'label': 'Contact',
+            'name': 'contact'
+        },
     ] %}
 
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
