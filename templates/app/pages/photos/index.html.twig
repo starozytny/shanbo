@@ -1,0 +1,15 @@
+{% extends 'app/pages/photos/template.html.twig' %}
+
+{% block title %}Photos{% endblock %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="masonry">
+            {% for item in data %}
+                <div class="mItem">
+                    <img src="{{ item }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

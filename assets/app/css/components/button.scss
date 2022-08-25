@@ -1,3 +1,27 @@
 @import "../vars/vars";
 
 @import "../../../common/css/components/button";
+
+.btn{
+  opacity: 1;
+  border-radius: 8px;
+}
+
+$icons:
+        "default" var(--alpha) var(--txt) var(--greyShadow),
+        "primary" var(--primary) var(--alpha) var(--primaryShadow2),
+        "danger" var(--danger) var(--alpha) var(--dangerShadow2),
+        "success" var(--success) var(--alpha) var(--successShadow2),
+        "warning" var(--warning) var(--txt) var(--warningShadow2);
+
+@each $name, $bg, $txt, $shadow in $icons {
+  .btn-outline-#{$name},
+  .btn-#{$name} {
+    box-shadow: 4px 4px 0 $bg;
+
+    &:hover{
+      box-shadow: none;
+      opacity: 1;
+    }
+  }
+}

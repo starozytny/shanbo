@@ -59,6 +59,7 @@ Encore
     .addEntry('security', './assets/app/js/pages/security.js')
     .addEntry('contact', './assets/app/js/pages/contact.js')
     .addEntry('homepage', './assets/app/js/pages/homepage.js')
+    .addEntry('photo', './assets/app/js/pages/photo.js')
 
     .addEntry('dashboard', './assets/dashboard/js/app.js')
     .addEntry('dashboard_homepage', './assets/dashboard/js/pages/homepage.js')
