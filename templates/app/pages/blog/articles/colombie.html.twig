@@ -1,7 +1,39 @@
-{% extends 'app/pages/photos/template.html.twig' %}
+{% extends 'app/pages/blog/template.html.twig' %}
 
 {% block title %}Article{% endblock %}
 
 {% block main_content %}
-    <div class="main-content">Article</div>
+    <div class="main-content">
+        <div class="article">
+            <div class="col-1">
+                <div class="article-header">
+                    <div class="author">
+                        <div class="avatar">
+                            <img src="{{ asset('build/app/images/avatar.jpg') }}" alt="Avatar Chanbora Chhun">
+                        </div>
+                        <div class="who">
+                            <span class="name">Chanbora Chhun</span>
+                            <div class="job">Développeur & Photographe</div>
+                        </div>
+                    </div>
+                    <div class="subtitle">
+                        <div class="date">25 Août 2022</div>
+                        <div class="localisation">Marseille, France</div>
+                    </div>
+                </div>
+                <div class="title">
+                    <h1>La ville de Marseille</h1>
+                </div>
+                <div class="content">
+                    <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration ville">
+                    <p>
+                        lorem ipsum
+                    </p>
+                </div>
+            </div>
+            <div class="col-2">
+                Test
+            </div>
+        </div>
+    </div>
 {% endblock %}
