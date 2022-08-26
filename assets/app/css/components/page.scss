@@ -21,6 +21,15 @@
   fill: var(--fondContent);
 }
 
+.page-header {
+  min-height: 36vh;
+  background-image: linear-gradient(135deg, #221e29 37%, #00090d 96%);
+  @include flex(column, center, center);
+
+  h1{
+    color: var(--fond);
+  }
+}
 
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
