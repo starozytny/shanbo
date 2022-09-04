@@ -70,8 +70,9 @@
     font-family: 'Noto Sans', sans-serif;
 
     p{
-      margin: 24px;
+      margin: 24px 0;
       text-align: justify;
+      color: #2c2c2c;
     }
   }
 }
@@ -117,5 +118,11 @@
   .article{
     max-width: 1024px;
     margin: 48px auto 0 auto;
+
+    .content{
+      p{
+        font-size: 18px;
+      }
+    }
   }
 }

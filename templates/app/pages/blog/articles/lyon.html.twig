@@ -2,6 +2,8 @@
 
 {% block title %}A la rencontre de Lyon {{ title_end }}{% endblock %}
 
+{% set pathImages = "build/app/images/articles/" %}
+
 {% block main_content %}
     <div class="main-content">
         <div class="article">
@@ -12,17 +14,19 @@
                 <h1>A la rencontre de Lyon</h1>
             </div>
             <div class="content">
-                <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration ville">
-{#                <p>#}
-{#                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus elit, laoreet non nisi id,#}
-{#                    auctor placerat ligula. Donec sit amet fermentum est. Etiam eget semper nulla. Maecenas ultrices#}
-{#                    faucibus est vel efficitur. Nam consectetur mattis leo feugiat suscipit. Sed consequat ipsum#}
-{#                    vel urna sodales bibendum. Mauris cursus nunc nec nibh laoreet egestas. Maecenas posuere,#}
-{#                    justo ac bibendum ultrices, leo sapien gravida libero, nec placerat libero ipsum a mi.#}
-{#                    Sed ultrices aliquet metus euismod scelerisque. Aenean ut tortor nec magna consequat euismod.#}
-{#                    Suspendisse at vestibulum velit. Suspendisse rhoncus mattis augue eget rutrum.#}
-{#                </p>#}
-                <p>Article en cours de rédaction...</p>
+                <p>
+                    Après plus de 5 ans d'attente, me voici enfin arrivé à Lyon pour un petit week end !
+                    J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon cousin John.
+                </p>
+                <p>
+                    Ce week end débute à mon arrivé sous les coups de 22h suite à un retard de train.
+                    <br>
+                    Direction le quartier de ****** pour rejoindre l'appartement de Johnny et manger un délicieux
+                    plat : <b>LE POULET KFC</b> ! Quel bonheur. Le soda versé dans un verre, les frites étalées dans
+                    une assiette et le fameux poulet dans un plat à four. Ca n'a rien à voir avec Lyon, mais cet
+                    instant était magique.
+                </p>
+                <img src="{{ asset(pathImages~'lyon-1.jpg') }}" alt="Illustration ville et monument avec un pont">
             </div>
         </div>
     </div>
