@@ -56,6 +56,19 @@
       color: var(--fond);
     }
 
+    @keyframes turnAround {
+      0%{ transform: rotate(0deg) }
+      50%{ transform: rotate(360deg); }
+      100%{ transform: rotate(0deg); }
+    }
+
+    .subtitle{
+      span{
+        display: inline-block;
+        animation: 3s ease-in-out 1s 2 turnAround;
+      }
+    }
+
     p{
       color: var(--grey2);
     }
@@ -124,7 +137,7 @@
     img:last-child{
       transform: rotate(5deg);
       margin-top: -260px;
-      animation: 3s ease-in-out infinite alternate move2;
+      animation: 3s ease-in-out 0.5s infinite alternate move2;
     }
   }
 
@@ -247,6 +260,11 @@
     background: linear-gradient(-142deg, #ffebaf 10%, #00090d 91%);;
 
     .images{
+      @keyframes move2 {
+        0%{ transform: rotate(5deg) translate(160px, -48px); }
+        100%{ transform: rotate(5deg) translate(150px,-42px); }
+      }
+
       img:last-child{
         transform: rotate(5deg) translate(160px, -48px);
         margin-top: -460px;
@@ -315,6 +333,10 @@
     }
 
     .images {
+      @keyframes move2 {
+        0%{ transform: rotate(5deg) translate(-80px, -48px); }
+        100%{ transform: rotate(5deg) translate(-90px,-42px); }
+      }
       img:last-child {
         transform: rotate(5deg) translate(-80px, -48px);
       }
