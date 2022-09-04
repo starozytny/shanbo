@@ -121,6 +121,12 @@
       text-decoration: underline;
     }
   }
+
+  .text{
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
 }
 
 //                      __   _____ __    ___    __
@@ -183,6 +189,10 @@
     .image{
       height: 280px;
     }
+  }
+
+  .me-card{
+    padding: 18px 24px 24px 24px;
   }
 
   .card{
