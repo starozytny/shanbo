@@ -1,15 +1,15 @@
 {% extends 'app/pages/blog/template.html.twig' %}
 
-{% block title %}Le début d'une expérience : la Colombie {{ title_end }}{% endblock %}
+{% block title %}A la rencontre de Lyon {{ title_end }}{% endblock %}
 
 {% block main_content %}
     <div class="main-content">
         <div class="article">
             {% include "app/pages/blog/articles/components/header.html.twig" with {
-                date: "25 Août 2022", map: "Colombie"
+                date: "10 Novembre 2020", map: "Lyon, France"
             } %}
             <div class="title">
-                <h1>Le début d'une expérience : la Colombie</h1>
+                <h1>A la rencontre de Lyon</h1>
             </div>
             <div class="content">
                 <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration ville">

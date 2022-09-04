@@ -29,7 +29,15 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/article/colombie", name="article_1")
+     * @Route("/article/a-la-rencontre-de-Lyon", name="article_lyon")
+     */
+    public function lyon(): Response
+    {
+        return $this->render('app/pages/blog/articles/lyon.html.twig');
+    }
+
+    /**
+     * @Route("/article/debut-d-une-experience-la-colombie", name="article_colombie")
      */
     public function colombie(): Response
     {

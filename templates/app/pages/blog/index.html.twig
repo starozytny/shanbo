@@ -16,12 +16,12 @@
         <div class="articles">
             <div class="line-1">
                 <div class="col-1">
-                    <a href="{{ path('blog_article_1') }}" class="main-card">
+                    <a href="{{ path('blog_article_colombie') }}" class="main-card">
                         <div class="image">
                             <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">
                         </div>
                         <div class="date">25 Août 2022</div>
-                        <div class="title">Le début dune expérience : la Colombie</div>
+                        <div class="title">Le début d'une expérience : la Colombie</div>
                         <div class="content">
                             <p>
                                 C'est autour d'un bon verre de vin avec mon cousin, John, que
@@ -55,56 +55,28 @@
                 </div>
             </div>
             <div class="line-2">
-{#                <a href="/blog" class="card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">#}
-{#                    </div>#}
-{#                    <div class="date">27/01/1995</div>#}
-{#                    <div class="title">Le début de l'expérience : la Colombie</div>#}
-{#                    <div class="content">#}
-{#                        <p>Article en cours de rédaction...</p>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <a href="/blog" class="card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">#}
-{#                    </div>#}
-{#                    <div class="date">27/01/1995</div>#}
-{#                    <div class="title">Le début de l'expérience avec la Colombie</div>#}
-{#                    <div class="content">#}
-{#                        <p>Article en cours de rédaction...</p>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <a href="/blog" class="card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">#}
-{#                    </div>#}
-{#                    <div class="date">27/01/1995</div>#}
-{#                    <div class="title">Le début de l'expérience avec la Colombie</div>#}
-{#                    <div class="content">#}
-{#                        <p>Article en cours de rédaction...</p>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <a href="/blog" class="card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">#}
-{#                    </div>#}
-{#                    <div class="date">27/01/1995</div>#}
-{#                    <div class="title">Le début de l'expérience avec la Colombie</div>#}
-{#                    <div class="content">#}
-{#                        <p>Article en cours de rédaction...</p>#}
-{#                    </div>#}
-{#                </a>#}
-{#                <a href="/blog" class="card">#}
-{#                    <div class="image">#}
-{#                        <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration colombie">#}
-{#                    </div>#}
-{#                    <div class="date">27/01/1995</div>#}
-{#                    <div class="title">Le début de l'expérience avec la Colombie</div>#}
-{#                    <div class="content">#}
-{#                        <p>Article en cours de rédaction...</p>#}
-{#                    </div>#}
-{#                </a>#}
+                {% set data = [
+                    {
+                        path: path('blog_article_lyon'), image: "lyon.jpg", alt: "visite de lyon",
+                        date: "10 novembre 2020", title: "A la rencontre de Lyon",
+                        content: "
+                            Après plus de 5 ans d'attente, me voici enfin arrivé à Lyon pour un petit week end !
+                            J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon cousin John."
+                    }
+                ] %}
+
+                {% for elem in data %}
+                    <a href="{{ elem.path }}" class="card">
+                        <div class="image">
+                            <img src="{{ asset('build/app/images/blog/'~elem.image) }}" alt="Illustration {{ elem.alt }}">
+                        </div>
+                        <div class="date">{{ elem.date }}</div>
+                        <div class="title">{{ elem.title }}</div>
+                        <div class="content">
+                            <p>{{ elem.content | raw }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>

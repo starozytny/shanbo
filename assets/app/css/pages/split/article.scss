@@ -1,5 +1,13 @@
 @import "../../vars/vars";
 
+.article-back{
+  margin-bottom: 48px;
+
+  a{
+    display: block;
+  }
+}
+
 .article{
   .article-header{
     margin-bottom: 24px;
@@ -100,8 +108,14 @@
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
+  .article-back{
+    a{
+      display: inline-block;
+    }
+  }
+
   .article{
     max-width: 1024px;
-    margin: 72px auto 0 auto;
+    margin: 48px auto 0 auto;
   }
 }
