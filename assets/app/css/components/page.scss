@@ -1,7 +1,8 @@
 @import "../vars/vars";
 
 .title-page{
-  padding: 24px 12px 12px 12px;
+  @include flex(column, center, center);
+  padding: 24px 12px;
 }
 
 .custom-shape-divider {
@@ -28,6 +29,14 @@
 
   h1{
     color: var(--fond);
+    text-align: center;
+  }
+
+  p{
+    color: var(--grey);
+    font-size: 1.2em;
+    max-width: 768px;
+    text-align: center;
   }
 }
 
