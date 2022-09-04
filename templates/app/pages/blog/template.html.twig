@@ -5,7 +5,7 @@
     {{ encore_entry_link_tags('blog') }}
 {% endblock %}
 
-{#{% block javascripts %}#}
-{#    {{ parent() }}#}
-{#    {{ encore_entry_script_tags('default_legales') }}#}
-{#{% endblock %}#}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('blog') }}
+{% endblock %}
