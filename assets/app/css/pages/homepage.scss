@@ -83,6 +83,15 @@
     overflow: hidden;
     padding-top: 48px;
 
+    @keyframes move {
+      0%{ transform: rotate(-15deg) translate(0,0); }
+      100%{ transform: rotate(-15deg) translate(10px,5px); }
+    }
+    @keyframes move2 {
+      0%{ transform: rotate(5deg) translate(0,0); }
+      100%{ transform: rotate(5deg) translate(-10px,-5px); }
+    }
+
     img{
       background-color: var(--alpha);
       padding: 12px 12px 48px 12px;
@@ -94,6 +103,7 @@
     img:first-child{
       position: relative;
       transform: rotate(-15deg);
+      animation: 3s ease-in-out infinite alternate move;
     }
 
     img:nth-child(2){
@@ -104,6 +114,7 @@
       z-index: 2;
       opacity: 0;
       transition: all 0.2s ease-in-out;
+      animation: 3s ease-in-out infinite alternate move;
 
       &:hover{
         opacity: 1;
@@ -113,6 +124,7 @@
     img:last-child{
       transform: rotate(5deg);
       margin-top: -260px;
+      animation: 3s ease-in-out infinite alternate move2;
     }
   }
 
