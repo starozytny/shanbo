@@ -1,5 +1,7 @@
 @import "../vars/vars";
 
+@import "./split/article";
+
 .page-header{
   position: relative;
   background: url("../../images/contact.jpg") no-repeat fixed center;
@@ -20,96 +22,88 @@
   }
 }
 
-.article{
-  .article-header{
-    margin-bottom: 24px;
-  }
+.articles{
+  margin-bottom: 48px;
 
-  .subtitle{
-    @include flex(row, flex-start, flex-end);
-    font-size: 15px;
-
-    .date{
-      color: var(--grey3);
-    }
-
-    .localisation{
-      margin-left: 12px;
-      color: var(--color2);
-
-      &:before{
-        content: "";
-        display: inline-block;
-        background-color: var(--danger);
-        width: 8px; height: 8px;
-        border-radius: 60px;
-        margin-right: 8px;
-        box-shadow: 0 0 4px var(--dangerShadow);
-      }
-    }
-  }
-
-  .title{
-    margin-bottom: 24px;
-  }
-
-  .author{
-    @include flex(row, flex-start, flex-start);
-    margin-bottom: 12px;
-
-    .avatar{
-      border-radius: 100px;
-      overflow: hidden;
-      width: 32px; height: 32px;
-    }
-
-    .who{
-      @include flex(column, flex-start, flex-start);
-      margin-left: 8px;
-      font-size: 15px;
-    }
-
-    .name{
-      @include fontSemibold();
-    }
-
-    .job{
-      color: var(--grey3);
-    }
-  }
-
-  .content{
-    font-family: 'Noto Sans', sans-serif;
-
-    p{
-      margin: 24px;
-      text-align: justify;
+  .line-1{
+    .col-1{
+      margin-bottom: 24px;
     }
   }
 }
 
-//                      __   _____ __    ___    __
-//                     | _| |___  / /_  ( _ )  |_ |
-//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
-//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
-//                     | |   /_/  \___/ \___/   | |
-//                     |__|                    |__|
-@media (min-width:768px) {
-  .article{
-    .article-header{
-      @include flex(row, flex-end, space-between);
-    }
+.main-card, .me-card{
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--greyShadow);
+}
 
-    .author{
-      margin-bottom: 0;
-    }
+.main-card{
+  display: block;
+  padding: 12px 12px 24px 12px;
+  color: var(--alpha);
+  background-color: var(--color2);
 
-    .title{
-      h1{
-        font-size: 5.5em;
-        text-shadow: 4px 4px var(--color2);
+  &:hover{
+    .image{
+      img{
+        transform: scale(1.02);
       }
     }
+  }
+
+  .image{
+    height: 180px;
+    overflow: hidden;
+    border-radius: 8px;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  .date{
+    margin-top: 12px;
+    color: var(--grey2);
+    font-size: 14px;
+  }
+
+  .title{
+    width: 100%;
+    @include fontSemibold();
+    font-size: 1.6em;
+    margin: 8px 0;
+  }
+
+  .content{
+    font-size: 15px;
+    opacity: 0.86;
+  }
+}
+
+.me-card{
+  @include flex(column, center, center);
+  padding: 18px 12px 24px 12px;
+  background-color: var(--alpha);
+  height: calc(100% - 24px - 18px);
+
+  .avatar{
+    width: 110px; height: 110px;
+    border-radius: 200px;
+    overflow: hidden;
+  }
+
+  .name{
+    @include fontSemibold();
+    font-size: 1.3em;
+    margin: 8px 0;
+    text-align: center;
+  }
+
+  .socials{
+    margin-bottom: 24px;
   }
 }
 
@@ -120,9 +114,28 @@
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-  .article{
-    max-width: 768px;
-    margin: 72px auto 0 auto;
+  .articles{
+    .line-1{
+      @include flex(row, stretch, flex-start);
+
+      .col-1{
+        width: calc(100% - 280px - 24px);
+        margin-right: 24px;
+        margin-bottom: 0;
+      }
+
+      .col-2{
+        width: 280px;
+      }
+    }
+  }
+
+  .main-card{
+    padding: 24px 24px 48px 24px;
+
+    .image{
+      height: 280px;
+    }
   }
 }
 
@@ -135,5 +148,33 @@
 @media (min-width:1280px) {
   h1{
     font-size: 3.6em;
+  }
+
+  .main-card{
+    .date{
+      font-size: 16px;
+    }
+
+    .title{
+      font-size: 1.8em;
+    }
+
+    .content{
+      font-size: 17px;
+    }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .main-card{
+    .image{
+      height: 380px;
+    }
   }
 }

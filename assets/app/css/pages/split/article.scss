@@ -1,0 +1,107 @@
+@import "../../vars/vars";
+
+.article{
+  .article-header{
+    margin-bottom: 24px;
+  }
+
+  .subtitle{
+    @include flex(row, flex-start, flex-end);
+    font-size: 15px;
+
+    .date{
+      color: var(--grey3);
+    }
+
+    .localisation{
+      margin-left: 12px;
+      color: var(--color2);
+
+      &:before{
+        content: "";
+        display: inline-block;
+        background-color: var(--danger);
+        width: 8px; height: 8px;
+        border-radius: 60px;
+        margin-right: 8px;
+        box-shadow: 0 0 4px var(--dangerShadow);
+      }
+    }
+  }
+
+  .title{
+    margin-bottom: 24px;
+  }
+
+  .author{
+    @include flex(row, flex-start, flex-start);
+    margin-bottom: 12px;
+
+    .avatar{
+      border-radius: 100px;
+      overflow: hidden;
+      width: 32px; height: 32px;
+    }
+
+    .who{
+      @include flex(column, flex-start, flex-start);
+      margin-left: 8px;
+      font-size: 15px;
+    }
+
+    .name{
+      @include fontSemibold();
+    }
+
+    .job{
+      color: var(--grey3);
+    }
+  }
+
+  .content{
+    font-family: 'Noto Sans', sans-serif;
+
+    p{
+      margin: 24px;
+      text-align: justify;
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .article{
+    .article-header{
+      @include flex(row, flex-end, space-between);
+    }
+
+    .author{
+      margin-bottom: 0;
+    }
+
+    .title{
+      h1{
+        font-size: 5.5em;
+        text-shadow: 4px 4px var(--color2);
+      }
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .article{
+    max-width: 768px;
+    margin: 72px auto 0 auto;
+  }
+}
