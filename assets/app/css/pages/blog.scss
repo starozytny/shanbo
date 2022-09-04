@@ -26,22 +26,22 @@
   margin-bottom: 48px;
 
   .line-1{
+    margin-bottom: 24px;
+
     .col-1{
       margin-bottom: 24px;
     }
   }
 }
 
-.main-card, .me-card{
+.main-card, .me-card, .card{
   border-radius: 12px;
   box-shadow: 0 4px 12px var(--greyShadow);
 }
 
-.main-card{
+.main-card, .card{
   display: block;
   padding: 12px 12px 24px 12px;
-  color: var(--alpha);
-  background-color: var(--color2);
 
   &:hover{
     .image{
@@ -83,6 +83,17 @@
   }
 }
 
+.card{
+  margin-bottom: 24px;
+  color: var(--txt);
+  background-color: var(--alpha);
+}
+
+.main-card{
+  color: var(--alpha);
+  background-color: var(--color2);
+}
+
 .me-card{
   @include flex(column, center, center);
   padding: 18px 12px 24px 12px;
@@ -104,6 +115,37 @@
 
   .socials{
     margin-bottom: 24px;
+
+    & > a {
+      color: var(--color0);
+      text-decoration: underline;
+    }
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .articles{
+    .line-2{
+      @include flex(row, stretch, flex-start);
+      flex-wrap: wrap;
+    }
+  }
+
+  .card{
+    width: calc(50% - 24px - 12px);
+
+    &:nth-child(odd){
+      margin-right: 12px;
+    }
+    &:nth-child(even){
+      margin-left: 12px;
+    }
   }
 }
 
@@ -117,6 +159,7 @@
   .articles{
     .line-1{
       @include flex(row, stretch, flex-start);
+      margin-bottom: 48px;
 
       .col-1{
         width: calc(100% - 280px - 24px);
@@ -128,6 +171,10 @@
         width: 280px;
       }
     }
+
+    .line-2{
+      width: calc(100% + 24px);
+    }
   }
 
   .main-card{
@@ -135,6 +182,18 @@
 
     .image{
       height: 280px;
+    }
+  }
+
+  .card{
+    width: calc(33.3% - 24px - 24px);
+
+    &:nth-child(odd){
+      margin-right: 24px;
+    }
+    &:nth-child(even){
+      margin-left: 0;
+      margin-right: 24px;
     }
   }
 }
