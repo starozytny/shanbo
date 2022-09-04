@@ -3,14 +3,9 @@
 @import "./split/article";
 
 .page-header{
-  position: relative;
   background: url("../../images/contact.jpg") no-repeat fixed center;
   background-size: cover;
 
-  .title-page{
-    position: relative;
-    z-index: 1;
-  }
 
   &:before{
     content: "";
@@ -230,10 +225,6 @@
 //                     | |  |_|_____\___/ \___/   | |
 //                     |__|                      |__|
 @media (min-width:1280px) {
-  h1{
-    font-size: 3.6em;
-  }
-
   .main-card{
     .date{
       font-size: 16px;
