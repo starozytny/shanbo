@@ -118,20 +118,20 @@ class AppController extends AbstractController
      */
     public function photos(HttpClientInterface $client): Response
     {
-        $response = $client->request(
-            'GET',
-            'https://photos.app.goo.gl/nkM6cVXojA1TK3QY9'
-        );
-
-        $content = $response->getContent();
-
-
-
-        $regex = '/\"(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/';
-        preg_match_all($regex, $content, $matches);
+//        $response = $client->request(
+//            'GET',
+//            'https://photos.app.goo.gl/nkM6cVXojA1TK3QY9'
+//        );
+//
+//        $content = $response->getContent();
+//
+//
+//
+//        $regex = '/\"(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/';
+//        preg_match_all($regex, $content, $matches);
 
         return $this->render('app/pages/photos/index.html.twig', [
-            'data' => $matches[1]
+//            'data' => $matches[1]
         ]);
     }
 }

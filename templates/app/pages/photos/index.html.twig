@@ -5,9 +5,9 @@
 {% block main_content %}
     <div class="main-content">
         <div class="masonry">
-            {% for item in data %}
+            {% for i in 1..60 %}
                 <div class="mItem">
-                    <img src="{{ item }}">
+                    <img src="{{ asset('build/app/images/photos/1 ('~i~').jpg') }}">
                 </div>
             {% endfor %}
         </div>
