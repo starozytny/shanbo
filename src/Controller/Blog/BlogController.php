@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @Route("/blog", name="blog_")
+ * @Route("/histoires-de-burrito", name="blog_")
  */
 class BlogController extends AbstractController
 {
@@ -29,7 +29,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/article/a-la-rencontre-de-Lyon", name="article_lyon")
+     * @Route("/a-la-rencontre-de-Lyon", name="article_lyon")
      */
     public function lyon(): Response
     {
@@ -37,7 +37,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/article/debut-d-une-experience-la-colombie", name="article_colombie")
+     * @Route("/debut-d-une-experience-la-colombie", name="article_colombie")
      */
     public function colombie(): Response
     {
