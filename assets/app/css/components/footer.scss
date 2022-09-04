@@ -88,6 +88,11 @@
 
       .image{
         margin: 24px 0;
+        @include flex(row, center, center);
+
+        img{
+          max-width: 414px;
+        }
       }
     }
   }
@@ -135,7 +140,6 @@ footer{
 //                     | |  |_|\___/_____|  |_|    | |
 //                     |__|                       |__|
 @media (min-width: 1024px) {
-
   .form-contact{
     padding: 128px 12px;
 

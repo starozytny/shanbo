@@ -86,6 +86,12 @@ main{
     background-color: var(--color0);
 }
 
+.btn-outline-danger{
+    background-color: transparent;
+    color: var(--color0);
+    border-color: var(--color0);
+}
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
