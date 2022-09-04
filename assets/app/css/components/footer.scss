@@ -28,6 +28,7 @@
     @include flex(column, center, center);
     max-width: 525px;
     margin: 0 auto;
+    padding: 0 12px;
 
     p{
       text-align: center;
@@ -70,6 +71,7 @@
 
 .form-contact{
   background: linear-gradient(#07080d, #0c293c);
+  padding: 12px;
 
   .alert{
     margin-bottom: 24px;
