@@ -1,5 +1,9 @@
 @import "../../vars/vars";
 
+.main-content-white{
+  background-color: var(--alpha);
+}
+
 .article-back{
   margin-bottom: 48px;
 
@@ -9,6 +13,12 @@
 }
 
 .article{
+  img{
+    border-radius: 4px;
+    box-shadow: 12px 12px 0 var(--color2);
+    transition: all 0.2s ease-in-out;
+  }
+
   .article-header{
     margin-bottom: 24px;
   }
@@ -73,6 +83,7 @@
       margin: 24px 0;
       text-align: justify;
       color: #2c2c2c;
+      line-height: 1.3;
     }
   }
 }
@@ -99,6 +110,12 @@
         text-shadow: 4px 4px var(--color2);
       }
     }
+
+    .col-2-simple{
+      @include flex(row, flex-start, flex-start);
+
+
+    }
   }
 }
 
@@ -121,7 +138,7 @@
 
     .content{
       p{
-        font-size: 18px;
+        font-size: 17px;
       }
     }
   }

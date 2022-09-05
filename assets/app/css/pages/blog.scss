@@ -3,9 +3,10 @@
 @import "./split/article";
 
 .page-header{
-  background: url("../../images/contact.jpg") no-repeat fixed center;
+  background: url("../../images/blog-banniere.jpg") no-repeat fixed center;
   background-size: cover;
-
+  background-position-y: -70px;
+  background-position-x: -380px;
 
   &:before{
     content: "";
@@ -247,6 +248,10 @@
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
+  .page-header{
+    background-position-y: -184px;
+  }
+
   .main-card{
     .image{
       height: 380px;

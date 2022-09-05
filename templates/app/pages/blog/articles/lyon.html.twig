@@ -5,7 +5,9 @@
 {% set pathImages = "build/app/images/articles/" %}
 
 {% block main_content %}
-    <div class="main-content">
+    {% include "app/pages/blog/articles/styles/lyon.html.twig" %}
+
+    <div class="main-content main-content-white">
         <div class="article">
             {% include "app/pages/blog/articles/components/header.html.twig" with {
                 date: "10 Novembre 2020", map: "Lyon, France"
@@ -18,15 +20,29 @@
                     Après plus de 5 ans d'attente, me voici enfin arrivé à Lyon pour un petit week end !
                     J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon cousin John.
                 </p>
-                <p>
-                    Ce week end débute à mon arrivé sous les coups de 22h suite à un retard de train.
-                    <br>
-                    Direction le quartier de ****** pour rejoindre l'appartement de Johnny et manger un délicieux
-                    plat : <b>LE POULET KFC</b> ! Quel bonheur. Le soda versé dans un verre, les frites étalées dans
-                    une assiette et le fameux poulet dans un plat à four. Ca n'a rien à voir avec Lyon, mais cet
-                    instant était magique.
-                </p>
+                <div class="col-2-simple">
+                    <div class="in-col-1">
+                        <p>
+                            Ce week end débute à mon arrivé sous les coups de 22h suite à un retard de train.
+                            <br>
+                            Direction le quartier de ****** pour rejoindre l'appartement de Johnny et manger un délicieux
+                            plat : <b>LE POULET KFC</b> ! Quel bonheur. Le soda versé dans un verre, les frites étalées dans
+                            une assiette et le fameux poulet dans un plat à four. Ca n'a rien à voir avec Lyon, mais cet
+                            instant était purement magique.
+                            <br><br>
+                            Les retrouvailles ça se fête et nous étions préparés !
+                        </p>
+                        <img src="{{ asset(pathImages~'vin.jpg') }}" alt="verre de vin">
+                    </div>
+                    <div class="in-col-2">
+                        <img src="{{ asset(pathImages~'poulet.jpg') }}" alt="poulet kfc avec chanbora chhun en profil">
+                    </div>
+                </div>
+                
                 <img src="{{ asset(pathImages~'lyon-1.jpg') }}" alt="Illustration ville et monument avec un pont">
+
+                <p>Le lendemain, on s'est dirigé vers le centre de Lyon, sur la presqu'île. </p>
+
             </div>
         </div>
     </div>
