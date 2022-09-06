@@ -23,12 +23,21 @@
         </div>
     </div>
     <div class="main-content">
-        <div class="masonry">
+        <div class="grid">
+            <div class="grid-sizer"></div>
             {% for i in 1..60 %}
-                <div class="mItem">
+                <div class="grid-item">
                     <img src="{{ asset('build/app/images/photos/1 ('~i~').jpg') }}">
                 </div>
             {% endfor %}
         </div>
+
+{#        <div class="masonry">#}
+{#            {% for i in 1..60 %}#}
+{#                <div class="mItem">#}
+{#                    <img src="{{ asset('build/app/images/photos/1 ('~i~').jpg') }}">#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
     </div>
 {% endblock %}

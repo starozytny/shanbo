@@ -29,6 +29,7 @@
         "leaflet": "^1.7.1",
         "leaflet-ajax": "^2.1.0",
         "lozad": "^1.16.0",
+        "masonry-layout": "^4.2.2",
         "node-sass": "4.14.1",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.7.2",
