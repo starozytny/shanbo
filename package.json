@@ -26,6 +26,7 @@
         "cleave.js": "^1.6.0",
         "date-fns": "^2.16.1",
         "html-react-parser": "^1.2.6",
+        "imagesloaded": "^5.0.0",
         "leaflet": "^1.7.1",
         "leaflet-ajax": "^2.1.0",
         "lozad": "^1.16.0",
