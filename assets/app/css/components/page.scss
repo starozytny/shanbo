@@ -1,7 +1,10 @@
 @import "../vars/vars";
 
 .title-page{
-  padding: 24px 12px 12px 12px;
+  position: relative;
+  z-index: 1;
+  @include flex(column, center, center);
+  padding: 48px 12px;
 }
 
 .custom-shape-divider {
@@ -21,6 +24,29 @@
   fill: var(--fondContent);
 }
 
+.page-header {
+  position: relative;
+  min-height: 36vh;
+  background-image: linear-gradient(135deg, #221e29 37%, #00090d 96%);
+  @include flex(column, center, center);
+
+  h1{
+    color: var(--fond);
+    text-align: center;
+  }
+
+  p{
+    color: var(--grey);
+    font-size: 1.2em;
+    max-width: 768px;
+    text-align: center;
+  }
+
+  a{
+    color: var(--fond);
+    text-decoration: underline;
+  }
+}
 
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
@@ -31,6 +57,10 @@
 @media (min-width:1280px) {
   .title-page{
     padding: 24px 32px;
+
+    h1{
+      font-size: 3.6em;
+    }
   }
 }
 

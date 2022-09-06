@@ -1,0 +1,89 @@
+{% extends 'app/pages/blog/template.html.twig' %}
+
+{% block meta_description %}
+    Afin de me constituer une base de souvenirs, j'ai décidé d'écrire des articles sur mes voyages et experiences.
+    J'en profite pour vous partager mes récits et photos. Peu être que ça vous donnera l'envie de voyager !
+{% endblock %}
+{% block meta_keywords %}photograpge, photographe voyage, photographe marseille, blog voyage, blog, voyage, backpacker{% endblock %}
+
+{% block title %}Les histoires de Burrito - Chanbora développeur et photographe{% endblock %}
+
+{% block main_content %}
+    <div class="page-header">
+        <div class="title-page">
+            <h1>Les histoires d'el Burrito 🌯</h1>
+            <p>
+                A travers mes photos et récits, j'espère vous donner l'envie de voyager ou,
+                du moins, de vous extirper de votre quotidien.
+            </p>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="articles">
+            <div class="line-1">
+                <div class="col-1">
+                    <a href="{{ path('blog_article_colombie') }}" class="main-card">
+                        <div class="image">
+                            <img src="{{ asset('build/app/images/blog/colombie.jpg') }}" alt="Illustration colombie">
+                        </div>
+                        <div class="date">25 Août 2022</div>
+                        <div class="title">Le début d'une expérience : la Colombie</div>
+                        <div class="content">
+                            <p>
+                                C'est autour d'un bon verre de vin avec mon cousin, John, que
+                                j'ai accepté de partir en voyage en sa compagnie.
+                                Découvrir une autre culture, de nouveaux visages, de nouveaux paysages, expérimenter
+                                les fameuses auberges de jeunnesses et ses backpackers...
+                                En réalité, je ne savais même pas pourquoi j'avais accepté ce voyage, mais j'étais heureux de partir, loin.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2">
+                    <div class="me-card">
+                        <div class="avatar">
+                            <img src="{{ asset('build/app/images/avatar.jpg') }}" alt="avatar chanbora chhun">
+                        </div>
+                        <div class="name">
+                            <div>Chanbora</div>
+                            <div>CHHUN</div>
+                        </div>
+                        <div class="socials">
+                            <a href="https://www.instagram.com/shanbo_daltonien/" title="lien instagram">@shanbo_daltonien</a>
+                        </div>
+                        <div class="text">
+                            Ma narration étant celle d'un gars qui n'a lu aucun livre, je comtpe bien m'améliorer au fil de mes posts !
+                        </div>
+                        <div class="contact">
+                            <a href="#restons-en-contact" class="btn btn-danger">🤝 Discutons</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="line-2">
+                {% set data = [
+                    {
+                        path: path('blog_article_lyon'), image: "lyon.jpg", alt: "visite de lyon",
+                        date: "10 novembre 2020", title: "A la rencontre de Lyon",
+                        content: "
+                            Après plus de 5 ans d'attente, me voici enfin arrivé à Lyon pour un petit week end !
+                            J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon cousin John."
+                    }
+                ] %}
+
+                {% for elem in data %}
+                    <a href="{{ elem.path }}" class="card">
+                        <div class="image">
+                            <img src="{{ asset('build/app/images/blog/'~elem.image) }}" alt="Illustration {{ elem.alt }}">
+                        </div>
+                        <div class="date">{{ elem.date }}</div>
+                        <div class="title">{{ elem.title }}</div>
+                        <div class="content">
+                            <p>{{ elem.content | raw }}</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -8,6 +8,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController
 {
@@ -100,5 +105,33 @@ class AppController extends AbstractController
         }
 
         return $this->redirectToRoute('app_homepage');
+    }
+
+    /**
+     * @Route("/photos", name="app_photos")
+     * @param HttpClientInterface $client
+     * @return Response
+     * @throws TransportExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     */
+    public function photos(HttpClientInterface $client): Response
+    {
+//        $response = $client->request(
+//            'GET',
+//            'https://photos.app.goo.gl/nkM6cVXojA1TK3QY9'
+//        );
+//
+//        $content = $response->getContent();
+//
+//
+//
+//        $regex = '/\"(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/';
+//        preg_match_all($regex, $content, $matches);
+
+        return $this->render('app/pages/photos/index.html.twig', [
+//            'data' => $matches[1]
+        ]);
     }
 }

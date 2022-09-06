@@ -9,7 +9,7 @@ export function RgpdInfo(props){
     let content = <>
         Les données à caractère personnel collectées dans ce formulaire sont enregistrées dans un fichier
         informatisé permettant {utility}.  <br/>
-        En validant ce formulaire, vous consentez à nous transmettre vos données pour traiter votre demande
+        En validant ce formulaire, vous consentez à me transmettre vos données pour traiter votre demande
         et vous recontacter si besoin.
     </>
     if(children){
@@ -19,6 +19,6 @@ export function RgpdInfo(props){
     return <Alert>
         {content}
         <br/>
-        Plus d'informations sur le traitement de vos données dans notre <a target="_blank" href={Routing.generate('app_politique')}>politique de confidentialité</a>.
+        Plus d'informations sur le traitement de vos données dans ma page : <a target="_blank" href={Routing.generate('app_politique')}>politique de confidentialité</a>.
     </Alert>
 }

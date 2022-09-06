@@ -1,0 +1,29 @@
+{% extends 'app/pages/blog/template.html.twig' %}
+
+{% block title %}Le début d'une expérience : la Colombie {{ title_end }}{% endblock %}
+
+{% block main_content %}
+    <div class="main-content main-content-white">
+        <div class="article">
+            {% include "app/pages/blog/articles/components/header.html.twig" with {
+                date: "25 Août 2022", map: "Colombie"
+            } %}
+            <div class="title">
+                <h1>Le début d'une expérience : la Colombie</h1>
+            </div>
+            <div class="content">
+                <img src="{{ asset('build/app/images/contact.jpg') }}" alt="Illustration ville">
+{#                <p>#}
+{#                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut metus elit, laoreet non nisi id,#}
+{#                    auctor placerat ligula. Donec sit amet fermentum est. Etiam eget semper nulla. Maecenas ultrices#}
+{#                    faucibus est vel efficitur. Nam consectetur mattis leo feugiat suscipit. Sed consequat ipsum#}
+{#                    vel urna sodales bibendum. Mauris cursus nunc nec nibh laoreet egestas. Maecenas posuere,#}
+{#                    justo ac bibendum ultrices, leo sapien gravida libero, nec placerat libero ipsum a mi.#}
+{#                    Sed ultrices aliquet metus euismod scelerisque. Aenean ut tortor nec magna consequat euismod.#}
+{#                    Suspendisse at vestibulum velit. Suspendisse rhoncus mattis augue eget rutrum.#}
+{#                </p>#}
+                <p>Article en cours de rédaction...</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

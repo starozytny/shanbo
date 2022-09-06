@@ -1,7 +1,19 @@
 @import "../vars/vars";
 
-.btn-danger{
-  background-color: var(--color0);
+.subtitle{
+  @include flex(row, center, flex-start);
+  @include fontSemibold();
+  color: var(--color0);
+  margin-bottom: 8px;
+
+  &:before{
+    content: "";
+    background-color: var(--color0);
+    display: inline-block;
+    width: 48px;
+    height: 4px;
+    margin-right: 8px;
+  }
 }
 
 .home-header{
@@ -25,9 +37,11 @@
 
   .image{
     overflow: hidden;
+    @include flex(row, center, center);
 
     img{
       transition: all 0.5s ease-in-out;
+      max-width: 414px;
 
       &:hover{
         transform: scale(1.03);
@@ -42,19 +56,16 @@
       color: var(--fond);
     }
 
-    .subtitle{
-      @include flex(row, center, flex-start);
-      @include fontSemibold();
-      color: var(--color0);
-      margin-bottom: 8px;
+    @keyframes turnAround {
+      0%{ transform: rotate(0deg) }
+      50%{ transform: rotate(360deg); }
+      100%{ transform: rotate(0deg); }
+    }
 
-      &:before{
-        content: "";
-        background-color: var(--color0);
+    .subtitle{
+      span{
         display: inline-block;
-        width: 48px;
-        height: 4px;
-        margin-right: 8px;
+        animation: 3s ease-in-out 1s 2 turnAround;
       }
     }
 
@@ -72,108 +83,118 @@
           margin-bottom: 8px;
         }
       }
-
-      .btn-danger{
-        background-color: var(--color0);
-      }
-
-      .btn-outline-danger{
-        background-color: transparent;
-        color: var(--color0);
-        border-color: var(--color0);
-      }
     }
   }
 }
 
-.form-contact,
-.home-contact {
-  .form-contact-container,
-  .home-contact-container {
-    padding: 48px 12px;
+.home-photographe{
+  background: linear-gradient(0deg, #ffebaf 10%, #00090d 91%);
+  padding: 48px 0;
+
+  .images{
+    position: relative;
+    overflow: hidden;
+    padding-top: 48px;
+
+    @keyframes move {
+      0%{ transform: rotate(-15deg) translate(0,0); }
+      100%{ transform: rotate(-15deg) translate(10px,5px); }
+    }
+    @keyframes move2 {
+      0%{ transform: rotate(5deg) translate(0,0); }
+      100%{ transform: rotate(5deg) translate(-10px,-5px); }
+    }
+
+    img{
+      background-color: var(--alpha);
+      padding: 12px 12px 48px 12px;
+      box-shadow: 0 8px 16px var(--greyShadow);
+      width: calc(100% - 24px);
+      max-width: 320px;
+    }
+
+    img:first-child{
+      position: relative;
+      transform: rotate(-15deg);
+      animation: 3s ease-in-out infinite alternate move;
+    }
+
+    img:nth-child(2){
+      position: absolute;
+      top: 48px; left: 0;
+      transform: rotate(-15deg);
+      width: 100%;
+      z-index: 2;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+      animation: 3s ease-in-out infinite alternate move;
+
+      &:hover{
+        opacity: 1;
+      }
+    }
+
+    img:last-child{
+      transform: rotate(5deg);
+      margin-top: -260px;
+      animation: 3s ease-in-out 0.5s infinite alternate move2;
+    }
   }
 
-  .home-contact-title {
-    @include flex(column, center, center);
+  .col-2{
+    margin-top: 24px;
 
-    &:after {
-      content: "";
-      background-color: var(--color0);
-      display: block;
-      width: 48px;
-      height: 4px;
-      margin: 24px 0;
-    }
-  }
-}
-
-.home-contact{
-  .home-contact-content{
-    @include flex(column, center, center);
-    max-width: 525px;
-    margin: 0 auto;
-
-    p{
-      text-align: center;
-      line-height: 1.32;
-    }
-
-    .links{
-      margin: 12px 0;
-      @include fontSemibold();
-
-      a{
-        color: var(--color0);
-        border-bottom: 1px solid transparent;
-
-        &:not(:last-child){
-          margin-right: 8px;
-        }
-
-        &:hover{
-          border-color: var(--color0);
-        }
-      }
-    }
-
-    form{
-      margin-top: 24px;
-      @include flex(row, stretch, flex-start);
-
-      input{
-        width: calc(100% - 203px);
-        border-radius: 4px 0 0 4px;
-      }
-
-      .btn-danger{
-        border-radius: 0 4px 4px 0;
-      }
-    }
   }
 }
 
-.form-contact{
-  background: linear-gradient(#07080d, #0c293c);
+.home-photographe-content{
+  padding: 12px;
 
-  .alert{
+  h2{
+    margin-bottom: 12px;
+  }
+
+  p{
     margin-bottom: 24px;
+    max-width: 568px;
   }
 
-  .form-contact-container{
-    background-color: var(--fond);
+  .actions{
+    a:first-child{
+      display: inline-block;
+      margin-right: 12px;
+      margin-bottom: 12px;
+    }
 
-    & > .col-1{
-      p{
-        text-align: center;
-      }
+    .btn-outline-danger{
+      background-color: #ffb4b4;
+    }
+  }
+}
 
-      .image{
-        margin: 24px 0;
-      }
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .home-photographe{
+
+    .images{
+      overflow: initial;
+    }
+
+    .col-2{
+      margin-top: 24px;
+
     }
   }
 
-  textarea { resize: none; }
+  .home-photographe-content{
+    @include flex(column, center, center);
+    text-align: center;
+  }
 }
 
 //                      __   _  ___ ____  _  _     __
@@ -184,6 +205,12 @@
 //                     |__|                       |__|
 @media (min-width: 1024px) {
   .home-header{
+    .image{
+      img{
+        max-width: initial;
+      }
+    }
+
     .home-header-container{
       @include flex(row, flex-start, flex-start);
       padding: 0;
@@ -228,60 +255,40 @@
     }
   }
 
-  .home-contact {
-    .home-contact-container {
-      padding: 128px 0;
-    }
+  .home-photographe{
+    padding: 48px 0;
+    background: linear-gradient(-142deg, #ffebaf 10%, #00090d 91%);;
 
-    .home-contact-content{
-      form{
-        width: 74%;
-        margin-top: 48px;
+    .images{
+      @keyframes move2 {
+        0%{ transform: rotate(5deg) translate(160px, -48px); }
+        100%{ transform: rotate(5deg) translate(150px,-42px); }
       }
 
-      .links{
-        margin: 24px 0;
+      img:last-child{
+        transform: rotate(5deg) translate(160px, -48px);
+        margin-top: -460px;
       }
-    }
-
-    h2{
-      font-size: 32px;
     }
   }
 
-  .form-contact{
-    padding: 128px 12px;
+  .home-photographe-container{
+    @include flex(row, flex-start, flex-start);
+  }
+
+  .home-photographe-content{
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 24px;
 
     h2{
-      font-size: 32px;
+      font-size: 2em;
+      margin-bottom: 24px;
     }
 
-    .form-contact-container{
-      @include flex(row, flex-start, flex-start);
-      max-width: 1024px;
-      margin: 0 auto;
-
-      & > .col-1{
-        width: 320px;
-        @include flex(column, center, center);
-
-        .image{
-          margin: 24px 0 0 0;
-
-          img{
-            max-height: 314px;
-          }
-        }
-      }
-
-      & > .col-2{
-        width: calc(100% - 320px - 48px);
-        margin-left: 48px;
-      }
-    }
-
-    #contact{
-      margin-top: 80px;
+    p{
+      margin-bottom: 48px;
     }
   }
 }
@@ -293,18 +300,18 @@
 //                     | |  |_|_____\___/ \___/   | |
 //                     |__|                      |__|
 @media (min-width:1280px) {
-  .home-header{
-    .home-header-container{
-      .present{
+  .home-header {
+    .home-header-container {
+      .present {
         padding-left: 32px;
         max-width: 768px;
 
-        h1{
+        h1 {
           font-size: 56px;
         }
 
-        .actions{
-          a{
+        .actions {
+          a {
             width: auto;
             padding: 16px 32px 15px 32px;
             font-size: 18px;
@@ -314,17 +321,36 @@
     }
   }
 
-  .home-contact {
-    .home-contact-content{
-      p{
-        font-size: 17px;
+  .home-photographe {
+    padding: 128px 0;
+
+    .col-1 {
+      width: 60%;
+    }
+
+    .col-2 {
+      width: 40%;
+    }
+
+    .images {
+      @keyframes move2 {
+        0%{ transform: rotate(5deg) translate(-80px, -48px); }
+        100%{ transform: rotate(5deg) translate(-90px,-42px); }
+      }
+      img:last-child {
+        transform: rotate(5deg) translate(-80px, -48px);
       }
     }
   }
 
-  .form-contact {
-    .form-contact-container {
-      padding: 72px 48px;
+  .home-photographe-container {
+    @include maxscreen();
+
+    h2{
+      font-size: 2.3em;
+    }
+    p{
+      font-size: 18px;
     }
   }
 }
