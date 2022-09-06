@@ -25,9 +25,9 @@
     <div class="main-content">
         <div class="grid">
             <div class="grid-sizer"></div>
-            {% for i in 1..60 %}
+            {% for i in 1..127 %}
                 <div class="grid-item">
-                    <img src="{{ asset('build/app/images/photos/1 ('~i~').jpg') }}" loading="lazy" alt="photo-{{ i }}" >
+                    <img src="{{ asset('photos/1 ('~i~').jpg') }}" loading="lazy" alt="photo-{{ i }}" >
                 </div>
             {% endfor %}
         </div>
