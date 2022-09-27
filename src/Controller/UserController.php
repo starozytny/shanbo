@@ -37,6 +37,19 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Route("/albums", name="albums")
+     */
+    public function albums(): Response
+    {
+        /** @var User $obj */
+        $obj = $this->getUser();
+
+        return $this->render('user/pages/albums/index.html.twig',  [
+            'obj' => $obj
+        ]);
+    }
+
+    /**
      * @Route("/profil", options={"expose"=true}, name="profil")
      */
     public function profil(): Response
