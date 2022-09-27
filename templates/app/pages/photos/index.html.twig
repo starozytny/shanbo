@@ -25,9 +25,9 @@
     <div class="main-content">
         <div class="grid">
             <div class="grid-sizer"></div>
-            {% for i in 1..120 %}
+            {% for elem in data %}
                 <div class="grid-item">
-                    <img src="{{ asset('photos/1 ('~i~').jpg') }}" loading="lazy" alt="photo-{{ i }}" >
+                    <img src="data:image/jpg;base64,{{ elem }}" loading="lazy" alt="photo-{{ loop.index }}" >
                 </div>
             {% endfor %}
         </div>
