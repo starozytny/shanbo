@@ -3,13 +3,36 @@
 @import "../../../common/css/components/header";
 
 header{
+  background-color: var(--color0);
+  color: var(--alpha);
+
   .header-container{
     flex-wrap: initial;
+    margin: 0;
 
     .header-name{
-      width: calc(100% - 148px - 12px);
+      width: 200px;
       margin-left: 12px;
       margin-top: 0;
+    }
+
+    .logout{
+      color: var(--alpha);
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  header{
+    .header-container{
+      max-width: initial;
+      margin: 0;
     }
   }
 }
