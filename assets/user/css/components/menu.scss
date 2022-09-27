@@ -43,20 +43,39 @@ nav{
     width: 4%;
     height: 94vh;
     border-right: none;
+    transition: all 0.2s ease-in-out;
+
+    &:hover{
+      width: 12%;
+
+      .nav-header-logo, .nav-body a span:last-child{
+        opacity: 1;
+        z-index: 1;
+      }
+    }
 
     .nav-header-logo{
       opacity: 0;
       z-index: -1;
+      text-align: center;
+      padding-top: 12px;
+      transition: all 0.2s ease-in-out;
     }
   }
 
   .nav-body{
     overflow: initial;
 
+    .items{
+      width: 100%;
+    }
+
     a{
       span:last-child{
         opacity: 0;
         z-index: -1;
+        min-width: 200px;
+        transition: all 0.2s ease-in-out;
       }
     }
   }
