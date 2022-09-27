@@ -1,3 +1,15 @@
 @import "../vars/vars";
 
 @import "../../../common/css/components/header";
+
+header{
+  .header-container{
+    flex-wrap: initial;
+
+    .header-name{
+      width: calc(100% - 148px - 12px);
+      margin-left: 12px;
+      margin-top: 0;
+    }
+  }
+}
