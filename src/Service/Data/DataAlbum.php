@@ -19,6 +19,7 @@ class DataAlbum
     public function setDataAlbum(Album $obj, $data): Album
     {
         return ($obj)
+            ->setSlug(null)
             ->setName($this->sanitizeData->sanitizeString($data->name))
         ;
     }

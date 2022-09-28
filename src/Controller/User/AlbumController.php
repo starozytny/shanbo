@@ -47,4 +47,13 @@ class AlbumController extends AbstractController
         $obj = $serializer->serialize($obj, 'json', ['groups' => Album::ALBUMS_READ]);
         return $this->render('user/pages/albums/update.html.twig', ['element' => $obj]);
     }
+
+    /**
+     * @Route("/album/{id}", name="read")
+     */
+    public function album(Album $obj, SerializerInterface $serializer): Response
+    {
+        $obj = $serializer->serialize($obj, 'json', ['groups' => Album::ALBUMS_READ]);
+        return $this->render('user/pages/albums/update.html.twig', ['element' => $obj]);
+    }
 }
