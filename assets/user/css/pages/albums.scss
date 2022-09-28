@@ -2,11 +2,17 @@
 
 .list-albums{
   @include flex(row, flex-start, flex-start);
+  flex-wrap: wrap;
   width: calc(100% + 12px);
 
   & > .album{
     width: calc(50% - 12px);
     margin-right: 12px;
+    margin-bottom: 12px;
+  }
+
+  & > .create-album{
+    width: calc(50% - 24px - 16px);
   }
 }
 
@@ -89,6 +95,10 @@
     & > .album{
       width: calc(25% - 12px);
     }
+
+    & > .create-album{
+      width: calc(25% - 24px - 16px);
+    }
   }
 }
 
@@ -102,6 +112,10 @@
   .list-albums{
     & > .album{
       width: calc(20% - 12px);
+    }
+
+    & > .create-album{
+      width: calc(20% - 24px - 16px);
     }
   }
 }
@@ -118,6 +132,11 @@
     & > .album{
       width: calc(16% - 24px);
       margin-right: 24px;
+      margin-bottom: 24px;
+    }
+
+    & > .create-album{
+      width: calc(16% - 24px - 16px);
     }
   }
 }
@@ -132,6 +151,10 @@
   .list-albums{
     & > .album{
       width: calc(14% - 24px);
+    }
+
+    & > .create-album{
+      width: calc(14% - 24px - 16px);
     }
   }
 }
