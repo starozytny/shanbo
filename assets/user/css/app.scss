@@ -87,6 +87,10 @@ h2{
 
 main{
     background-color: var(--fond);
+
+    & > div:first-child{
+        background-color: var(--color0);
+    }
 }
 
 .main-content{
