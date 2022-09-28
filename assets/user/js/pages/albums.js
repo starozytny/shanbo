@@ -14,7 +14,7 @@ if(el){
     render(<AlbumFormulaire type="create" />, el)
 }
 
-el = document.getElementById("profil-update");
+el = document.getElementById("album-update");
 if(el){
-    render(<AlbumFormulaire type="update" element={JSON.parse(el.dataset.donnees)} />, el)
+    render(<AlbumFormulaire type="update" element={JSON.parse(el.dataset.element)} />, el)
 }
