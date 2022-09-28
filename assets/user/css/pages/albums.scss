@@ -1,1 +1,91 @@
 @import "../vars/vars";
+
+.list-albums{
+  @include flex(row, flex-start, flex-start);
+  width: calc(100% + 12px);
+
+  & > .album{
+    width: calc(50% - 12px);
+    margin-right: 12px;
+  }
+}
+
+.album{
+  cursor: pointer;
+  background-color: var(--alpha);
+  border-radius: 12px;
+  height: 128px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover{
+    transform: scale(1.02);
+  }
+}
+
+.create-album{
+  @include flex(column, center, center);
+  border: 2px dashed var(--grey2);
+  padding: 12px;
+
+  [class^="icon-"]{
+    font-size: 26px;
+  }
+}
+
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .list-albums{
+    & > .album{
+      width: calc(25% - 12px);
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .list-albums{
+    & > .album{
+      width: calc(20% - 12px);
+    }
+  }
+}
+
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .list-albums{
+    & > .album{
+      width: calc(16% - 24px);
+      margin-right: 24px;
+    }
+  }
+}
+
+//                      __   _  __    ___   ___    __
+//                     | _| / |/ /_  / _ \ / _ \  |_ |
+//    _____ _____ _____| |  | | '_ \| | | | | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | | (_) | |_| | |_| |  | |_____|_____|_____|
+//                     | |  |_|\___/ \___/ \___/   | |
+//                     |__|                       |__|
+@media (min-width: 1600px){
+  .list-albums{
+    & > .album{
+      width: calc(14% - 24px);
+    }
+  }
+}
