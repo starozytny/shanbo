@@ -42,6 +42,7 @@ nav{
   nav{
     width: 4%;
     height: 94vh;
+    z-index: 1000;
     border-right: none;
     transition: all 0.2s ease-in-out;
 
@@ -93,7 +94,8 @@ nav{
 @media (min-width:1280px) {
   nav{
     margin: 32px 24px;
-    height: 90vh;
+    height: 902vh;
+    padding-bottom: 24px;
   }
 
   .nav-body{
