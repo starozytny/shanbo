@@ -7,6 +7,11 @@ nav{
   padding: 12px;
   margin: 12px;
   border-radius: 8px;
+  box-shadow:
+          6.5px 2.7px 5.3px rgba(0, 0, 0, 0.02),
+          21.9px 8.9px 17.9px rgba(0, 0, 0, 0.03),
+          98px 40px 80px rgba(0, 0, 0, 0.05)
+;
 
   .nav-header-logo {
     padding: 0;
