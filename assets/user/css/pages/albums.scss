@@ -11,22 +11,62 @@
 }
 
 .album{
-  cursor: pointer;
-  background-color: var(--alpha);
-  border-radius: 12px;
-  height: 128px;
-  transition: all 0.2s ease-in-out;
-  color: var(--txt);
+  .image{
+    position: relative;
+    cursor: pointer;
+    background-color: var(--alpha);
+    border-radius: 12px;
+    width: 100%;
+    height: 152px;
+    transition: all 0.2s ease-in-out;
+    color: var(--txt);
+    overflow: hidden;
 
-  &:hover{
-    transform: scale(1.02);
+    &:hover{
+      transform: scale(1.02);
+    }
+
+    img{
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .actions{
+    position: absolute;
+    top: 0; right: 0;
+
+    .btn-icon{
+      color: var(--alpha);
+
+      [class^="icon-"]{
+        display: inline-block;
+        font-size: 18px;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .infos{
+    margin-top: 8px;
+
+    .name{
+      @include fontSemibold();
+    }
   }
 }
 
 .create-album{
   @include flex(column, center, center);
   border: 2px dashed var(--grey2);
+  background-color: var(--alpha);
   padding: 12px;
+  border-radius: 12px;
+  height: calc(152px - 24px);
+
+  &:hover{
+    transform: scale(1.02);
+  }
 
   [class^="icon-"]{
     font-size: 26px;
