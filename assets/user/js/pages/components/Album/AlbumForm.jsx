@@ -12,8 +12,9 @@ import { FormLayout }          from "@dashboardComponents/Layout/Elements";
 import Validateur              from "@commonComponents/functions/validateur";
 import Formulaire              from "@dashboardComponents/functions/Formulaire";
 
-const URL_CREATE_ELEMENT     = "api_users_create";
-const URL_UPDATE_GROUP       = "api_users_update";
+const URL_INDEX              = "user_albums_index";
+const URL_CREATE_ELEMENT     = "api_members_albums_create";
+const URL_UPDATE_GROUP       = "api_members_albums_update";
 const TXT_CREATE_BUTTON_FORM = "Enregistrer";
 const TXT_UPDATE_BUTTON_FORM = "Enregistrer les modifications";
 
@@ -31,11 +32,12 @@ export function AlbumFormulaire ({ type, element })
         context={type}
         url={url}
         name={element ? element.name : ""}
+        cover={element ? element.cover : ""}
         access={element ? element.access : ""}
         messageSuccess={msg}
     />
 
-    return <FormLayout form={form} />
+    return <FormLayout url={Routing.generate(URL_INDEX)} form={form} />
 }
 
 export class Form extends Component {
@@ -44,12 +46,13 @@ export class Form extends Component {
 
         this.state = {
             name: props.name,
+            cover: props.cover,
             access: props.access,
             errors: [],
             success: false
         }
 
-        this.inputFiles = React.createRef();
+        this.inputCover = React.createRef();
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,8 +77,8 @@ export class Form extends Component {
             {type: "text", id: 'name',  value: name},
         ];
 
-        let inputFiles = this.inputFiles.current;
-        let files = inputFiles ? inputFiles.drop.current.files : [];
+        let inputCover = this.inputCover.current;
+        let cover = inputCover ? inputCover.drop.current.files : [];
 
         // validate global
         let validate = Validateur.validateur(paramsToValidate)
@@ -86,8 +89,8 @@ export class Form extends Component {
             let self = this;
 
             let formData = new FormData();
-            if(files[0]){
-                formData.append('file-0', files[0].file);
+            if(cover[0]){
+                formData.append('cover', cover[0].file);
             }
 
             formData.append("data", JSON.stringify(this.state));
@@ -109,15 +112,22 @@ export class Form extends Component {
 
     render () {
         const { context } = this.props;
-        const { errors, success, name } = this.state;
+        const { errors, success, name, cover } = this.state;
 
         return <>
             <form onSubmit={this.handleSubmit}>
 
                 {success !== false && <Alert type="info">{success}</Alert>}
 
-                <div className="line">
-                    <Input valeur={name} identifiant="name" errors={errors} onChange={this.handleChange} type="email" >Nom de l'album</Input>
+                <div className="line line-2">
+                    <Input valeur={name} identifiant="name" errors={errors} onChange={this.handleChange}>Nom de l'album</Input>
+                    <div className="form-group" />
+                </div>
+
+                <div className="line line-2">
+                    <Drop ref={this.inputCover} identifiant="cover" previewFile={cover} errors={errors} accept={"image/*"} maxFiles={1}
+                          label="Téléverser une photo" labelError="Seules les images sont acceptées.">Image de couverture</Drop>
+                    <div className="form-group" />
                 </div>
 
                 <div className="line">

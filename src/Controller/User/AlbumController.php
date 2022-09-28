@@ -24,7 +24,7 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/", name="index")
+     * @Route("/", options={"expose"=true}, name="index")
      */
     public function albums(): Response
     {

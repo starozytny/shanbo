@@ -4,12 +4,17 @@ namespace App\Entity;
 
 use App\Repository\AlbumRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=AlbumRepository::class)
  */
 class Album
 {
+    const FOLDER_ALBUMS = 'albums';
+
+    const ALBUMS_READ = ['album:read'];
+
     const ACCESS_PRIVATE = 0;
     const ACCESS_PUBLIC = 1;
 
@@ -17,16 +22,25 @@ class Album
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"album:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"album:read"})
      */
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"album:read"})
+     */
+    private $cover;
+
+    /**
      * @ORM\Column(type="integer")
+     * @Groups({"album:read"})
      */
     private $access = self::ACCESS_PUBLIC;
 
@@ -49,6 +63,18 @@ class Album
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+
+    public function setCover(string $cover): self
+    {
+        $this->cover = $cover;
 
         return $this;
     }
