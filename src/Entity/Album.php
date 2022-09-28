@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=AlbumRepository::class)
  */
-class Album
+class Album extends DataEntity
 {
     const FOLDER_ALBUMS = 'albums';
 
@@ -33,7 +33,7 @@ class Album
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:read"})
      */
     private $cover;
@@ -72,7 +72,7 @@ class Album
         return $this->cover;
     }
 
-    public function setCover(string $cover): self
+    public function setCover(?string $cover): self
     {
         $this->cover = $cover;
 
@@ -101,5 +101,13 @@ class Album
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCoverFile(): string
+    {
+        return $this->getFileOrDefault($this->cover, self::FOLDER_ALBUMS);
     }
 }
