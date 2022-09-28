@@ -118,18 +118,8 @@ class AppController extends AbstractController
      */
     public function photos(HttpClientInterface $client): Response
     {
-        $directory = $this->getParameter('private_directory') . 'photos';
-        $images = glob($directory . "/*.jpg");
-
-        $data = [];
-        foreach($images as $image)
-        {
-            if(file_exists($image)){
-                $file = file_get_contents($image);
-                $base64 = base64_encode($file);
-                $data[] = $base64;
-            }
-        }
+        $directory = $this->getParameter('public_directory') . 'photos';
+        $data = array_diff(scandir($directory), array('.', '..', '.gitignore'));
 
 //        $response = $client->request(
 //            'GET',
