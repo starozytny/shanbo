@@ -4,10 +4,8 @@
 
 {% block main_content %}
     <div class="main-content">
-        <div class="list-albums">
-            <a class="album create-album" href="{{ path('user_albums_create') }}">
-                <span class="icon-add"></span>
-            </a>
+        <div id="album-create">
+            {% include "dashboard/layout/components/spinner.html.twig" %}
         </div>
     </div>
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Album;
 use App\Entity\Changelog;
 use App\Entity\User;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -35,16 +34,6 @@ class UserController extends AbstractController
         return $this->render('user/pages/index.html.twig', [
             'changelogs' => $changelogs
         ]);
-    }
-
-    /**
-     * @Route("/albums", name="albums")
-     */
-    public function albums(): Response
-    {
-        $em = $this->doctrine->getManager();
-        $objs = $em->getRepository(Album::class)->findAll();
-        return $this->render('user/pages/albums/index.html.twig', ['data' => $objs]);
     }
 
     /**
