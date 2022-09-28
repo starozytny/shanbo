@@ -5,7 +5,12 @@
 @import "../../common/css/color";
 
 :root{
-
+    --color0: #233d4d;
+    --color0-1: #101f2a;
+    --color1: #fe7f2d;
+    --color2: #fcca46;
+    --color3: #a1c181;
+    --color4: #619b8a;
 }
 
 @import "vars/fonts";
@@ -44,6 +49,7 @@
 @import "components/button-dropdown";
 @import "components/helpBubble";
 @import "components/theme";
+@import "components/dark";
 
 html, body{
     scroll-behavior: smooth;
@@ -52,6 +58,7 @@ html, body{
 body {
     color: var(--txt);
     @include fontRegular();
+    background-color: var(--color0);
 }
 
 img{
@@ -80,7 +87,11 @@ h2{
 }
 
 main{
-    background-color: var(--fondContent);
+    background-color: var(--fond);
+
+    & > div:first-child{
+        background-color: var(--color0);
+    }
 }
 
 .main-content{
@@ -105,12 +116,15 @@ main{
         @include flex(row, flex-start, flex-start);
     }
     main{
-        width: 80%;
-        margin-left: 20%;
+        width: 100%;
     }
 
     .main-content{
         padding: 24px;
+    }
+
+    header, .page-title, .submenu, .main-content{
+        padding-left: calc(4% + 24px + 24px + 12px);
     }
 }
 
@@ -121,12 +135,8 @@ main{
 //                     | |  |_|_____\___/ \___/   | |
 //                     |__|                      |__|
 @media (min-width:1280px) {
-    main{
-        width: 84%;
-        margin-left: 16%;
-    }
-    .main-content{
-        padding: 24px 32px;
+    header, .page-title, .submenu, .main-content{
+        padding-left: calc(4% + 24px + 48px + 24px);
     }
 }
 
@@ -137,11 +147,4 @@ main{
 //                     | |  |_|\___/ \___/ \___/   | |
 //                     |__|                       |__|
 @media (min-width: 1600px){
-    main{
-        width: 86%;
-        margin-left: 14%;
-    }
-    .main-content{
-        @include maxscreen();
-    }
 }

@@ -1,3 +1,21 @@
 @import "../vars/vars";
 
 @import "../../../common/css/components/page";
+
+.page-title{
+  background-color: var(--color0);
+  color: var(--color2);
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .page-title-container{
+    max-width: initial;
+    margin: 0;
+  }
+}

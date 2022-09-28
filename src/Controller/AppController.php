@@ -118,6 +118,9 @@ class AppController extends AbstractController
      */
     public function photos(HttpClientInterface $client): Response
     {
+        $directory = $this->getParameter('public_directory') . 'photos';
+        $data = array_diff(scandir($directory), array('.', '..', '.gitignore'));
+
 //        $response = $client->request(
 //            'GET',
 //            'https://photos.app.goo.gl/nkM6cVXojA1TK3QY9'
@@ -132,6 +135,7 @@ class AppController extends AbstractController
 
         return $this->render('app/pages/photos/index.html.twig', [
 //            'data' => $matches[1]
+            'data' => $data
         ]);
     }
 }
