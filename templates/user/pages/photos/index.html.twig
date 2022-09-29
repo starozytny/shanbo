@@ -5,7 +5,7 @@
 {% block main_content %}
     <div class="main-content">
         <div class="list-photos">
-            <a class="photo create-photo">
+            <a class="photo create-photos modal-btn" data-modal="#modal-photo">
                 <span class="icon-add"></span>
             </a>
             {% for elem in data %}
@@ -13,6 +13,19 @@
                     <img src="{{ elem.file }}" alt="photo {{ loop.index }}">
                 </div>
             {% endfor %}
+        </div>
+    </div>
+
+    <div class="modal" id="modal-photo">
+        <div class="modal-overlay modal-btn" data-modal="#modal-photo"></div>
+        <div class="modal-container">
+            <div class="modal-exit modal-btn" data-modal="#modal-photo">
+                <span class="icon-cancel"></span>
+            </div>
+
+            <div class="modal-content">
+
+            </div>
         </div>
     </div>
 {% endblock %}
