@@ -49,6 +49,13 @@
   }
 }
 
+.modal-content{
+  margin-top: 32px;
+  max-height: 60vh;
+  overflow-x: hidden;
+  @include scrollbar();
+}
+
 //                      __   _ ____  ___   ___    __
 //                     | _| / |___ \( _ ) / _ \  |_ |
 //    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____

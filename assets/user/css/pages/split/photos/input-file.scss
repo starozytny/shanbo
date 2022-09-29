@@ -1,36 +1,49 @@
 @import "../../../vars/vars";
 
+.design-input-file{
+  position: relative;
+  @include flex(column, center, center);
+  width: calc(100% - 24px); height: 100%;
+  padding: 12px;
+  background-color: var(--alpha);
+  min-height: 38vh;
+  border: 2px dashed var(--grey);
+  border-radius: 12px;
+
+  .icon{
+    margin-bottom: 12px;
+
+    [class^="icon-"]{
+      font-size: 36px;
+    }
+  }
+
+  .name{
+    font-size: 20px;
+    @include fontSemibold();
+    max-width: 414px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .files{
+    @include flex(row, flex-start, flex-start);
+    flex-wrap: wrap;
+    width: calc(100% + 12px);
+
+    & > div{
+      width: calc(50% - 12px);
+      margin-right: 12px;
+      margin-bottom: 12px;
+    }
+  }
+}
+
 .input-add-photos{
   position: relative;
-  margin-top: 12px;
 
   label[for="photos"]{
     display: none;
-  }
-
-  .design-input-file{
-    position: relative;
-    @include flex(column, center, center);
-    width: 100%; height: 100%;
-    background-color: var(--alpha);
-    min-height: 38vh;
-    border: 2px dashed var(--grey);
-    border-radius: 12px;
-
-    .icon{
-      margin-bottom: 12px;
-
-      [class^="icon-"]{
-        font-size: 36px;
-      }
-    }
-
-    .name{
-      font-size: 20px;
-      @include fontSemibold();
-      max-width: 414px;
-      text-align: center;
-    }
   }
 
   input[type="file"]{
@@ -43,14 +56,56 @@
     opacity: 0;
     z-index: 2;
     cursor: pointer;
+  }
+}
 
-    //&:before{
-    //  content: "";
-    //  background-color: red;
-    //  display: block;
-    //  width: 100%; height: 100%;
-    //  position: absolute;
-    //  top: 0; left: 0;
-    //}
+//                      __   _____ __    ___    __
+//                     | _| |___  / /_  ( _ )  |_ |
+//    _____ _____ _____| |     / / '_ \ / _ \   | |_____ _____ _____
+//   |_____|_____|_____| |    / /| (_) | (_) |  | |_____|_____|_____|
+//                     | |   /_/  \___/ \___/   | |
+//                     |__|                    |__|
+@media (min-width:768px) {
+  .design-input-file {
+    .files{
+      & > div{
+        width: calc(33% - 12px);
+      }
+    }
+  }
+}
+
+//                      __   _  ___ ____  _  _     __
+//                     | _| / |/ _ \___ \| || |   |_ |
+//    _____ _____ _____| |  | | | | |__) | || |_   | |_____ _____ _____
+//   |_____|_____|_____| |  | | |_| / __/|__   _|  | |_____|_____|_____|
+//                     | |  |_|\___/_____|  |_|    | |
+//                     |__|                       |__|
+@media (min-width: 1024px) {
+  .design-input-file {
+    .files{
+      & > div{
+        width: calc(25% - 12px);
+      }
+    }
+  }
+}
+
+//                      __   _ ____  ___   ___    __
+//                     | _| / |___ \( _ ) / _ \  |_ |
+//    _____ _____ _____| |  | | __) / _ \| | | |  | |_____ _____ _____
+//   |_____|_____|_____| |  | |/ __/ (_) | |_| |  | |_____|_____|_____|
+//                     | |  |_|_____\___/ \___/   | |
+//                     |__|                      |__|
+@media (min-width:1280px) {
+  .design-input-file {
+    width: calc(100% - 48px);
+    padding: 24px;
+
+    .files{
+      & > div{
+        width: calc(20% - 24px);
+      }
+    }
   }
 }

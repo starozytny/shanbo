@@ -30,7 +30,7 @@ export class AddPhoto extends Component {
         })
         if(files){
             Array.prototype.forEach.call(files, (file) => {
-                if(rank <= 20){
+                if(rank <= 100){
                     if(file.size > 30048576){
                         toastr.error("Le fichier est trop gros.")
                     }else{
@@ -59,6 +59,14 @@ export class AddPhoto extends Component {
                     <div className="name">
                         Faites glisser et déposez jusqu'à <span className="txt-color1">100</span> images
                         ou <span className="txt-color1">parcourez</span> pour choisir un fichier.
+                    </div>
+
+                    <div className="files">
+                        {photos.map((file, index) => {
+                            return <div key={index}>
+                                <img src={file.file} alt="photo base64"/>
+                            </div>
+                        })}
                     </div>
                 </div>
 
