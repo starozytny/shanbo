@@ -13,11 +13,11 @@ import { Input } from "@dashboardComponents/Tools/Fields";
 const URL_CREATE_GROUP = "api_members_groups_create";
 const URL_UPDATE_GROUP = "api_members_groups_update";
 
+let i = 0;
+
 export class AlbumRead extends Component {
     constructor(props) {
         super();
-
-        console.log(props)
 
         this.state = {
             element: JSON.parse(props.element),
@@ -31,7 +31,11 @@ export class AlbumRead extends Component {
         this.handleUpdateGroups = this.handleUpdateGroups.bind(this);
     }
 
-    handleOpenGroup = (e) => { this.asideGroup.current.handleOpen(); }
+    handleOpenGroup = (grp = null) => {
+        i++;
+        this.setState({ group: grp })
+        this.asideGroup.current.handleOpen();
+    }
 
     handleUpdateGroups = (context, element) => {
         const { groups } = this.state;
@@ -59,12 +63,12 @@ export class AlbumRead extends Component {
             <div className="content">
                 {groups.map(grp => {
                     return <div key={grp.id}>
-                        <div className="title">{grp.name}</div>
+                        <div className="title" onClick={() => this.handleOpenGroup(grp)}>{grp.name}</div>
                     </div>
                 })}
             </div>
 
-            <Aside ref={this.asideGroup} content={<GroupForm element={group} album={element} onUpdate={this.handleUpdateGroups} />} />
+            <Aside ref={this.asideGroup} content={<GroupForm element={group} album={element} onUpdate={this.handleUpdateGroups} key={i} />} />
         </div>
     }
 }
