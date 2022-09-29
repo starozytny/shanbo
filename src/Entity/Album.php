@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AlbumRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -56,6 +58,16 @@ class Album extends DataEntity
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="album", orphanRemoval=true)
+     */
+    private $groups;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -128,5 +140,35 @@ class Album extends DataEntity
     public function getCoverFile(): string
     {
         return $this->getFileOrDefault($this->cover, self::FOLDER_ALBUMS);
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(Group $group): self
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups[] = $group;
+            $group->setAlbum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): self
+    {
+        if ($this->groups->removeElement($group)) {
+            // set the owning side to null (unless already changed)
+            if ($group->getAlbum() === $this) {
+                $group->setAlbum(null);
+            }
+        }
+
+        return $this;
     }
 }

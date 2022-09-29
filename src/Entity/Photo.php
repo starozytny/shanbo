@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PhotoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,9 +43,15 @@ class Photo extends DataEntity
      */
     private $dateAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GroupPhotos::class, mappedBy="photo", orphanRemoval=true)
+     */
+    private $groupPhotos;
+
     public function __construct()
     {
         $this->createdAt = $this->initNewDate();
+        $this->groupPhotos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +126,36 @@ class Photo extends DataEntity
     public function setDateAt(?\DateTimeInterface $dateAt): self
     {
         $this->dateAt = $dateAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GroupPhotos>
+     */
+    public function getGroupPhotos(): Collection
+    {
+        return $this->groupPhotos;
+    }
+
+    public function addGroupPhoto(GroupPhotos $groupPhoto): self
+    {
+        if (!$this->groupPhotos->contains($groupPhoto)) {
+            $this->groupPhotos[] = $groupPhoto;
+            $groupPhoto->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupPhoto(GroupPhotos $groupPhoto): self
+    {
+        if ($this->groupPhotos->removeElement($groupPhoto)) {
+            // set the owning side to null (unless already changed)
+            if ($groupPhoto->getPhoto() === $this) {
+                $groupPhoto->setPhoto(null);
+            }
+        }
 
         return $this;
     }
