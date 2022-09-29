@@ -8,8 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */
-class Photo
+class Photo extends DataEntity
 {
+    const FOLDER_PHOTO = 'albums/photos';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -71,5 +73,13 @@ class Photo
         $this->rank = $rank;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFile(): string
+    {
+        return $this->getFileOrDefault($this->filename, self::FOLDER_PHOTO);
     }
 }

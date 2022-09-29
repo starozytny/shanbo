@@ -34,6 +34,12 @@ class Album extends DataEntity
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Gedmo\Slug(updatable=true, fields={"name"})
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"album:read"})
      */
@@ -44,12 +50,6 @@ class Album extends DataEntity
      * @Groups({"album:read"})
      */
     private $access = self::ACCESS_PUBLIC;
-
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Slug(updatable=true, fields={"name"})
-     */
-    private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="albums")
@@ -70,6 +70,18 @@ class Album extends DataEntity
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -116,18 +128,5 @@ class Album extends DataEntity
     public function getCoverFile(): string
     {
         return $this->getFileOrDefault($this->cover, self::FOLDER_ALBUMS);
-    }
-
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 }
