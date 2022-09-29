@@ -60,12 +60,17 @@ export class AddPhoto extends Component {
         let self = this;
         Formulaire.loader(true);
 
+        let dates = [];
         let formData = new FormData();
         let files = document.querySelector('#photos');
         for( let i = 0; i < files.files.length; i++ ){
             let file = files.files[i];
+
+            let date = (""+file.lastModified);
+            dates.push(date !== "" ? date.substring(0, date.length - 3) : null)
             formData.append('photos[' + i + ']', file);
         }
+        formData.append('dates', JSON.stringify(dates));
 
         axios({
             method: "POST", url: Routing.generate(URL_SEND_PHOTOS), data: formData,

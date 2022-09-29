@@ -31,6 +31,21 @@ class Photo extends DataEntity
      */
     private $content;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateAt;
+
+    public function __construct()
+    {
+        $this->createdAt = $this->initNewDate();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -81,5 +96,29 @@ class Photo extends DataEntity
     public function getFileLight(): string
     {
         return $this->getFileOrDefault($this->filename, self::FOLDER_LIGHTS);
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDateAt(): ?\DateTimeInterface
+    {
+        return $this->dateAt;
+    }
+
+    public function setDateAt(?\DateTimeInterface $dateAt): self
+    {
+        $this->dateAt = $dateAt;
+
+        return $this;
     }
 }

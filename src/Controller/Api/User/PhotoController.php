@@ -5,7 +5,9 @@ namespace App\Controller\Api\User;
 use App\Entity\Photo;
 use App\Service\ApiResponse;
 use App\Service\FileUploader;
+use DateTime;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,18 +44,27 @@ class PhotoController extends AbstractController
      * @param ApiResponse $apiResponse
      * @param FileUploader $fileUploader
      * @return JsonResponse
+     * @throws Exception
      */
     public function create(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();
+        $dates = json_decode($request->get('dates'));
 
         $files = $request->files->get('photos');
         if ($files) {
+            $i = 0;
             foreach ($files as $file) {
                 $filename = $fileUploader->upload($file, Photo::FOLDER_PHOTOS);
 
+                $date = new DateTime();
+                if($timestamp = $dates[$i] ?? null){
+                    $date->setTimestamp($timestamp);
+                }
+
                 $obj = (new Photo())
                     ->setFilename($filename)
+                    ->setDateAt($date)
                 ;
 
                 $fileUploader->createThumb(
@@ -63,6 +74,7 @@ class PhotoController extends AbstractController
                 );
 
                 $em->persist($obj);
+                $i++;
             }
         }
 
