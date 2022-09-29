@@ -40,7 +40,7 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/modification/{id}", name="update")
+     * @Route("/modification/{slug}", name="update")
      */
     public function update(Album $obj, SerializerInterface $serializer): Response
     {
@@ -49,7 +49,7 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/album/{id}", name="read")
+     * @Route("/album/{slug}", name="read")
      */
     public function read(Album $obj, SerializerInterface $serializer): Response
     {
