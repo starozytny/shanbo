@@ -17,14 +17,11 @@
     </div>
 
     <div class="modal" id="modal-photo">
-        <div class="modal-overlay modal-btn" data-modal="#modal-photo"></div>
+        {% include "user/layout/components/modal/overlay.html.twig" with {modal_id: "modal-photo"} %}
         <div class="modal-container">
-            <div class="modal-exit modal-btn" data-modal="#modal-photo">
-                <span class="icon-cancel"></span>
-            </div>
-
+            {% include "user/layout/components/modal/exit.html.twig" with {modal_id: "modal-photo"} %}
             <div class="modal-content">
-
+                <div id="drop-add-photos"></div>
             </div>
         </div>
     </div>
