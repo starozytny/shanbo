@@ -11,7 +11,7 @@
             {% for elem in data %}
                 <div class="album">
                     <div class="image">
-                        <a href="">
+                        <a href="{{ path('user_albums_read', {'id': elem.id}) }}">
                             <img src="{{ elem.coverFile }}" alt="Image de couverture">
                         </a>
 
@@ -26,9 +26,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="infos">
+                    <a class="infos" href="{{ path('user_albums_read', {'id': elem.id}) }}">
                         <div class="name">{{ elem.name }}</div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

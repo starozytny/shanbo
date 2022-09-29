@@ -59,7 +59,9 @@
   }
 
   .infos{
+    display: block;
     margin-top: 8px;
+    color: var(--txt);
 
     .name{
       @include fontSemibold();
