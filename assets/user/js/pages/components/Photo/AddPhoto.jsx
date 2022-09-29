@@ -49,12 +49,26 @@ export class AddPhoto extends Component {
     render () {
         const { errors, photos } = this.state;
 
-        return <div>
-            <Input type="file" identifiant="photos" isMultiple={true} valeur={photos}
-                   acceptFiles={".jpg, .jpeg, .png"}
-                   errors={errors} onChange={this.handleChangeFile}>
-                <span>Photos</span>
-            </Input>
+        return <div className="modal-add-photos">
+
+            <div className="input-add-photos">
+                <div className="design-input-file">
+                    <div className="icon">
+                        <span className="icon-image"></span>
+                    </div>
+                    <div className="name">
+                        Faites glisser et déposez jusqu'à <span className="txt-color1">100</span> images
+                        ou <span className="txt-color1">parcourez</span> pour choisir un fichier.
+                    </div>
+                </div>
+
+                <Input type="file" identifiant="photos" isMultiple={true} valeur={photos}
+                       acceptFiles={".jpg, .jpeg, .png"}
+                       errors={errors} onChange={this.handleChangeFile}>
+                    <span>Photos</span>
+                </Input>
+            </div>
+
         </div>
     }
 }
