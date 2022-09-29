@@ -50,9 +50,17 @@ class PhotoController extends AbstractController
         $files = $request->files->get('photos');
         if ($files) {
             foreach ($files as $file) {
+                $filename = $fileUploader->upload($file, Photo::FOLDER_PHOTOS);
+
                 $obj = (new Photo())
-                    ->setFilename($fileUploader->upload($file, Photo::FOLDER_PHOTOS))
+                    ->setFilename($filename)
                 ;
+
+                $fileUploader->createThumb(
+                    'public',
+                    Photo::FOLDER_PHOTOS . "/" . $filename, Photo::FOLDER_THUMBS,
+                    517, 755
+                );
 
                 $em->persist($obj);
             }

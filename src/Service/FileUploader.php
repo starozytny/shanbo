@@ -45,6 +45,39 @@ class FileUploader
         return $fileName;
     }
 
+    public function createThumb($type, $source, $destination, $tailleW, $tailleH): string
+    {
+        $sourceDirectory = $type == "public" ? $this->getPublicDirectory() : $this->getPrivateDirectory();
+        $source = $sourceDirectory . $source;
+
+        list($width, $height) = getimagesize($source);
+        if ($width < $height) { // == portrait
+            $tailleH = $tailleH + 50;
+        }
+
+        $ratio_orig = $width/$height;
+        $w = $tailleW;
+        $h = $tailleH;
+
+        if ($w/$h > $ratio_orig) {
+            $w = $h*$ratio_orig;
+        } else {
+            $h = $w/$ratio_orig;
+        }
+
+        ini_set('gd.jpeg_ignore_warning', true);
+        $src = @imagecreatefromjpeg($source);
+        $thumb = imagecreatetruecolor($w, $h);
+        @imagecopyresampled($thumb, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+
+        $nameWithoutExt = pathinfo($source)['filename'];
+        $name = $nameWithoutExt . '.' . pathinfo($source)['extension'];
+
+        @imagejpeg($thumb, $destination . "/" . $name,75);
+
+        return $name;
+    }
+
     public function deleteFile($fileName, $folderName, $isPublic = true)
     {
         if($fileName){

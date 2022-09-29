@@ -10,7 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Photo extends DataEntity
 {
-    const FOLDER_PHOTOS = 'albums/photos';
+    const FOLDER_PHOTOS = 'albums/photos/originaux';
+    const FOLDER_THUMBS = 'albums/photos/thumbs';
+    const FOLDER_LIGHTS = 'albums/photos/lights';
 
     /**
      * @ORM\Id
@@ -64,5 +66,20 @@ class Photo extends DataEntity
     public function getFile(): string
     {
         return $this->getFileOrDefault($this->filename, self::FOLDER_PHOTOS);
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileThumb(): string
+    {
+        return $this->getFileOrDefault($this->filename, self::FOLDER_THUMBS);
+    }
+    /**
+     * @return string
+     */
+    public function getFileLight(): string
+    {
+        return $this->getFileOrDefault($this->filename, self::FOLDER_LIGHTS);
     }
 }

@@ -4,8 +4,8 @@
 
 {% block main_content %}
     <div class="main-content">
-        <a class="photo create-photos modal-btn" data-modal="#modal-photo">
-            <span class="icon-add"></span>
+        <a class="photo create-photos modal-btn btn btn-primary" data-modal="#modal-photo">
+            <span class="icon-add"></span> <span>Ajouter des photos</span>
         </a>
         <div class="list-photos">
             <div class="grid">
@@ -13,7 +13,7 @@
 
                 {% for elem in data %}
                     <div class="grid-item">
-                        <img src="{{ elem.file }}" loading="lazy"  alt="photo {{ loop.index }}">
+                        <img src="{{ elem.fileThumb }}" loading="lazy"  alt="photo {{ loop.index }}">
                     </div>
                 {% endfor %}
             </div>
