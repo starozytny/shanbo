@@ -4,7 +4,10 @@
 
 {% block main_content %}
     <div class="main-content">
-        <div id="album-read" data-element="{{ element }}">
+        <div id="album-read"
+             data-element="{{ element }}"
+             data-groups="{{ groups }}"
+        >
             {% include "dashboard/layout/components/spinner.html.twig" %}
         </div>
     </div>

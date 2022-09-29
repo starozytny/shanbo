@@ -3,6 +3,7 @@
 namespace App\Controller\User;
 
 use App\Entity\Album;
+use App\Entity\Group;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,7 +54,14 @@ class AlbumController extends AbstractController
      */
     public function read(Album $obj, SerializerInterface $serializer): Response
     {
-        $obj = $serializer->serialize($obj, 'json', ['groups' => Album::ALBUMS_READ]);
-        return $this->render('user/pages/albums/read.html.twig', ['element' => $obj]);
+        $groups = $obj->getGroups();
+
+        $obj    = $serializer->serialize($obj, 'json', ['groups' => Album::ALBUMS_READ]);
+        $groups = $serializer->serialize($groups, 'json', ['groups' => Group::GROUP_REAAD]);
+
+        return $this->render('user/pages/albums/read.html.twig', [
+            'element' => $obj,
+            'groups' => $groups,
+        ]);
     }
 }

@@ -10,27 +10,38 @@ import { Button, ButtonIcon } from "@dashboardComponents/Tools/Button";
 import { Aside } from "@dashboardComponents/Tools/Aside";
 import { Input } from "@dashboardComponents/Tools/Fields";
 
-const URL_UPDATE_ELEMENT = "";
-const URL_CREATE_ELEMENT = "";
+const URL_CREATE_GROUP = "api_members_groups_create";
+const URL_UPDATE_GROUP = "api_members_groups_update";
 
 export class AlbumRead extends Component {
     constructor(props) {
         super();
 
+        console.log(props)
+
         this.state = {
-            groups: [],
+            element: JSON.parse(props.element),
+            groups: props.groups ? JSON.parse(props.groups) : [],
             group: null
         }
 
         this.asideGroup = React.createRef();
 
         this.handleOpenGroup = this.handleOpenGroup.bind(this);
+        this.handleUpdateGroups = this.handleUpdateGroups.bind(this);
     }
 
     handleOpenGroup = (e) => { this.asideGroup.current.handleOpen(); }
 
+    handleUpdateGroups = (context, element) => {
+        const { groups } = this.state;
+
+        let nGroups = Formulaire.updateDataPagination(null, context, null, groups, element)
+        this.setState({ groups: nGroups })
+    }
+
     render () {
-        const { groups, group } = this.state;
+        const { element, groups, group } = this.state;
 
         return <div className="read-album">
             <div className="toolbar">
@@ -46,10 +57,14 @@ export class AlbumRead extends Component {
             </div>
 
             <div className="content">
-
+                {groups.map(grp => {
+                    return <div key={grp.id}>
+                        <div className="title">{grp.name}</div>
+                    </div>
+                })}
             </div>
 
-            <Aside ref={this.asideGroup} content={<GroupForm element={group} />} />
+            <Aside ref={this.asideGroup} content={<GroupForm element={group} album={element} onUpdate={this.handleUpdateGroups} />} />
         </div>
     }
 }
@@ -59,6 +74,7 @@ export class GroupForm extends Component {
         super();
 
         this.state = {
+            albumId: props.album.id,
             name: props.element ? props.element.name : "",
             errors: [],
         }
@@ -72,7 +88,7 @@ export class GroupForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        const { element } = this.props;
+        const { element, onUpdate } = this.props;
         const { name } = this.state;
 
         this.setState({ errors: [], success: false })
@@ -89,16 +105,16 @@ export class GroupForm extends Component {
             Formulaire.loader(true);
             let self = this;
 
-            let url = element ? Routing.generate(URL_UPDATE_ELEMENT, {'id': element.id}) : Routing.generate(URL_CREATE_ELEMENT);
+            let url = element ? Routing.generate(URL_UPDATE_GROUP, {'id': element.id}) : Routing.generate(URL_CREATE_GROUP);
             let methode = element ? "PUT" : "POST";
+            let context = element ? "update" : "create";
 
             axios({ method: methode, url: url, data: this.state})
                 .then(function (response) {
+                    onUpdate(context, response.data)
                 })
-                .catch(function (error) {
-                    Formulaire.displayErrors(self, error);
-                    Formulaire.loader(false);
-                })
+                .catch(function (error) { Formulaire.displayErrors(self, error); })
+                .then(function() {Formulaire.loader(false); })
             ;
         }
     }

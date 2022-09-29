@@ -25,5 +25,5 @@ if(el){
 
 el = document.getElementById("album-read");
 if(el){
-    render(<AlbumRead element={JSON.parse(el.dataset.element)} />, el)
+    render(<AlbumRead {...el.dataset} />, el)
 }
