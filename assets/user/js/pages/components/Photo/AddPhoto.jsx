@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 
-import Helper from "@commonComponents/functions/helper";
+import axios      from "axios";
+import Routing    from '@publicFolder/bundles/fosjsrouting/js/router.min.js';
 
-import { Input } from "@dashboardComponents/Tools/Fields";
+import Helper     from "@commonComponents/functions/helper";
+import Formulaire from "@dashboardComponents/functions/Formulaire";
+
+import { Input }  from "@dashboardComponents/Tools/Fields";
+import { Button } from "@dashboardComponents/Tools/Button";
+
+const URL_SEND_PHOTOS = "api_members_photos_create";
 
 export class AddPhoto extends Component {
     constructor(props) {
@@ -14,6 +21,7 @@ export class AddPhoto extends Component {
         }
 
         this.handleChangeFile = this.handleChangeFile.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeFile = (e) => {
@@ -44,6 +52,33 @@ export class AddPhoto extends Component {
                 }
             })
         }
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        let self = this;
+        Formulaire.loader(true);
+
+        let formData = new FormData();
+        let files = document.querySelector('#photos');
+        for( let i = 0; i < files.files.length; i++ ){
+            let file = files.files[i];
+            formData.append('photos[' + i + ']', file);
+        }
+
+        axios({
+            method: "POST", url: Routing.generate(URL_SEND_PHOTOS), data: formData,
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+            .then(function (response) {
+                location.reload();
+            })
+            .catch(function (error) {
+                Formulaire.displayErrors(self, error);
+                Formulaire.loader(false);
+            })
+        ;
     }
 
     render () {
@@ -77,6 +112,9 @@ export class AddPhoto extends Component {
                 </Input>
             </div>
 
+            <div className="submit-add-photos">
+                <Button onClick={this.handleSubmit}>Enregistrer les photos</Button>
+            </div>
         </div>
     }
 }

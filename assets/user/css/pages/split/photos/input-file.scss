@@ -3,7 +3,7 @@
 .design-input-file{
   position: relative;
   @include flex(column, center, center);
-  width: calc(100% - 24px); height: 100%;
+  width: calc(100% - 24px - 4px); height: 100%;
   padding: 12px;
   background-color: var(--alpha);
   min-height: 38vh;
@@ -41,6 +41,9 @@
 
 .input-add-photos{
   position: relative;
+  max-height: 46vh;
+  overflow-x: hidden;
+  @include scrollbar();
 
   label[for="photos"]{
     display: none;
@@ -56,6 +59,14 @@
     opacity: 0;
     z-index: 2;
     cursor: pointer;
+  }
+}
+
+.submit-add-photos{
+  margin-top: 12px;
+
+  .btn{
+    width: 100%;
   }
 }
 
@@ -99,7 +110,7 @@
 //                     |__|                      |__|
 @media (min-width:1280px) {
   .design-input-file {
-    width: calc(100% - 48px);
+    width: calc(100% - 48px - 4px);
     padding: 24px;
 
     .files{

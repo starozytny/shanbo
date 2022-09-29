@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Photo extends DataEntity
 {
-    const FOLDER_PHOTO = 'albums/photos';
+    const FOLDER_PHOTOS = 'albums/photos';
 
     /**
      * @ORM\Id
@@ -28,11 +28,6 @@ class Photo extends DataEntity
      * @ORM\Column(type="text", nullable=true)
      */
     private $content;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $rank;
 
     public function getId(): ?int
     {
@@ -63,23 +58,11 @@ class Photo extends DataEntity
         return $this;
     }
 
-    public function getRank(): ?int
-    {
-        return $this->rank;
-    }
-
-    public function setRank(int $rank): self
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
     /**
      * @return string
      */
     public function getFile(): string
     {
-        return $this->getFileOrDefault($this->filename, self::FOLDER_PHOTO);
+        return $this->getFileOrDefault($this->filename, self::FOLDER_PHOTOS);
     }
 }
