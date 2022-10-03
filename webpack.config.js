@@ -75,6 +75,7 @@ Encore
     .addEntry('user_homepage', './assets/user/js/pages/homepage.js')
     .addEntry('user_profil', './assets/user/js/pages/profil.js')
     .addEntry('user_albums', './assets/user/js/pages/albums.js')
+    .addEntry('user_photos', './assets/user/js/pages/photos.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')

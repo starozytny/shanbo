@@ -11,7 +11,7 @@
             {% for elem in data %}
                 <div class="album">
                     <div class="image">
-                        <a href="">
+                        <a href="{{ path('user_albums_read', {'slug': elem.slug}) }}">
                             <img src="{{ elem.coverFile }}" alt="Image de couverture">
                         </a>
 
@@ -20,15 +20,15 @@
                                 <button class="btn-icon"><span class="icon-more"></span></button>
                                 <div class="dropdown-items">
                                     <div class="item">
-                                        <a href="{{ path('user_albums_update', {'id': elem.id}) }}">Modifier</a>
+                                        <a href="{{ path('user_albums_update', {'slug': elem.slug}) }}">Modifier</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="infos">
+                    <a class="infos" href="{{ path('user_albums_read', {'slug': elem.slug}) }}">
                         <div class="name">{{ elem.name }}</div>
-                    </div>
+                    </a>
                 </div>
             {% endfor %}
         </div>

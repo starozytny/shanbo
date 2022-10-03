@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { uid } = require("uid");
 
 function addProcessZipcode(lines, data)
 {
@@ -198,6 +199,26 @@ function countProgress (number, total) {
     return progress;
 }
 
+function getBase64(file, self, rank) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        self.setState({ photos: [...self.state.photos, ...[{
+                uid: uid(),
+                file: reader.result,
+                name: file.name,
+                legend: "",
+                size: file.size,
+                rank: rank,
+                is64: true,
+                isTrash: false
+            }]] })
+    };
+    reader.onerror = function (error) {
+        toastr.error('Error: ', error);
+    };
+}
+
 module.exports = {
     getPostalCodes,
     setCityFromZipcode,
@@ -209,5 +230,6 @@ module.exports = {
     getNbDayBetweenDateArray,
     downloadBinaryFile,
     toTop,
-    countProgress
+    countProgress,
+    getBase64
 }

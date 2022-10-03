@@ -48,6 +48,7 @@
 @import "components/accordion";
 @import "components/button-dropdown";
 @import "components/helpBubble";
+@import "components/modal";
 @import "components/theme";
 @import "components/dark";
 
@@ -84,6 +85,10 @@ h2{
 
 .txt-danger{
     color: var(--danger);
+}
+
+.txt-color1{
+    color: var(--color1);
 }
 
 main{
