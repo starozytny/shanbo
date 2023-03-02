@@ -6,7 +6,7 @@ use App\Entity\Photo;
 use App\Service\ApiResponse;
 use App\Service\FileUploader;
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

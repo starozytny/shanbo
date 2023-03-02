@@ -8,7 +8,7 @@ use App\Repository\SettingsRepository;
 use App\Service\ApiResponse;
 use App\Service\FileUploader;
 use App\Service\ValidatorService;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
