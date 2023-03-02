@@ -150,4 +150,9 @@ class Notification extends DataEntity
 
         return $this;
     }
+
+    public function isIsSeen(): ?bool
+    {
+        return $this->isSeen;
+    }
 }
