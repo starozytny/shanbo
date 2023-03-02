@@ -6,19 +6,19 @@
     <div class="main-content">
         <h1>Se connecter</h1>
 
-        <form method="post" class="form-login">
+        <form action="{{ path('app_login') }}" method="post" class="form-login">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
 
            <div class="line">
                <label for="inputUsername">Nom utilisateur</label>
-               <input type="text" value="{{ last_username }}" name="username" id="inputUsername" required autofocus>
+               <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" required autofocus>
            </div>
             <div class="line">
                 <label for="inputPassword">Mot de passe</label>
                 <div class="see-password">
-                    <input type="password" name="password" id="inputPassword" required>
+                    <input type="password" name="_password" id="inputPassword" required>
                     <span class="icon-vision btn-see-password"></span>
                 </div>
             </div>
@@ -26,6 +26,8 @@
             <input type="hidden" name="_csrf_token"
                    value="{{ csrf_token('authenticate') }}"
             >
+
+            <input type="hidden" name="_target_path" value="{{ path('app_logged') }}"/>
 
             <div class="line">
                 <div id="forget"></div>

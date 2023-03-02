@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Service\Expiration;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,6 +43,21 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('app/pages/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * @Route("/connected", name="app_logged")
+     */
+    public function logged(ManagerRegistry $registry): RedirectResponse
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user) {
+            if($this->isGranted('ROLE_ADMIN')) return $this->redirectToRoute('user_homepage');
+            if($this->isGranted('ROLE_USER')) return $this->redirectToRoute('user_homepage');
+        }
+
+        return $this->redirectToRoute('app_login');
     }
 
     /**

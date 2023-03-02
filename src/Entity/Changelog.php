@@ -154,4 +154,9 @@ class Changelog extends DataEntity
     {
         return $this->getFullDateString($this->createdAt, 'llll');
     }
+
+    public function isIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
 }
