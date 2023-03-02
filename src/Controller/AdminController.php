@@ -8,7 +8,7 @@ use App\Entity\Inform;
 use App\Entity\Notification;
 use App\Entity\Settings;
 use App\Entity\User;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
