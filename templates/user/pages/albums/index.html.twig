@@ -1,0 +1,36 @@
+{% extends 'user/pages/albums/template.html.twig' %}
+
+{% set page_title %}Dash{% endset %}
+
+{% block main_content %}
+    <div class="main-content">
+        <div class="list-albums">
+            <a class="album create-album" href="{{ path('user_albums_create') }}">
+                <span class="icon-add"></span>
+            </a>
+            {% for elem in data %}
+                <div class="album">
+                    <div class="image">
+                        <a href="{{ path('user_albums_read', {'slug': elem.slug}) }}">
+                            <img src="{{ elem.coverFile }}" alt="Image de couverture">
+                        </a>
+
+                        <div class="actions">
+                            <div class="btn-dropdown">
+                                <button class="btn-icon"><span class="icon-more"></span></button>
+                                <div class="dropdown-items">
+                                    <div class="item">
+                                        <a href="{{ path('user_albums_update', {'slug': elem.slug}) }}">Modifier</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="infos" href="{{ path('user_albums_read', {'slug': elem.slug}) }}">
+                        <div class="name">{{ elem.name }}</div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

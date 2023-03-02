@@ -33,5 +33,7 @@ winpty.exe.stackdump
 /public/annonces/*
 /public/articles/*
 /public/avatars/*
+/public/photos/*
+/public/albums/*
 
 graph.svg

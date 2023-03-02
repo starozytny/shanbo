@@ -4,8 +4,8 @@ import { Button } from "@dashboardComponents/Tools/Button";
 
 function ButtonBack ({ onChangeContext, url = null, text = "Retour à la liste"})
 {
-    return onChangeContext ? <Button outline={true} icon="left-arrow" type="primary" onClick={() => onChangeContext("list")}>{text}</Button>
-        :  <Button element="a" outline={true} icon="left-arrow" type="primary" onClick={url}>{text}</Button>
+    return onChangeContext ? <Button outline={true} icon="left-arrow" type="default" onClick={() => onChangeContext("list")}>{text}</Button>
+        :  <Button element="a" outline={true} icon="left-arrow" type="default" onClick={url}>{text}</Button>
 }
 
 export class FormLayout extends Component{
@@ -20,7 +20,7 @@ export class FormLayout extends Component{
             </div>
 
             <div className="form">
-                <h2>{children}</h2>
+                {children ? <h2>{children}</h2> : ""}
                 {form}
             </div>
         </div>

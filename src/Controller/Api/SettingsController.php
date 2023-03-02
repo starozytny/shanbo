@@ -29,7 +29,7 @@ class SettingsController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
+
     /**
      * Get settings data
      *

@@ -1,19 +1,17 @@
 {% extends 'admin/layout/layout.html.twig' %}
 
-{% set page_title %}Rester informer{% endset %}
+{% set page_title %}Photos{% endset %}
 
 {% block stylesheets %}
     {{ parent() }}
-    {{ encore_entry_link_tags('dashboard_contact') }}
 {% endblock %}
 
 {% block main_content %}
-    <div id="inform" data-donnees="{{ donnees }}">
+    <div id="photos" data-donnees="{{ donnees }}">
         {% include "dashboard/layout/components/spinner.html.twig" %}
     </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('dashboard_contact') }}
 {% endblock %}
