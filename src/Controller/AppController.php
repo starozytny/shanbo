@@ -92,7 +92,7 @@ class AppController extends AbstractController
             $critere = $request->get("critere");
 
             $existe = $em->getRepository(Inform::class)->findOneBy(['email' => $email]);
-            if($critere == "critere" && !$existe){
+            if($critere == "" && !$existe){
                 $obj = (new Inform())
                     ->setEmail($email)
                 ;

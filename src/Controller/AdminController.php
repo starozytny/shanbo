@@ -142,7 +142,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/rester-informer", name="stay_touch_index")
+     * @Route("/rester-informe", name="stay_touch_index")
      */
     public function inform(Request $request, SerializerInterface $serializer): Response
     {
