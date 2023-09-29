@@ -88,8 +88,13 @@
 }
 
 .home-photographe{
-  background: linear-gradient(0deg, #ffebaf 10%, #00090d 91%);
+  background: linear-gradient(0deg, #0c293c 10%, #07080D 91%);
   padding: 48px 0;
+  color: var(--fond);
+
+  h2{
+    color: var(--alpha);
+  }
 
   .images{
     position: relative;
@@ -171,6 +176,10 @@
     }
   }
 }
+//
+//.home-contact{
+//  background: linear-gradient(-180deg, #0c293c 10%, #07080D 91%);
+//}
 
 //                      __   _____ __    ___    __
 //                     | _| |___  / /_  ( _ )  |_ |
@@ -257,7 +266,7 @@
 
   .home-photographe{
     padding: 48px 0;
-    background: linear-gradient(-142deg, #ffebaf 10%, #00090d 91%);;
+    background: linear-gradient(0deg, #0c293c 10%, #07080D 91%);
 
     .images{
       @keyframes move2 {
