@@ -110,7 +110,7 @@ class AppController extends AbstractController
     public function photos(PhotoRepository $repository): Response
     {
         return $this->render('app/pages/photos/index.html.twig', [
-            'data' => $repository->findAll()
+            'data' => $repository->findBy([], ['id' => 'DESC'])
         ]);
     }
 }
