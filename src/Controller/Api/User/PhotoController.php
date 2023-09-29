@@ -67,11 +67,7 @@ class PhotoController extends AbstractController
                     ->setDateAt($date)
                 ;
 
-                $fileUploader->createThumb(
-                    'public',
-                    Photo::FOLDER_PHOTOS . "/" . $filename, Photo::FOLDER_THUMBS,
-                    517, 755
-                );
+                $fileUploader->thumbs($filename, Photo::FOLDER_PHOTOS, Photo::FOLDER_THUMBS, 517, 755);
 
                 $em->persist($obj);
                 $i++;

@@ -4,7 +4,9 @@
 namespace App\Service;
 
 
-use DateTime;
+use PHPImageWorkshop\Core\Exception\ImageWorkshopLayerException;
+use PHPImageWorkshop\Exception\ImageWorkshopException;
+use PHPImageWorkshop\ImageWorkshop;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -22,61 +24,64 @@ class FileUploader
         $this->slugger = $slugger;
     }
 
-    public function upload(UploadedFile $file, $folder=null, $isPublic=true): string
+    public function upload(UploadedFile $file, $folder=null, $isPublic=true, $reducePixel=false): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
         try {
-            if($folder){
-                if(!is_dir($folder)){
-                    mkdir($folder);
-                }
-            }
-
             $directory = $isPublic ? $this->getPublicDirectory() : $this->getPrivateDirectory();
             $directory = $directory . '/' . $folder;
 
+            if($directory){
+                if(!is_dir($directory)){
+                    mkdir($directory, 0777, true);
+                }
+            }
+
             $file->move($directory, $fileName);
-        } catch (FileException $e) {
+
+            $fileOri = $directory . "/" . $fileName;
+
+            $layer = ImageWorkshop::initFromPath($fileOri);
+
+            if($reducePixel){
+                $layer->resizeInPixel(null, $reducePixel, true);
+            }else if($layer->getHeight() > 2160){
+                $layer->resizeInPixel(null, 2160, true);
+            }
+
+            $layer->save($directory, $fileName);
+        } catch (FileException|ImageWorkshopException|ImageWorkshopLayerException $e) {
             return false;
         }
 
         return $fileName;
     }
 
-    public function createThumb($type, $source, $destination, $tailleW, $tailleH): string
+    /**
+     * @throws ImageWorkshopLayerException
+     * @throws ImageWorkshopException
+     */
+    public function thumbs($fileName, $folderImages, $folderThumbs, $width = null, $height = 755): string
     {
-        $sourceDirectory = $type == "public" ? $this->getPublicDirectory() : $this->getPrivateDirectory();
-        $source = $sourceDirectory . $source;
-
-        list($width, $height) = getimagesize($source);
-        if ($width < $height) { // == portrait
-            $tailleH = $tailleH + 50;
+        if($folderThumbs){
+            if(!is_dir($folderThumbs)){
+                mkdir($folderThumbs, 0777, true);
+            }
         }
 
-        $ratio_orig = $width/$height;
-        $w = $tailleW;
-        $h = $tailleH;
+        $fileOri = $folderImages . "/" . $fileName;
 
-        if ($w/$h > $ratio_orig) {
-            $w = $h*$ratio_orig;
-        } else {
-            $h = $w/$ratio_orig;
-        }
+        $layer = ImageWorkshop::initFromPath($fileOri);
+        $layer->resizeInPixel($width, $height, true);
 
-        ini_set('gd.jpeg_ignore_warning', true);
-        $src = @imagecreatefromjpeg($source);
-        $thumb = imagecreatetruecolor($w, $h);
-        @imagecopyresampled($thumb, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+        $fileName = "thumbs-" . $fileName;
 
-        $nameWithoutExt = pathinfo($source)['filename'];
-        $name = $nameWithoutExt . '.' . pathinfo($source)['extension'];
+        $layer->save($folderThumbs, $fileName);
 
-        @imagejpeg($thumb, $destination . "/" . $name,75);
-
-        return $name;
+        return $fileName;
     }
 
     public function deleteFile($fileName, $folderName, $isPublic = true)
