@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Changelog;
 use App\Entity\User;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,19 +33,6 @@ class UserController extends AbstractController
 
         return $this->render('user/pages/index.html.twig', [
             'changelogs' => $changelogs
-        ]);
-    }
-
-    /**
-     * @Route("/albums", name="albums")
-     */
-    public function albums(): Response
-    {
-        /** @var User $obj */
-        $obj = $this->getUser();
-
-        return $this->render('user/pages/albums/index.html.twig',  [
-            'obj' => $obj
         ]);
     }
 

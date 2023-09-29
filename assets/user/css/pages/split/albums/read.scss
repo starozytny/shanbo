@@ -1,0 +1,7 @@
+@import "../../../vars/vars";
+
+.read-album{
+  .toolbar{
+    @include flex(row, center, space-between);
+  }
+}

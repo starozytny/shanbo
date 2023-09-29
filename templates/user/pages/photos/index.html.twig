@@ -1,0 +1,32 @@
+{% extends 'user/pages/photos/template.html.twig' %}
+
+{% set page_title %}Dash{% endset %}
+
+{% block main_content %}
+    <div class="main-content">
+        <a class="photo create-photos modal-btn btn btn-primary" data-modal="#modal-photo">
+            <span class="icon-add"></span> <span>Ajouter des photos</span>
+        </a>
+        <div class="list-photos">
+            <div class="grid">
+                <div class="grid-sizer"></div>
+
+                {% for elem in data %}
+                    <div class="grid-item">
+                        <img src="{{ elem.fileThumb }}" loading="lazy"  alt="photo {{ loop.index }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-photo">
+        {% include "user/layout/components/modal/overlay.html.twig" with {modal_id: "modal-photo"} %}
+        <div class="modal-container">
+            {% include "user/layout/components/modal/exit.html.twig" with {modal_id: "modal-photo"} %}
+            <div class="modal-content">
+                <div id="drop-add-photos"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

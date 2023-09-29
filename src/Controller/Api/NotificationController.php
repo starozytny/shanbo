@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Repository\NotificationRepository;
 use App\Service\ApiResponse;
 use App\Service\Data\DataService;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

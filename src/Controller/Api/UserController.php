@@ -13,7 +13,7 @@ use App\Service\NotificationService;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use DateTime;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -30,7 +30,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class UserController extends AbstractController
 {
     const FOLDER_AVATARS = User::FOLDER_AVATARS;
-    
+
     const ICON = "user";
 
     private $doctrine;
@@ -39,7 +39,7 @@ class UserController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    
+
     /**
      * Admin - Get array of users
      *

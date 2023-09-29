@@ -7,6 +7,11 @@ nav{
   padding: 12px;
   margin: 12px;
   border-radius: 8px;
+  box-shadow:
+          6.5px 2.7px 5.3px rgba(0, 0, 0, 0.02),
+          21.9px 8.9px 17.9px rgba(0, 0, 0, 0.03),
+          98px 40px 80px rgba(0, 0, 0, 0.05)
+;
 
   .nav-header-logo {
     padding: 0;
@@ -42,6 +47,7 @@ nav{
   nav{
     width: 4%;
     height: 94vh;
+    z-index: 1000;
     border-right: none;
     transition: all 0.2s ease-in-out;
 
@@ -51,6 +57,7 @@ nav{
       .nav-header-logo, .nav-body a span:last-child{
         opacity: 1;
         z-index: 1;
+        transform: translateX(0);
       }
     }
 
@@ -65,6 +72,8 @@ nav{
 
   .nav-body{
     overflow: initial;
+    min-height: 84vh;
+    max-height: 84vh;
 
     .items{
       width: 100%;
@@ -73,9 +82,10 @@ nav{
     a{
       span:last-child{
         opacity: 0;
-        z-index: -1;
+        z-index: -100;
         min-width: 200px;
-        transition: all 0.2s ease-in-out;
+        transform: translateX(-200px);
+        transition: opacity 0.2s ease-in-out;
       }
     }
   }
@@ -92,6 +102,7 @@ nav{
   nav{
     margin: 32px 24px;
     height: 90vh;
+    padding-bottom: 24px;
   }
 
   .nav-body{

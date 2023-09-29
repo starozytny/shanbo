@@ -48,7 +48,9 @@
 @import "components/accordion";
 @import "components/button-dropdown";
 @import "components/helpBubble";
+@import "components/modal";
 @import "components/theme";
+@import "components/dark";
 
 html, body{
     scroll-behavior: smooth;
@@ -85,8 +87,16 @@ h2{
     color: var(--danger);
 }
 
+.txt-color1{
+    color: var(--color1);
+}
+
 main{
     background-color: var(--fond);
+
+    & > div:first-child{
+        background-color: var(--color0);
+    }
 }
 
 .main-content{
