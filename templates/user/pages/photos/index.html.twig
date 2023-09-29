@@ -13,7 +13,15 @@
 
                 {% for elem in data %}
                     <div class="grid-item">
-                        <img src="{{ elem.fileThumb }}" loading="lazy"  alt="photo {{ loop.index }}">
+                        <div class="image">
+                            <img src="{{ elem.fileThumb }}" loading="lazy"  alt="photo {{ loop.index }}">
+                            <form action="{{ path('api_members_photos_delete', {'id': elem.id}) }}" method="post">
+                                <button type="submit" class="btn-icon btn-danger">
+                                    <span class="icon-trash"></span>
+                                    <span class="tooltip">Supprimer</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
