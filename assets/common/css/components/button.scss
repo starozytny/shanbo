@@ -26,6 +26,12 @@ button.swal2-cancel.swal2-styled{
   &.active{
     opacity: 1;
   }
+
+  &.btn-loader-with-text,
+  &.btn-loader-without-text{
+    cursor: initial;
+    opacity: 1;
+  }
 }
 
 .btn{
@@ -117,6 +123,19 @@ $icons:
   button.swal2-confirm.swal2-styled,
   button.swal2-cancel.swal2-styled{
     color: var(--txt);
+  }
+}
+
+.btn.btn-loader,
+.btn.btn-loader-without-text{
+  [class^="icon-"]{
+    position: absolute;
+    top: 10px; left: 0;
+    width: 100%;
+  }
+
+  span:not([class^="icon-"]){
+    opacity: 0;
   }
 }
 

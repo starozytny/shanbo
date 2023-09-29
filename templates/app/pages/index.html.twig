@@ -3,7 +3,7 @@
 {% block meta_description %}
     Salut ! Je suis Chanbora Chhun, je suis un développeur web fullstack sur Marseille et ses alentours.
     Développeur Symfony, ReactJS, Javascript, Sass et bien d'autres technologies.
-    A mes heures perdues je suis aussi photographe pour des mariages et cérénomies !
+    A mes heures perdues, je suis aussi photographe pour des mariages et cérémonies !
 {% endblock %}
 {% block meta_keywords %}developpeur web, developpeur, web, photographe, marseille, developpeur marseille, developpeur fullstack, fullstack{% endblock %}
 
@@ -26,7 +26,7 @@
                         Je suis Développeur Web à Marseille.</h1>
                     <p>
                         En combo pour du développement web lourd, mon coup de coeur est le framework PHP Symfony couplé à du
-                        ReactJs/Javascript natif et avec du Sass pour embellir le site internet ! <br>
+                        ReactJs/Javascript natif et du Sass pour embellir le site internet ! <br>
                         Selon les projets je change mes technologies et je m'adapte rapidement à un nouveau langage
                         tant qu'il y a une documentation et une communauté active.
                     </p>
@@ -60,7 +60,7 @@
                     <h2>Passion photographie !</h2>
                     <p>
                         En plus du développement web, j'ai la chance d'avoir une autre passion qui
-                        m'aide a m'évader et éviter d'être focus sur la même chose, la <b>photographie</b>.
+                        m'aide à m'évader et éviter d'être focus sur la même chose, la <b>photographie</b>.
                         <br><br>
                         J'ai débuté avec un reflex d'entrée de gamme en me disant simplement
                         que ça serait plus marrant de prendre des photos avec un vrai appareil qu'avec téléphone.
@@ -94,16 +94,13 @@
                 </p>
 
                 <div class="links">
-                    <a href="">
-                        <span class="icon-instagram"></span>
+                    <a target="_blank" href="https://www.instagram.com/shanbo_daltonien/">
                         <span>Instagram</span>
                     </a>
-                    <a href="">
-                        <span class="icon-instagram"></span>
+                    <a target="_blank" href="https://www.linkedin.com/in/chanbora-chhun-00a0a0112/">
                         <span>LinkedIn</span>
                     </a>
-                    <a href="">
-                        <span class="icon-instagram"></span>
+                    <a target="_blank" href="https://github.com/starozytny">
                         <span>Github</span>
                     </a>
                 </div>
@@ -116,19 +113,23 @@
                     🥳
                 </p>
 
+                <div class="links">
+                    <a href="https://nompaw.fr" target="_blank" style="text-decoration: underline;">Découvres Nompaw.fr !</a>
+                </div>
+
                 <p style="margin-top: 12px;">
                     Tu peux rester informé des nouvelles mises à jour grâce au formulaire juste en dessous !
                     Je garderai ton adresse e-mail exclusivement pour cet usage.
                 </p>
 
                 <form action="{{ path('app_stay_touch') }}" method="POST">
-                    <input type="email" name="email" id="email" placeholder="Adresse e-mail">
+                    <input type="email" name="email" id="email" placeholder="Adresse e-mail" required>
                     <button type="submit" class="btn btn-danger">
                         <span class="icon-email"></span>
                         <span>Reste informé !</span>
                     </button>
 
-                    <input type="hidden" name="critere" value="critere">
+                    <input type="hidden" name="critere" value="">
                 </form>
                 {% for flashMessage in app.session.flashbag.get('success') %}
                     <div class="alert alert-primary" style="margin-top: 12px;">

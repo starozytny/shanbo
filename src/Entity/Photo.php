@@ -96,14 +96,7 @@ class Photo extends DataEntity
      */
     public function getFileThumb(): string
     {
-        return $this->getFileOrDefault($this->filename, self::FOLDER_THUMBS);
-    }
-    /**
-     * @return string
-     */
-    public function getFileLight(): string
-    {
-        return $this->getFileOrDefault($this->filename, self::FOLDER_LIGHTS);
+        return $this->getFileOrDefault("thumbs-" . $this->filename, self::FOLDER_THUMBS);
     }
 
     public function getCreatedAt(): ?\DateTimeInterface

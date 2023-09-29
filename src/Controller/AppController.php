@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Inform;
+use App\Repository\PhotoRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class AppController extends AbstractController
 {
@@ -83,7 +80,7 @@ class AppController extends AbstractController
     /**
      * @Route("/rester-informer", name="app_stay_touch")
      */
-    public function inform(Request $request): \Symfony\Component\HttpFoundation\RedirectResponse
+    public function inform(Request $request): RedirectResponse
     {
         if($request->isMethod("POST")){
             $em = $this->doctrine->getManager();
@@ -92,7 +89,7 @@ class AppController extends AbstractController
             $critere = $request->get("critere");
 
             $existe = $em->getRepository(Inform::class)->findOneBy(['email' => $email]);
-            if($critere == "critere" && !$existe){
+            if($critere == "" && !$existe){
                 $obj = (new Inform())
                     ->setEmail($email)
                 ;
@@ -109,33 +106,11 @@ class AppController extends AbstractController
 
     /**
      * @Route("/photos", name="app_photos")
-     * @param HttpClientInterface $client
-     * @return Response
-     * @throws TransportExceptionInterface
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
      */
-    public function photos(HttpClientInterface $client): Response
+    public function photos(PhotoRepository $repository): Response
     {
-        $directory = $this->getParameter('public_directory') . 'photos';
-        $data = array_diff(scandir($directory), array('.', '..', '.gitignore'));
-
-//        $response = $client->request(
-//            'GET',
-//            'https://photos.app.goo.gl/nkM6cVXojA1TK3QY9'
-//        );
-//
-//        $content = $response->getContent();
-//
-//
-//
-//        $regex = '/\"(https:\/\/lh3\.googleusercontent\.com\/[a-zA-Z0-9\-_]*)"/';
-//        preg_match_all($regex, $content, $matches);
-
         return $this->render('app/pages/photos/index.html.twig', [
-//            'data' => $matches[1]
-            'data' => $data
+            'data' => $repository->findBy([], ['id' => 'DESC'])
         ]);
     }
 }
