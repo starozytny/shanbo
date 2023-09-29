@@ -26,7 +26,7 @@ class PhotoController extends AbstractController
     public function albums(): Response
     {
         $em = $this->doctrine->getManager();
-        $objs = $em->getRepository(Photo::class)->findAll();
+        $objs = $em->getRepository(Photo::class)->findBy([], ['id' => 'DESC']);
         return $this->render('user/pages/photos/index.html.twig', ['data' => $objs]);
     }
 }
