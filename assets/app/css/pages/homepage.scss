@@ -92,6 +92,14 @@
   padding: 48px 0;
   color: var(--fond);
 
+  .home-photographe-container{
+    @include flex(column-reverse, flex-start, flex-start);
+
+    & > *{
+      width: 100%;
+    }
+  }
+
   h2{
     color: var(--alpha);
   }
@@ -268,6 +276,10 @@
     padding: 48px 0;
     background: linear-gradient(0deg, #0c293c 10%, #07080D 91%);
 
+    .home-photographe-container{
+      flex-direction: row;
+    }
+
     .images{
       @keyframes move2 {
         0%{ transform: rotate(5deg) translate(160px, -48px); }
@@ -279,10 +291,6 @@
         margin-top: -460px;
       }
     }
-  }
-
-  .home-photographe-container{
-    @include flex(row, flex-start, flex-start);
   }
 
   .home-photographe-content{
