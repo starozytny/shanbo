@@ -17,11 +17,9 @@ export class AddPhoto extends Component {
 
         this.state = {
             photos: [],
-            errors: []
+            errors: [],
+            loadData: false
         }
-
-        this.handleChangeFile = this.handleChangeFile.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeFile = (e) => {
@@ -57,37 +55,44 @@ export class AddPhoto extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        let self = this;
-        Formulaire.loader(true);
+        const { loadData } = this.state;
 
-        let dates = [];
-        let formData = new FormData();
-        let files = document.querySelector('#photos');
-        for( let i = 0; i < files.files.length; i++ ){
-            let file = files.files[i];
+        if(!loadData){
+            this.setState({ loadData: true })
 
-            let date = (""+file.lastModified);
-            dates.push(date !== "" ? date.substring(0, date.length - 3) : null)
-            formData.append('photos[' + i + ']', file);
+            let self = this;
+            Formulaire.loader(true);
+
+            let dates = [];
+            let formData = new FormData();
+            let files = document.querySelector('#photos');
+            for( let i = 0; i < files.files.length; i++ ){
+                let file = files.files[i];
+
+                let date = (""+file.lastModified);
+                dates.push(date !== "" ? date.substring(0, date.length - 3) : null)
+                formData.append('photos[' + i + ']', file);
+            }
+            formData.append('dates', JSON.stringify(dates));
+
+            axios({
+                method: "POST", url: Routing.generate(URL_SEND_PHOTOS), data: formData,
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+                .then(function (response) {
+                    location.reload();
+                })
+                .catch(function (error) {
+                    Formulaire.displayErrors(self, error);
+                    Formulaire.loader(false);
+                })
+                .then(function () { self.setState({ loadData: false }) })
+            ;
         }
-        formData.append('dates', JSON.stringify(dates));
-
-        axios({
-            method: "POST", url: Routing.generate(URL_SEND_PHOTOS), data: formData,
-            headers: {'Content-Type': 'multipart/form-data'}
-        })
-            .then(function (response) {
-                location.reload();
-            })
-            .catch(function (error) {
-                Formulaire.displayErrors(self, error);
-                Formulaire.loader(false);
-            })
-        ;
     }
 
     render () {
-        const { errors, photos } = this.state;
+        const { loadData, errors, photos } = this.state;
 
         return <div className="modal-add-photos">
 
@@ -118,7 +123,7 @@ export class AddPhoto extends Component {
             </div>
 
             <div className="submit-add-photos">
-                <Button onClick={this.handleSubmit}>Enregistrer les photos</Button>
+                <Button onClick={this.handleSubmit} isLoader={loadData}>Enregistrer les photos</Button>
             </div>
         </div>
     }

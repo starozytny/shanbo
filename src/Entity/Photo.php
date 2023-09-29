@@ -96,7 +96,7 @@ class Photo extends DataEntity
      */
     public function getFileThumb(): string
     {
-        return $this->getFileOrDefault($this->filename, self::FOLDER_THUMBS);
+        return $this->getFileOrDefault("thumbs-" . $this->filename, self::FOLDER_THUMBS);
     }
     /**
      * @return string

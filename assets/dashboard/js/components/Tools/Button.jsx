@@ -21,17 +21,20 @@ export function ButtonIcon(props){
 }
 
 export function Button(props){
-    const { icon, type="primary", isSubmit=false, outline=false, children, onClick, element="button", target="_self" } = props;
+    const { icon, type="primary", isSubmit=false, outline=false, children, onClick, element="button", target="_self",
+        isLoader=false, loaderWithText=false, iconPosition="before" } = props;
+
+    let loaderClasse = isLoader ? " btn-loader-" + (loaderWithText ? "with-text" : "without-text") : ""
 
     if(element === "button"){
-        return <button className={`btn btn-${outline ? "outline-" : ""}${type}`} type={isSubmit ? "submit" : "button"} onClick={onClick}>
-            {icon && <span className={`icon-${icon}`} />}
-            <span>{children}</span>
+        return <button className={`btn${loaderClasse} btn-${outline ? "outline-" : ""}${type}`}
+                       type={isSubmit ? "submit" : "button"} onClick={onClick}>
+            <Content icon={icon ? icon : (isLoader ? 'chart-3' : '')} iconPosition={iconPosition} children={children} />
         </button>
     }else{
-        return <a className={`btn btn-${outline ? "outline-" : ""}${type}`} target={target} href={onClick}>
-            {icon && <span className={`icon-${icon}`} />}
-            <span>{children}</span>
+        return <a className={`btn${loaderClasse} btn-${outline ? "outline-" : ""}${type}`}
+                  target={target} href={onClick}>
+            <Content icon={icon ? icon : (isLoader ? 'chart-3' : '')} iconPosition={iconPosition} children={children} />
         </a>
     }
 }
@@ -68,4 +71,12 @@ export function ButtonIconDropdown(props){
             })}
         </div>
     </div>
+}
+
+function Content ({icon, iconPosition, children}) {
+    return <>
+        {(icon && iconPosition === "before") && <span className={`icon-${icon}`} />}
+        {children && <span>{children}</span>}
+        {(icon && iconPosition === "after") && <span className={`icon-${icon}`} />}
+    </>
 }
