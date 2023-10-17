@@ -2,6 +2,9 @@
 
 {% block title %}A la rencontre de Lyon {{ title_end }}{% endblock %}
 
+{% block meta_description %}Découvrez la beauté de Lyon et son centre-ville pittoresque. Explorez les rues historiques, savourez la cuisine locale et plongez-vous dans l'histoire de cette ville fascinante en plein cœur de la France.{% endblock %}
+{% block meta_keywords %}Lyon, centre-ville, découverte, tourisme, France, histoire, cuisine{% endblock %}
+
 {% set pathImages = "build/app/images/articles/" %}
 
 {% block main_content %}
@@ -16,21 +19,19 @@
                 <h1>A la rencontre de Lyon</h1>
             </div>
             <div class="content">
-                <p>
-                    Après plus de 5 ans d'attente, me voici enfin arrivé à Lyon pour un petit week end !
-                    J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon cousin John.
-                </p>
                 <div class="col-2-simple">
                     <div class="in-col-1">
                         <p>
-                            Ce week end débute à mon arrivé sous les coups de 22h suite à un retard de train.
+                            Après plus des années d'attente, me voici enfin arrivé à Lyon pour un petit week end !
                             <br>
-                            Direction l'appartement de Johnny et manger un délicieux
-                            plat : <b>LE POULET KFC</b> ! Quel bonheur. Le soda versé dans un verre, les frites étalées dans
-                            une assiette et le fameux poulet dans un plat à four. Ca n'a rien à voir avec Lyon, mais cet
-                            instant était purement magique.
+                            J'ai la chance d'avoir un guide personnel qui n'est nul autre que mon zin John.
                             <br><br>
-                            Les retrouvailles ça se fête et nous étions préparés !
+                            Direction l'appartement de Johnny et manger un phénoménal KFC. Quel bonheur.
+                            Le soda versé dans un verre, les frites étalées dans une assiette et le fameux poulet dans un plat à four.
+                            <br>
+                            Un moment magique.
+                            <br><br>
+                            Les retrouvailles ça se fête ! 🥳
                         </p>
                         <img src="{{ asset(pathImages~'vin.jpg') }}" alt="verre de vin">
                     </div>
@@ -38,11 +39,69 @@
                         <img src="{{ asset(pathImages~'poulet.jpg') }}" alt="poulet kfc avec chanbora chhun en profil">
                     </div>
                 </div>
+
+                <p style="margin-top: 48px; margin-bottom: 48px;">
+                    Le lendemain, on s'est dirigé vers le centre de Lyon, sur la presqu'île. <br><br>
+                    Lyon est surnommée la "Ville des Lumières", riche en histoire, en culture et en charme. <br>
+                    La presque-île est une zone qui s'étend entre les rivières du Rhône et de la Saône. Cette zone
+                    est un véritable trésor pour les amateurs de découvertes, offrant une combinaison unique d'histoire,
+                    de gastronomie, de shopping et de divertissement !
+                    <br><br>
+                    🌞
+                </p>
                 
                 <img src="{{ asset(pathImages~'lyon-1.jpg') }}" alt="Illustration ville et monument avec un pont">
 
-                <p>Le lendemain, on s'est dirigé vers le centre de Lyon, sur la presqu'île. </p>
+                <div class="col-2-simple">
+                    <div class="in-col-1">
+                        <p>
+                            La Presqu'île de Lyon est imprégnée d'histoire à chaque coin de rue. Promenez-vous dans ses ruelles
+                            pavées et découvrez des bâtiments magnifiques datant de différentes époques architecturales.
+                            <br><br>
+                            L'Opéra de Lyon, avec sa façade majestueuse, est un véritable chef-d'œuvre du XIXe siècle.
+                            Non loin de là, la place des Terreaux vous émerveillera avec sa fontaine de Bartholdi et son
+                            Hôtel de Ville Renaissance.
+                            <br><br>
+                            🤵
+                            <br><br>
+                            Le centre de Lyon est également un centre culturel dynamique. Le musée des Beaux-Arts de
+                            Lyon abrite une collection impressionnante d'œuvres d'art, tandis que le musée Gadagne
+                            offre un aperçu fascinant de l'histoire de la ville. Pour une soirée divertissante,
+                            assistez à une représentation à l'Opéra de Lyon ou rendez-vous au théâtre des Célestins.
+                            <br><br>
+                            🎺🎻🎹
+                        </p>
+                    </div>
+                    <div class="in-col-2">
+                        <img src="{{ asset(pathImages~'opera.jpg') }}" alt="opera de lyon et sa façade">
+                    </div>
+                </div>
 
+                <div class="col-3-photos">
+                    <img src="{{ asset(pathImages~'lyon-2.jpg') }}" alt="vue immeuble lyon a travers vitre">
+                    <img src="{{ asset(pathImages~'lyon-3.jpg') }}" alt="chemin centre commercial lyon">
+                    <img src="{{ asset(pathImages~'lyon-4.jpg') }}" alt="jardin dans centre lyon">
+                </div>
+
+                <p>
+                    Les passionnés de shopping seront ravis par les boutiques élégantes et les grands magasins de la
+                    Presqu'île. La rue de la République est l'artère principale où vous trouverez des marques de luxe,
+                    des enseignes internationales et des boutiques locales. Si vous recherchez des articles de créateurs,
+                    rendez-vous dans le quartier des Cordeliers, où de petites boutiques indépendantes proposent des pièces uniques.
+                    <br><br>
+                    🍷
+                    <br><br>
+                    Lyon est également célèbre pour sa gastronomie, et la Presqu'île ne fait pas exception. Les bouchons
+                    lyonnais, des restaurants traditionnels, servent des plats délicieux comme la quenelle, le tablier de
+                    sapeur et bien sûr, la salade lyonnaise. N'oubliez pas de déguster un verre de Côtes
+                    du Rhône dans l'un des nombreux bars à vin de la région.
+                </p>
+
+                <div class="col-3-photos">
+                    <img src="{{ asset(pathImages~'lyon-5.jpg') }}" alt="vue immeuble lyon a travers vitre">
+                    <img src="{{ asset(pathImages~'lyon-6.jpg') }}" alt="chemin centre commercial lyon">
+                    <img src="{{ asset(pathImages~'lyon-7.jpg') }}" alt="jardin dans centre lyon">
+                </div>
             </div>
         </div>
     </div>
