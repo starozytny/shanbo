@@ -7,25 +7,27 @@ use App\Entity\User;
 use App\Service\DatabaseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'admin:users:create',
+    description: 'Create an user and an admin',
+)]
 class AdminUsersCreateCommand extends Command
 {
-    protected static $defaultName = 'admin:users:create';
-
     public function __construct(private readonly EntityManagerInterface $em, private readonly DatabaseService $databaseService)
     {
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription('Create an user and an admin.')
             ->addOption('fake', "f", InputOption::VALUE_NONE, 'Option shit values')
         ;
     }

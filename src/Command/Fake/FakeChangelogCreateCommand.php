@@ -7,17 +7,21 @@ use App\Service\Data\DataChangelog;
 use App\Service\DatabaseService;
 use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+#[AsCommand(
+    name: 'fake:changelog:create',
+    description: 'Create fake changelogs',
+)]
 class FakeChangelogCreateCommand extends Command
 {
-    protected static $defaultName = 'fake:changelog:create';
-    protected static $defaultDescription = 'Create fake changelogs';
-
-    public function __construct(private readonly EntityManagerInterface $em, private readonly DatabaseService $databaseService, private readonly DataChangelog $dataChangelog)
+    public function __construct(private readonly EntityManagerInterface $em,
+                                private readonly DatabaseService $databaseService,
+                                private readonly DataChangelog $dataChangelog)
     {
         parent::__construct();
     }
