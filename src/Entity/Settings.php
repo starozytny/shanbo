@@ -14,36 +14,36 @@ class Settings
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['visitor:read'])]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['visitor:read'])]
     #[Assert\NotBlank]
-    private $websiteName;
+    private ?string $websiteName = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
-    private $urlHomepage;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['visitor:read'])]
-    #[Assert\NotBlank]
-    private $emailGlobal;
+    private ?string $urlHomepage = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['visitor:read'])]
     #[Assert\NotBlank]
-    private $emailContact;
+    private ?string $emailGlobal = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['visitor:read'])]
     #[Assert\NotBlank]
-    private $emailRgpd;
+    private ?string $emailContact = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $emailRgpd = null;
 
     #[ORM\Column(type: 'text')]
     #[Groups(['visitor:read'])]
     #[Assert\NotBlank]
-    private $logoMail;
+    private ?string $logoMail = null;
 
     public function getId(): ?int
     {

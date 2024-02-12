@@ -44,7 +44,7 @@ class AlbumController extends AbstractController
         $groups = $obj->getGroups();
 
         $obj    = $serializer->serialize($obj, 'json', ['groups' => Album::ALBUMS_READ]);
-        $groups = $serializer->serialize($groups, 'json', ['groups' => Group::GROUP_REAAD]);
+        $groups = $serializer->serialize($groups, 'json', ['groups' => Group::GROUP_READ]);
 
         return $this->render('user/pages/albums/read.html.twig', [
             'element' => $obj,

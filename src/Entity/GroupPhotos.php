@@ -11,15 +11,15 @@ class GroupPhotos
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Group::class, inversedBy: 'groupPhotos')]
     #[ORM\JoinColumn(nullable: false)]
-    private $grp;
+    private ?Group $grp = null;
 
     #[ORM\ManyToOne(targetEntity: Photo::class, inversedBy: 'groupPhotos')]
     #[ORM\JoinColumn(nullable: false)]
-    private $photo;
+    private ?Photo $photo = null;
 
     public function getId(): ?int
     {

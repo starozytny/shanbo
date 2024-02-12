@@ -47,7 +47,7 @@ class GroupController extends AbstractController
         $em->persist($obj);
         $em->flush();
 
-        return $apiResponse->apiJsonResponse($obj, Group::GROUP_REAAD);
+        return $apiResponse->apiJsonResponse($obj, Group::GROUP_READ);
     }
 
     /**

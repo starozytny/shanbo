@@ -13,32 +13,32 @@ class Contact extends DataEntity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['admin:read'])]
-    private $id;
+    #[Groups(['admin_read'])]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     #[Assert\NotBlank]
-    private $name;
+    private ?string $name = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     #[Assert\NotBlank]
     #[Assert\Email]
-    private $email;
+    private ?string $email = null;
 
     #[ORM\Column(type: 'text')]
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     #[Assert\NotBlank]
-    private $message;
+    private ?string $message = null;
 
     #[ORM\Column(type: 'datetime')]
     #[Assert\NotBlank]
-    private $createdAt;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['admin:read'])]
-    private $isSeen = false;
+    #[Groups(['admin_read'])]
+    private ?bool $isSeen = false;
 
     public function __construct()
     {
@@ -86,24 +86,19 @@ class Contact extends DataEntity
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    /**
-     * How long ago a user was added.
-     *
-     * @return string
-     */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getCreatedAtAgo(): string
     {
         return $this->getHowLongAgo($this->createdAt);

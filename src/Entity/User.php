@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use OpenApi\Annotations as OA;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'])]
@@ -21,8 +20,8 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
 {
     public const FOLDER_AVATARS = "avatars";
 
-    public const ADMIN_READ = ['admin:read'];
-    public const USER_READ = ['user:read'];
+    public const ADMIN_READ = ['admin_read'];
+    public const USER_READ = ['user_read'];
     public const VISITOR_READ = ['visitor:read'];
 
     public const CODE_ROLE_USER = 0;
@@ -32,68 +31,65 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['admin:read'])]
-    private $id;
+    #[Groups(['admin_read'])]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Assert\NotBlank]
     #[Assert\Type(type: 'alnum')]
-    #[Groups(['admin:read', 'user:read'])]
-    private $username;
+    #[Groups(['admin_read', 'user_read'])]
+    private ?string $username = null;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
     #[Assert\Email]
-    #[Groups(['admin:read', 'user:read'])]
-    private $email;
+    #[Groups(['admin_read', 'user_read'])]
+    private ?string $email = null;
 
-    /**
-     * @OA\Property(type="array", @OA\Items(type="string"))
-     */
     #[ORM\Column(type: 'json')]
-    #[Groups(['admin:read'])]
-    private $roles = ['ROLE_USER'];
+    #[Groups(['admin_read'])]
+    private ?array $roles = ['ROLE_USER'];
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['admin:read', 'user:read'])]
-    private $lastname;
+    #[Groups(['admin_read', 'user_read'])]
+    private ?string $lastname = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['admin:read', 'user:read'])]
-    private $firstname;
+    #[Groups(['admin_read', 'user_read'])]
+    private ?string $firstname = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $lastLogin;
+    private ?\DateTimeInterface $lastLogin = null;
 
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
-    private $forgetCode;
+    private ?string $forgetCode = null;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $forgetAt;
+    private ?\DateTimeInterface $forgetAt = null;
 
     #[ORM\Column(type: 'datetime')]
-    private $createdAt;
+    private ?\DateTime $createdAt = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['admin:read'])]
-    private $token;
+    #[Groups(['admin_read'])]
+    private ?string $token = null;
 
     /**
-     * @var string The hashed password
+     * @var ?string The hashed password
      */
     #[ORM\Column(type: 'string')]
     #[Groups(['admin:write'])]
-    private $password;
+    private ?string $password = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['admin:read', 'user:read'])]
-    private $avatar;
+    #[Groups(['admin_read', 'user_read'])]
+    private ?string $avatar = null;
 
-    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
-    private $notifications;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notification::class)]
+    private Collection $notifications;
 
-    #[ORM\OneToMany(targetEntity: Album::class, mappedBy: 'user', orphanRemoval: true)]
-    private $albums;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Album::class, orphanRemoval: true)]
+    private Collection $albums;
 
     /**
      * @throws Exception
@@ -147,12 +143,7 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
         return $this;
     }
 
-    /**
-     * Get label of the high role
-     *
-     * @return string
-     */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getHighRole(): string
     {
         $rolesSortedByImportance = ['ROLE_DEVELOPER', 'ROLE_ADMIN', 'ROLE_USER'];
@@ -170,12 +161,7 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
         return "Utilisateur";
     }
 
-    /**
-     * Get code of the high role
-     *
-     * @return int
-     */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getHighRoleCode(): int
     {
         return match ($this->getHighRole()) {
@@ -229,34 +215,6 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * return ll -> 5 janv. 2017
-     * return LL -> 5 janvier 2017
-     *
-     * @return string|null
-     */
-    #[Groups(['admin:read'])]
-    public function getCreatedAtString(): ?string
-    {
-        return $this->getFullDateString($this->createdAt);
-    }
-
-    /**
-     * How long ago a user was added.
-     *
-     * @return string
-     */
-    #[Groups(['admin:read'])]
-    public function getCreatedAtAgo(): string
-    {
-        return $this->getHowLongAgo($this->getCreatedAt());
-    }
-
     public function getLastLogin(): ?\DateTimeInterface
     {
         return $this->lastLogin;
@@ -269,10 +227,7 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
         return $this;
     }
 
-    /**
-     * How long ago a user was logged for the last time.
-     */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getLastLoginAgo(): ?string
     {
         return $this->getHowLongAgo($this->getLastLogin());
@@ -406,7 +361,7 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
     /**
      * @return string
      */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getFullname(): string
     {
         return $this->getFullNameString($this->lastname, $this->firstname);
@@ -415,7 +370,7 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
     /**
      * @return string
      */
-    #[Groups(['admin:read'])]
+    #[Groups(['admin_read'])]
     public function getAvatarFile(): string
     {
         return $this->getFileOrDefault($this->avatar, self::FOLDER_AVATARS, "https://robohash.org/" . $this->username . "?size=64x64");
@@ -451,7 +406,24 @@ class User extends DataEntity implements UserInterface, PasswordAuthenticatedUse
         return $this;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    #[Groups(['admin_read'])]
+    public function getCreatedAtString(): ?string
+    {
+        return $this->getFullDateString($this->createdAt);
+    }
+
+    #[Groups(['admin_read'])]
+    public function getCreatedAtAgo(): string
+    {
+        return $this->getHowLongAgo($this->getCreatedAt());
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 

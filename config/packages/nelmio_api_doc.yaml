@@ -7,9 +7,9 @@ nelmio_api_doc:
 
     models:
         names:
-            - { alias: User_admin_read,  type: App\Entity\User, groups: [ admin:read ] }
+            - { alias: User_admin_read,  type: App\Entity\User, groups: [ admin_read ] }
             - { alias: User_admin_write,  type: App\Entity\User, groups: [ admin:write ] }
-            - { alias: User_read,  type: App\Entity\User, groups: [ user:read ] }
+            - { alias: User_read,  type: App\Entity\User, groups: [ user_read ] }
             - { alias: User_update,  type: App\Entity\User, groups: [ update ] }
 
 

@@ -12,24 +12,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: GroupRepository::class)]
 class Group
 {
-    public const GROUP_REAAD = ['grp:read'];
+    public const GROUP_READ = ['grp_read'];
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['grp:read'])]
-    private $id;
+    #[Groups(['grp_read'])]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['grp:read'])]
-    private $name;
+    #[Groups(['grp_read'])]
+    private ?string $name = null;
 
     #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'groups')]
     #[ORM\JoinColumn(nullable: false)]
-    private $album;
+    private ?Album $album = null;
 
-    #[ORM\OneToMany(targetEntity: GroupPhotos::class, mappedBy: 'grp', orphanRemoval: true)]
-    private $groupPhotos;
+    #[ORM\OneToMany(mappedBy: 'grp', targetEntity: GroupPhotos::class, orphanRemoval: true)]
+    private Collection $groupPhotos;
 
     public function __construct()
     {

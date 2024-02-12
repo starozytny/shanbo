@@ -6,7 +6,7 @@ use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Mapping\Annotation\Slug;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
@@ -14,7 +14,7 @@ class Album extends DataEntity
 {
     public const FOLDER_ALBUMS = 'albums';
 
-    public const ALBUMS_READ = ['album:read'];
+    public const ALBUMS_READ = ['album_read'];
 
     public const ACCESS_PRIVATE = 0;
     public const ACCESS_PUBLIC = 1;
@@ -22,33 +22,31 @@ class Album extends DataEntity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['album:read'])]
-    private $id;
+    #[Groups(['album_read'])]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['album:read'])]
-    private $name;
+    #[Groups(['album_read'])]
+    private ?string $name = null;
 
-    /**
-     * @Gedmo\Slug(updatable=true, fields={"name"})
-     */
+    #[Slug(fields: ['name'], updatable: true)]
     #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private $slug;
+    private ?string $slug = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['album:read'])]
-    private $cover;
+    #[Groups(['album_read'])]
+    private ?string $cover = null;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['album:read'])]
-    private $access = self::ACCESS_PUBLIC;
+    #[Groups(['album_read'])]
+    private ?int $access = self::ACCESS_PUBLIC;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'albums')]
     #[ORM\JoinColumn(nullable: false)]
-    private $user;
+    private ?User $user = null;
 
-    #[ORM\OneToMany(targetEntity: Group::class, mappedBy: 'album', orphanRemoval: true)]
-    private $groups;
+    #[ORM\OneToMany(mappedBy: 'album', targetEntity: Group::class, orphanRemoval: true)]
+    private Collection $groups;
 
     public function __construct()
     {
@@ -120,9 +118,6 @@ class Album extends DataEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getCoverFile(): string
     {
         return $this->getFileOrDefault($this->cover, self::FOLDER_ALBUMS);

@@ -16,28 +16,28 @@ class Changelog extends DataEntity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[Groups(['user:read'])]
-    private $id;
+    #[Groups(['user_read'])]
+    private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Groups(['user:read'])]
-    private $name;
+    #[Groups(['user_read'])]
+    private ?string $name = null;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['user:read'])]
-    private $type = self::TYPE_INFO;
+    #[Groups(['user_read'])]
+    private ?int $type = self::TYPE_INFO;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['user:read'])]
-    private $isPublished = false;
+    #[Groups(['user_read'])]
+    private ?bool $isPublished = false;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['user:read'])]
-    private $content;
+    #[Groups(['user_read'])]
+    private ?string $content = null;
 
     #[ORM\Column(type: 'datetime')]
-    #[Groups(['user:read'])]
-    private $createdAt;
+    #[Groups(['user_read'])]
+    private ?\DateTime $createdAt = null;
 
     public function __construct()
     {
@@ -97,22 +97,19 @@ class Changelog extends DataEntity
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime$createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
-    #[Groups(['user:read'])]
+    #[Groups(['user_read'])]
     public function getTypeString(): ?string
     {
         $values = ["Information", "Attention", "Danger"];
@@ -120,11 +117,7 @@ class Changelog extends DataEntity
         return $values[$this->type];
     }
 
-
-    /**
-     * @return string|null
-     */
-    #[Groups(['user:read'])]
+    #[Groups(['user_read'])]
     public function getTypeIcon(): ?string
     {
         $values = ["exclamation", "warning", "warning"];
@@ -132,10 +125,7 @@ class Changelog extends DataEntity
         return $values[$this->type];
     }
 
-    /**
-     * @return string|null
-     */
-    #[Groups(['user:read'])]
+    #[Groups(['user_read'])]
     public function getCreatedAtString(): ?string
     {
         return $this->getFullDateString($this->createdAt, 'llll');
