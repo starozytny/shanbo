@@ -47,7 +47,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/', options: ['expose' => true], name: 'homepage')]
+    #[Route(path: '/', name: 'homepage', options: ['expose' => true])]
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
@@ -73,7 +73,7 @@ class AdminController extends AbstractController
         return $this->render('admin/pages/styleguide/index.html.twig');
     }
 
-    #[Route(path: '/styleguide/react', options: ['expose' => true], name: 'styleguide_react')]
+    #[Route(path: '/styleguide/react', name: 'styleguide_react', options: ['expose' => true])]
     public function styleguideReact(Request  $request): Response
     {
         if($request->isMethod("POST")){
@@ -100,7 +100,7 @@ class AdminController extends AbstractController
         return $this->getRenderView($request, $serializer, Contact::class, 'admin/pages/contact/index.html.twig');
     }
 
-    #[Route(path: '/notifications', options: ['expose' => true], name: 'notifications_index')]
+    #[Route(path: '/notifications', name: 'notifications_index', options: ['expose' => true])]
     public function notifications(SerializerInterface $serializer): Response
     {
         $objs = $this->getAllData(Notification::class, $serializer);
@@ -110,7 +110,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/changelogs', options: ['expose' => true], name: 'changelogs_index')]
+    #[Route(path: '/changelogs', name: 'changelogs_index', options: ['expose' => true])]
     public function changelogs(SerializerInterface $serializer): Response
     {
         $objs = $this->getAllData(Changelog::class, $serializer, User::USER_READ);

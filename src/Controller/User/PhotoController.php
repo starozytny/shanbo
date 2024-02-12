@@ -15,7 +15,7 @@ class PhotoController extends AbstractController
     {
     }
 
-    #[Route(path: '/', options: ['expose' => true], name: 'index')]
+    #[Route(path: '/', name: 'index', options: ['expose' => true])]
     public function albums(): Response
     {
         $em = $this->doctrine->getManager();

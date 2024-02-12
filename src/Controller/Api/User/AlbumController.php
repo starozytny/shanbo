@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route(path: '/api/members/albums', name: 'api_members_albums_')]
@@ -60,20 +59,6 @@ class AlbumController extends AbstractController
         ]);
     }
 
-    /**
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a new object"
-     * )
-     * @OA\Response(
-     *     response=400,
-     *     description="JSON empty or missing data or validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     * @return JsonResponse
-     */
     #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
                            FileUploader $fileUploader, DataAlbum $dataEntity): JsonResponse
@@ -81,20 +66,6 @@ class AlbumController extends AbstractController
         return $this->submitForm("create", new Album(), $request, $apiResponse, $validator, $dataEntity, $fileUploader);
     }
 
-    /**
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns an object"
-     * )
-     * @OA\Response(
-     *     response=400,
-     *     description="Validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     * @return JsonResponse
-     */
     #[Route(path: '/{id}', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ValidatorService $validator, ApiResponse $apiResponse, Album $obj,
                            FileUploader $fileUploader, DataAlbum $dataEntity): JsonResponse
@@ -102,25 +73,6 @@ class AlbumController extends AbstractController
         return $this->submitForm("update", $obj, $request, $apiResponse, $validator, $dataEntity, $fileUploader);
     }
 
-    /**
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     * @OA\Response(
-     *     response=403,
-     *     description="Forbidden for not good role or user",
-     * )
-     *
-     * @OA\Response(
-     *     response=400,
-     *     description="Cannot delete me",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     * @return JsonResponse
-     */
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(ApiResponse $apiResponse, Album $obj, FileUploader $fileUploader): JsonResponse
     {
@@ -132,6 +84,6 @@ class AlbumController extends AbstractController
         $em->flush();
 
         $fileUploader->deleteFile($cover, Album::FOLDER_ALBUMS);
-        return $apiResponse->apiJsonResponseSuccessful("Supression réussie !");
+        return $apiResponse->apiJsonResponseSuccessful("Suppression réussie !");
     }
 }

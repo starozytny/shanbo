@@ -17,37 +17,33 @@ class SecurityController extends AbstractController
     public function __construct(private readonly ManagerRegistry $doctrine)
     {
     }
-    
-    /**
-     * @return Response
-     */
-    #[Route(path: '/login', options: ['expose' => true], name: 'app_login')]
+
+    #[Route(path: '/login', name: 'app_login', options: ['expose' => true])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
          if ($this->getUser()) {
-             if($this->isGranted('ROLE_ADMIN')){
-                 return $this->redirectToRoute('admin_homepage');
-             }
-             if($this->isGranted('ROLE_USER')){
-                 return $this->redirectToRoute('user_homepage');
-             }
+             if($this->isGranted('ROLE_ADMIN')) return $this->redirectToRoute('admin_homepage');
+             if($this->isGranted('ROLE_USER')) return $this->redirectToRoute('user_homepage');
          }
 
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('app/pages/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
     #[Route(path: '/connected', name: 'app_logged')]
-    public function logged(ManagerRegistry $registry): RedirectResponse
+    public function logged(): RedirectResponse
     {
         /** @var User $user */
         $user = $this->getUser();
+        $em = $this->doctrine->getManager();
+
         if ($user) {
-            if($this->isGranted('ROLE_ADMIN')) return $this->redirectToRoute('user_homepage');
+            $user->setLastLogin(new \DateTime());
+            $em->flush();
+
+            if($this->isGranted('ROLE_ADMIN')) return $this->redirectToRoute('admin_homepage');
             if($this->isGranted('ROLE_USER')) return $this->redirectToRoute('user_homepage');
         }
 
@@ -60,11 +56,6 @@ class SecurityController extends AbstractController
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    /**
-     * @param $token
-     * @param $code
-     * @return Response
-     */
     #[Route(path: '/reinitialisation/mot-de-passe/{token}-{code}', name: 'app_password_reinit')]
     public function reinit($token, $code, Expiration $expiration): Response
     {

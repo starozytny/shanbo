@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 #[Route(path: '/api/notifications', name: 'api_notifications_')]
 class NotificationController extends AbstractController
@@ -21,17 +20,6 @@ class NotificationController extends AbstractController
     {
     }
 
-    /**
-     * Get array of notifications
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns array of notifications",
-     * )
-     * @OA\Tag(name="Notification")
-     * @return JsonResponse
-     */
     #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(NotificationRepository $repository, ApiResponse $apiResponse): JsonResponse
     {
@@ -39,36 +27,12 @@ class NotificationController extends AbstractController
         return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
-    /**
-     * Change isSeen to true
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns contact object",
-     * )
-     *
-     * @OA\Tag(name="Notification")
-     * @return JsonResponse
-     */
     #[Route(path: '/{id}/is-seen', name: 'isSeen', options: ['expose' => true], methods: ['POST'])]
     public function isSeen(Notification $obj, DataService $dataService): JsonResponse
     {
         return $dataService->isSeenToTrue($obj);
     }
 
-    /**
-     * Set all to seen
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Notification")
-     * @return JsonResponse
-     */
     #[Route(path: '/all/seen', name: 'isSeen_all', options: ['expose' => true], methods: ['POST'])]
     public function allSeen(NotificationRepository $notificationRepository, ApiResponse $apiResponse): JsonResponse
     {
@@ -85,36 +49,12 @@ class NotificationController extends AbstractController
         return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
-    /**
-     * Delete a notification
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Notification")
-     * @return JsonResponse
-     */
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Notification $obj, DataService $dataService): JsonResponse
     {
         return $dataService->delete($obj);
     }
 
-    /**
-     * Delete a group of message notification
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Notification")
-     * @return JsonResponse
-     */
     #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {

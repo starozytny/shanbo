@@ -29,7 +29,7 @@ class AppController extends AbstractController
         return $this->render('app/pages/legales/mentions.html.twig');
     }
 
-    #[Route(path: '/legales/politique-confidentialite', options: ['expose' => true], name: 'app_politique')]
+    #[Route(path: '/legales/politique-confidentiality', name: 'app_politique', options: ['expose' => true])]
     public function politique(): Response
     {
         return $this->render('app/pages/legales/politique.html.twig');
@@ -50,7 +50,6 @@ class AppController extends AbstractController
     #[Route(path: '/contact', name: 'app_contact')]
     public function contact(): Response
     {
-//        return $this->render('app/pages/contact/index.html.twig');
         return $this->redirectToRoute('app_homepage', ['_fragment' => 'restons-en-contact']);
     }
 

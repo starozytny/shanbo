@@ -14,7 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route(path: '/api/settings', name: 'api_settings_')]
@@ -25,17 +24,6 @@ class SettingsController extends AbstractController
     {
     }
 
-    /**
-     * Get settings data
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns settings",
-     * )
-     * @OA\Tag(name="Settings")
-     * @return JsonResponse
-     */
     #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(ApiResponse $apiResponse, SettingsRepository $repository): JsonResponse
     {
@@ -46,17 +34,6 @@ class SettingsController extends AbstractController
         return $apiResponse->apiJsonResponse($settings, User::VISITOR_READ);
     }
 
-    /**
-     * Update settings data
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns settings",
-     * )
-     * @OA\Tag(name="Settings")
-     * @return JsonResponse
-     */
     #[Route(path: '/update', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ApiResponse $apiResponse, SettingsRepository $repository, ValidatorService $validatorService): JsonResponse
     {
@@ -86,17 +63,6 @@ class SettingsController extends AbstractController
         return $apiResponse->apiJsonResponse($settings, User::VISITOR_READ);
     }
 
-    /**
-     * Test upload
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns settings",
-     * )
-     * @OA\Tag(name="Settings")
-     * @return JsonResponse
-     */
     #[Route(path: '/upload', name: 'test_upload', options: ['expose' => true], methods: ['POST'])]
     public function testUpload(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {

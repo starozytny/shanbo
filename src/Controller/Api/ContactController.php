@@ -18,7 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
 #[Route(path: '/api/contact', name: 'api_contact_')]
 class ContactController extends AbstractController
@@ -29,19 +28,6 @@ class ContactController extends AbstractController
     {
     }
 
-    /**
-     * Admin - Get array of contacts
-     *
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns array of contacts",
-     * )
-     * @OA\Tag(name="Contact")
-     *
-     * @return JsonResponse
-     */
     #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(Request $request, ContactRepository $repository, ApiResponse $apiResponse): JsonResponse
@@ -51,18 +37,6 @@ class ContactController extends AbstractController
         return $apiResponse->apiJsonResponse($objs, User::ADMIN_READ);
     }
 
-    /**
-     * Create a message contact
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a message",
-     * )
-     *
-     * @OA\Tag(name="Contact")
-     * @return JsonResponse
-     */
     #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, NotificationService $notificationService,
                            MailerService $mailerService, SettingsService $settingsService, SanitizeData $sanitizeData): JsonResponse
@@ -89,13 +63,13 @@ class ContactController extends AbstractController
             return $apiResponse->apiJsonResponseValidationFailed($noErrors);
         }
 
-        if($mailerService->sendMail(
-                $settingsService->getEmailContact(),
-                "[" . $settingsService->getWebsiteName() ."] Demande de contact",
-                "Demande de contact réalisé à partir de " . $settingsService->getWebsiteName(),
-                'app/email/contact/contact.html.twig',
-                ['contact' => $obj, 'settings' => $settingsService->getSettings()]
-            ) != true)
+        if(!$mailerService->sendMail(
+            $settingsService->getEmailContact(),
+            "[" . $settingsService->getWebsiteName() . "] Demande de contact",
+            "Demande de contact réalisé à partir de " . $settingsService->getWebsiteName(),
+            'app/email/contact/contact.html.twig',
+            ['contact' => $obj, 'settings' => $settingsService->getSettings()]
+        ))
         {
             return $apiResponse->apiJsonResponseValidationFailed([[
                 'name' => 'message',
@@ -116,20 +90,6 @@ class ContactController extends AbstractController
         return $apiResponse->apiJsonResponseSuccessful("Message envoyé.");
     }
 
-    /**
-     * Admin - Change isSeen to true
-     *
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns contact object",
-     * )
-     *
-     * @OA\Tag(name="Contact")
-     *
-     * @return JsonResponse
-     */
     #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}/is-seen', name: 'isSeen', options: ['expose' => true], methods: ['POST'])]
     public function isSeen(Contact $obj, DataService $dataService): JsonResponse
@@ -137,20 +97,6 @@ class ContactController extends AbstractController
         return $dataService->isSeenToTrue($obj);
     }
 
-    /**
-     * Admin - Delete a message contact
-     *
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Contact")
-     *
-     * @return JsonResponse
-     */
     #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Contact $obj, DataService $dataService): JsonResponse
@@ -158,20 +104,6 @@ class ContactController extends AbstractController
         return $dataService->delete($obj, true);
     }
 
-    /**
-     * Admin - Delete a group of message contact
-     *
-     *
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Contact")
-     *
-     * @return JsonResponse
-     */
     #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse

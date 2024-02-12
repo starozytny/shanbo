@@ -17,7 +17,7 @@ class UserController extends AbstractController
     {
     }
 
-    #[Route(path: '/', options: ['expose' => true], name: 'homepage')]
+    #[Route(path: '/', name: 'homepage', options: ['expose' => true])]
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
@@ -29,7 +29,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/profil', options: ['expose' => true], name: 'profil')]
+    #[Route(path: '/profil', name: 'profil', options: ['expose' => true])]
     public function profil(): Response
     {
         /** @var User $obj */
