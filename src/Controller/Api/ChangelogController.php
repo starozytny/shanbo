@@ -9,7 +9,7 @@ use App\Service\Data\DataChangelog;
 use App\Service\Data\DataService;
 use App\Service\ValidatorService;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
 #[Route(path: '/api/changelogs', name: 'api_changelogs_')]
-#[Security("is_granted('ROLE_ADMIN')")]
+#[IsGranted('ROLE_ADMIN')]
 class ChangelogController extends AbstractController
 {
     public function __construct(private readonly ManagerRegistry $doctrine)

@@ -4,8 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Inform;
 use App\Service\Data\DataService;
-use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,10 +14,6 @@ use OpenApi\Annotations as OA;
 #[Route(path: '/api/inform', name: 'api_inform_')]
 class InformController extends AbstractController
 {
-    public function __construct(private readonly ManagerRegistry $doctrine)
-    {
-    }
-
     /**
      * Admin - Delete a message contact
      *
@@ -33,7 +28,7 @@ class InformController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Inform $obj, DataService $dataService): JsonResponse
     {
@@ -54,7 +49,7 @@ class InformController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {

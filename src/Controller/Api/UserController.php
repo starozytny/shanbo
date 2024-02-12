@@ -14,7 +14,7 @@ use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -48,7 +48,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(ApiResponse $apiResponse, UserRepository $repository): JsonResponse
     {
@@ -133,7 +133,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, UserPasswordHasherInterface $passwordHasher,
                            FileUploader $fileUploader, NotificationService $notificationService, DataUser $dataEntity): JsonResponse
@@ -196,7 +196,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(ApiResponse $apiResponse, User $obj, FileUploader $fileUploader): JsonResponse
     {
@@ -240,7 +240,7 @@ class UserController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteGroup(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {

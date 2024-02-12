@@ -13,7 +13,7 @@ use App\Service\SanitizeData;
 use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ class ContactController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(Request $request, ContactRepository $repository, ApiResponse $apiResponse): JsonResponse
     {
@@ -130,7 +130,7 @@ class ContactController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}/is-seen', name: 'isSeen', options: ['expose' => true], methods: ['POST'])]
     public function isSeen(Contact $obj, DataService $dataService): JsonResponse
     {
@@ -151,7 +151,7 @@ class ContactController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Contact $obj, DataService $dataService): JsonResponse
     {
@@ -172,7 +172,7 @@ class ContactController extends AbstractController
      *
      * @return JsonResponse
      */
-    #[Security("is_granted('ROLE_ADMIN')")]
+    #[IsGranted('ROLE_ADMIN')]
     #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {

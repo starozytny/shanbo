@@ -29,7 +29,6 @@
         "nyholm/psr7": "^1.4",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpoffice/phpspreadsheet": "^1.16",
-        "sensio/framework-extra-bundle": "^6.1",
         "sentry/sentry-symfony": "^4.1",
         "stof/doctrine-extensions-bundle": "^1.5",
         "sybio/image-workshop": "^2.2",
