@@ -16,17 +16,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
-/**
- * @Route("/api/changelogs", name="api_changelogs_")
- * @Security("is_granted('ROLE_ADMIN')")
- */
+#[Route(path: '/api/changelogs', name: 'api_changelogs_')]
+#[Security("is_granted('ROLE_ADMIN')")]
 class ChangelogController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     public function submitForm($type, Changelog $obj, Request $request, ApiResponse $apiResponse,
@@ -53,7 +48,6 @@ class ChangelogController extends AbstractController
     }
 
     /**
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -66,20 +60,15 @@ class ChangelogController extends AbstractController
      * )
      *
      * @OA\Tag(name="Changelogs")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param DataChangelog $dataEntity
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, DataChangelog $dataEntity): JsonResponse
     {
         return $this->submitForm("create", new Changelog(), $request, $apiResponse, $validator, $dataEntity);
     }
 
     /**
-     * @Route("/{id}", name="update", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -95,21 +84,15 @@ class ChangelogController extends AbstractController
      * )
      *
      * @OA\Tag(name="Changelogs")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param Changelog $obj
-     * @param DataChangelog $dataEntity
      * @return JsonResponse
      */
+    #[Route(path: '/{id}', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ValidatorService $validator,  ApiResponse $apiResponse, Changelog $obj, DataChangelog $dataEntity): JsonResponse
     {
         return $this->submitForm("update", $obj, $request, $apiResponse, $validator, $dataEntity);
     }
 
     /**
-     * @Route("/{id}/is-published", name="switch_isPublished", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -117,18 +100,15 @@ class ChangelogController extends AbstractController
      * )
      *
      * @OA\Tag(name="Contact")
-     *
-     * @param Changelog $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/{id}/is-published', name: 'switch_isPublished', options: ['expose' => true], methods: ['POST'])]
     public function switchIsPublished(Changelog $obj, DataService $dataService): JsonResponse
     {
         return $dataService->switchIsPublished($obj, User::USER_READ);
     }
 
     /**
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -140,18 +120,15 @@ class ChangelogController extends AbstractController
      * )
      *
      * @OA\Tag(name="Changelogs")
-     *
-     * @param Changelog $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Changelog $obj, DataService $dataService): JsonResponse
     {
         return $dataService->delete($obj);
     }
 
     /**
-     * @Route("/", name="delete_group", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -168,11 +145,9 @@ class ChangelogController extends AbstractController
      * )
      *
      * @OA\Tag(name="Changelogs")
-     *
-     * @param Request $request
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteGroup(Request $request, DataService $dataService): JsonResponse
     {
         return $dataService->deleteSelected(Changelog::class, json_decode($request->getContent()));

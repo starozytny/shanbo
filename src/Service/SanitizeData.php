@@ -14,7 +14,7 @@ class SanitizeData
     public function fullSanitize($value, $return = null): ?AbstractUnicodeString
     {
         if($value != null){
-            $value = trim($value);
+            $value = trim((string) $value);
             $value = mb_strtolower($value);
             $value = str_replace(" ", "", $value);
 
@@ -47,8 +47,8 @@ class SanitizeData
     {
         if($date != null){
             try {
-                $date = new \DateTime(str_replace('/', '-', $date));
-            } catch (Exception $e) {
+                $date = new \DateTime(str_replace('/', '-', (string) $date));
+            } catch (Exception) {
                 throw new BadRequestException("Erreur dans la création de la date.");
             }
             $date->setTimezone(new \DateTimeZone($timezone));
@@ -62,7 +62,7 @@ class SanitizeData
     public function sanitizeString($value, $return = null): ?string
     {
         if($value != "" && $value != null){
-            $value = trim($value);
+            $value = trim((string) $value);
             return htmlspecialchars($value);
         }
 
@@ -73,7 +73,7 @@ class SanitizeData
     public function trimData($value, $return = null): ?string
     {
         if($value != "" && $value != null){
-            return trim($value);
+            return trim((string) $value);
         }
 
         return $return;

@@ -10,11 +10,8 @@ use App\Service\SanitizeData;
 
 class DataAlbum
 {
-    private $sanitizeData;
-
-    public function __construct(SanitizeData $sanitizeData)
+    public function __construct(private readonly SanitizeData $sanitizeData)
     {
-        $this->sanitizeData = $sanitizeData;
     }
 
     public function setDataAlbum(Album $obj, $data): Album

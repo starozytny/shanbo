@@ -6,51 +6,37 @@ use App\Repository\ChangelogRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=ChangelogRepository::class)
- */
+#[ORM\Entity(repositoryClass: ChangelogRepository::class)]
 class Changelog extends DataEntity
 {
-    const TYPE_INFO = 0;
-    const TYPE_WARNING = 1;
-    const TYPE_DANGER = 2;
+    public const TYPE_INFO = 0;
+    public const TYPE_WARNING = 1;
+    public const TYPE_DANGER = 2;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"user:read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['user:read'])]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['user:read'])]
     private $name;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"user:read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['user:read'])]
     private $type = self::TYPE_INFO;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * @Groups({"user:read"})
-     */
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['user:read'])]
     private $isPublished = false;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     * @Groups({"user:read"})
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['user:read'])]
     private $content;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"user:read"})
-     */
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(['user:read'])]
     private $createdAt;
 
     public function __construct()
@@ -125,8 +111,8 @@ class Changelog extends DataEntity
 
     /**
      * @return string|null
-     * @Groups({"user:read"})
      */
+    #[Groups(['user:read'])]
     public function getTypeString(): ?string
     {
         $values = ["Information", "Attention", "Danger"];
@@ -137,8 +123,8 @@ class Changelog extends DataEntity
 
     /**
      * @return string|null
-     * @Groups({"user:read"})
      */
+    #[Groups(['user:read'])]
     public function getTypeIcon(): ?string
     {
         $values = ["exclamation", "warning", "warning"];
@@ -148,8 +134,8 @@ class Changelog extends DataEntity
 
     /**
      * @return string|null
-     * @Groups({"user:read"})
      */
+    #[Groups(['user:read'])]
     public function getCreatedAtString(): ?string
     {
         return $this->getFullDateString($this->createdAt, 'llll');

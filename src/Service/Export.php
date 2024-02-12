@@ -16,18 +16,15 @@ use Symfony\Component\Routing\RouterInterface;
 
 class Export
 {
-    protected $privateDirectory;
     protected $router;
     protected $em;
 
-    public function __construct($privateDirectory, RouterInterface $router, EntityManagerInterface $em)
+    public function __construct(protected $privateDirectory, RouterInterface $router, EntityManagerInterface $em)
     {
-        $this->privateDirectory = $privateDirectory;
-
         $this->router = $router;
         $this->em = $em;
 
-        $this->createFolderIfNotExist($privateDirectory);
+        $this->createFolderIfNotExist($this->privateDirectory);
     }
 
     protected function setEmptyIfNull($val): string
@@ -54,10 +51,7 @@ class Export
         try {
             $sheet = $spreadsheet->getActiveSheet();
         } catch (\Exception $e) {
-            return new JsonResponse(array(
-                'code' => 0,
-                'message' => 'Try catch active sheet : ' . $e
-            ));
+            return new JsonResponse(['code' => 0, 'message' => 'Try catch active sheet : ' . $e]);
         }
 
         $sheet->setTitle($title);
@@ -82,27 +76,15 @@ class Export
         try {
             $writer->save($file);
         } catch (Exception $e) {
-            return new JsonResponse(array(
-                'code' => 0,
-                'message' => 'Try catch save : ' . $e
-            ));
+            return new JsonResponse(['code' => 0, 'message' => 'Try catch save : ' . $e]);
         }
 
         // Return a text response to the browser saying that the excel was succesfully created
-        return new JsonResponse(array(
-            'code' => 1,
-            'message' => 'Fichier généré.'
-        ));
+        return new JsonResponse(['code' => 1, 'message' => 'Fichier généré.']);
     }
 
     protected function fill($data, $max, $sheet, $begin){
-        $letters = array(
-            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-            'AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ',
-            'BA', 'BB', 'BC','BD','BE','BF','BG','BH','BI','BJ','BK','BL','BM','BN','BO','BP','BQ','BR','BS','BT','BU','BV','BW','BX','BY','BZ',
-            'CA', 'CB', 'CC','CD','CE','CF','CG','CH','CI','CBJ','CK','CL','CM','CN','CO','CP','CQ','CR','CS','CT','CU','CV','CW','CX','CY','CZ',
-            'DA', 'DB', 'DC','DD','DE','DF','DG','DH','DI','DJ','DK','DL','DM','DN','DO','DP','DQ','DR','DS','DT','DU','DV','DW','DX','DY','DZ',
-        );
+        $letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ', 'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM', 'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ', 'CA', 'CB', 'CC', 'CD', 'CE', 'CF', 'CG', 'CH', 'CI', 'CBJ', 'CK', 'CL', 'CM', 'CN', 'CO', 'CP', 'CQ', 'CR', 'CS', 'CT', 'CU', 'CV', 'CW', 'CX', 'CY', 'CZ', 'DA', 'DB', 'DC', 'DD', 'DE', 'DF', 'DG', 'DH', 'DI', 'DJ', 'DK', 'DL', 'DM', 'DN', 'DO', 'DP', 'DQ', 'DR', 'DS', 'DT', 'DU', 'DV', 'DW', 'DX', 'DY', 'DZ'];
 
         // DATA
         $styleArray = [

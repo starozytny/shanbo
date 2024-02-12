@@ -16,15 +16,10 @@ class FakeContactCreateCommand extends Command
 {
     protected static $defaultName = 'fake:contact:create';
     protected static $defaultDescription = 'Create fake contacts';
-    private $em;
-    private $databaseService;
 
-    public function __construct(EntityManagerInterface $entityManager, DatabaseService $databaseService)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly DatabaseService $databaseService)
     {
         parent::__construct();
-
-        $this->em = $entityManager;
-        $this->databaseService = $databaseService;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

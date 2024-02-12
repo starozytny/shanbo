@@ -7,45 +7,31 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=PhotoRepository::class)
- */
+#[ORM\Entity(repositoryClass: PhotoRepository::class)]
 class Photo extends DataEntity
 {
-    const FOLDER_PHOTOS = 'albums/photos/originaux';
-    const FOLDER_THUMBS = 'albums/photos/thumbs';
-    const FOLDER_LIGHTS = 'albums/photos/lights';
+    public const FOLDER_PHOTOS = 'albums/photos/originaux';
+    public const FOLDER_THUMBS = 'albums/photos/thumbs';
+    public const FOLDER_LIGHTS = 'albums/photos/lights';
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $filename;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $content;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateAt;
 
-    /**
-     * @ORM\OneToMany(targetEntity=GroupPhotos::class, mappedBy="photo", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: GroupPhotos::class, mappedBy: 'photo', orphanRemoval: true)]
     private $groupPhotos;
 
     public function __construct()

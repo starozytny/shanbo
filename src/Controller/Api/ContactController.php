@@ -20,26 +20,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
-/**
- * @Route("/api/contact", name="api_contact_")
- */
+#[Route(path: '/api/contact', name: 'api_contact_')]
 class ContactController extends AbstractController
 {
-    const ICON = "chat-2";
+    public const ICON = "chat-2";
 
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     /**
      * Admin - Get array of contacts
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/", name="index", options={"expose"=true}, methods={"GET"})
      *
      * @OA\Response(
      *     response=200,
@@ -47,11 +40,10 @@ class ContactController extends AbstractController
      * )
      * @OA\Tag(name="Contact")
      *
-     * @param Request $request
-     * @param ContactRepository $repository
-     * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(Request $request, ContactRepository $repository, ApiResponse $apiResponse): JsonResponse
     {
         $order = $request->query->get('order') ?: 'ASC';
@@ -62,7 +54,6 @@ class ContactController extends AbstractController
     /**
      * Create a message contact
      *
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -70,16 +61,9 @@ class ContactController extends AbstractController
      * )
      *
      * @OA\Tag(name="Contact")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param NotificationService $notificationService
-     * @param MailerService $mailerService
-     * @param SettingsService $settingsService
-     * @param SanitizeData $sanitizeData
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, NotificationService $notificationService,
                            MailerService $mailerService, SettingsService $settingsService, SanitizeData $sanitizeData): JsonResponse
     {
@@ -135,9 +119,7 @@ class ContactController extends AbstractController
     /**
      * Admin - Change isSeen to true
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/{id}/is-seen", name="isSeen", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -146,10 +128,10 @@ class ContactController extends AbstractController
      *
      * @OA\Tag(name="Contact")
      *
-     * @param Contact $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/{id}/is-seen', name: 'isSeen', options: ['expose' => true], methods: ['POST'])]
     public function isSeen(Contact $obj, DataService $dataService): JsonResponse
     {
         return $dataService->isSeenToTrue($obj);
@@ -158,9 +140,7 @@ class ContactController extends AbstractController
     /**
      * Admin - Delete a message contact
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -169,10 +149,10 @@ class ContactController extends AbstractController
      *
      * @OA\Tag(name="Contact")
      *
-     * @param Contact $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Contact $obj, DataService $dataService): JsonResponse
     {
         return $dataService->delete($obj, true);
@@ -181,9 +161,7 @@ class ContactController extends AbstractController
     /**
      * Admin - Delete a group of message contact
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/", name="delete_group", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -192,10 +170,10 @@ class ContactController extends AbstractController
      *
      * @OA\Tag(name="Contact")
      *
-     * @param Request $request
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {
         return $dataService->deleteSelected(Contact::class, json_decode($request->getContent()));

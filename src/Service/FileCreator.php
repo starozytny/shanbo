@@ -14,13 +14,8 @@ use Twig\Error\SyntaxError;
 
 class FileCreator
 {
-    private $pdfStyleDirectory;
-    private $twig;
-
-    public function __construct($pdfStyleDirectory, Environment $twig)
+    public function __construct(private $pdfStyleDirectory, private readonly Environment $twig)
     {
-        $this->pdfStyleDirectory = $pdfStyleDirectory;
-        $this->twig = $twig;
     }
 
     /**
@@ -59,9 +54,7 @@ class FileCreator
         $mpdf = $this->addCustomStyle($mpdf, 'bootstrap.min.css');
         $mpdf = $this->addCustomStyle($mpdf, 'custom-pdf.css');
 
-        $mpdf->SetProtection(array(
-            'print'
-        ),'', $password);
+        $mpdf->SetProtection(['print'],'', $password);
 
         return $mpdf;
     }

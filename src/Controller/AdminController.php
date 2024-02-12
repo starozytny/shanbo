@@ -16,16 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/admin", name="admin_")
- */
+#[Route(path: '/admin', name: 'admin_')]
 class AdminController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     private function getAllData($classe, SerializerInterface $serializer, $groups = User::ADMIN_READ): string
@@ -52,9 +47,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/", options={"expose"=true}, name="homepage")
-     */
+    #[Route(path: '/', options: ['expose' => true], name: 'homepage')]
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
@@ -74,17 +67,13 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/styleguide/html", name="styleguide_html")
-     */
+    #[Route(path: '/styleguide/html', name: 'styleguide_html')]
     public function styleguideHtml(): Response
     {
         return $this->render('admin/pages/styleguide/index.html.twig');
     }
 
-    /**
-     * @Route("/styleguide/react", options={"expose"=true}, name="styleguide_react")
-     */
+    #[Route(path: '/styleguide/react', options: ['expose' => true], name: 'styleguide_react')]
     public function styleguideReact(Request  $request): Response
     {
         if($request->isMethod("POST")){
@@ -93,33 +82,25 @@ class AdminController extends AbstractController
         return $this->render('admin/pages/styleguide/react.html.twig');
     }
 
-    /**
-     * @Route("/utilisateurs", name="users_index")
-     */
+    #[Route(path: '/utilisateurs', name: 'users_index')]
     public function users(Request $request, SerializerInterface $serializer): Response
     {
         return $this->getRenderView($request, $serializer, User::class, 'admin/pages/user/index.html.twig');
     }
 
-    /**
-     * @Route("/parametres", name="settings_index")
-     */
+    #[Route(path: '/parametres', name: 'settings_index')]
     public function settings(): Response
     {
         return $this->render('admin/pages/settings/index.html.twig');
     }
 
-    /**
-     * @Route("/contact", name="contact_index")
-     */
+    #[Route(path: '/contact', name: 'contact_index')]
     public function contact(Request $request, SerializerInterface $serializer): Response
     {
         return $this->getRenderView($request, $serializer, Contact::class, 'admin/pages/contact/index.html.twig');
     }
 
-    /**
-     * @Route("/notifications", options={"expose"=true}, name="notifications_index")
-     */
+    #[Route(path: '/notifications', options: ['expose' => true], name: 'notifications_index')]
     public function notifications(SerializerInterface $serializer): Response
     {
         $objs = $this->getAllData(Notification::class, $serializer);
@@ -129,9 +110,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/changelogs", options={"expose"=true}, name="changelogs_index")
-     */
+    #[Route(path: '/changelogs', options: ['expose' => true], name: 'changelogs_index')]
     public function changelogs(SerializerInterface $serializer): Response
     {
         $objs = $this->getAllData(Changelog::class, $serializer, User::USER_READ);
@@ -141,9 +120,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/rester-informe", name="stay_touch_index")
-     */
+    #[Route(path: '/rester-informe', name: 'stay_touch_index')]
     public function inform(Request $request, SerializerInterface $serializer): Response
     {
         return $this->getRenderView($request, $serializer, Inform::class, 'admin/pages/inform/index.html.twig');

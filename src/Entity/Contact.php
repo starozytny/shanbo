@@ -7,51 +7,37 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=ContactRepository::class)
- */
+#[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact extends DataEntity
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"admin:read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['admin:read'])]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['admin:read'])]
+    #[Assert\NotBlank]
     private $name;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     * @Assert\Email()
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['admin:read'])]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private $email;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'text')]
+    #[Groups(['admin:read'])]
+    #[Assert\NotBlank]
     private $message;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank()
-     */
+    #[ORM\Column(type: 'datetime')]
+    #[Assert\NotBlank]
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * @Groups({"admin:read"})
-     */
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['admin:read'])]
     private $isSeen = false;
 
     public function __construct()
@@ -116,8 +102,8 @@ class Contact extends DataEntity
      * How long ago a user was added.
      *
      * @return string
-     * @Groups({"admin:read"})
      */
+    #[Groups(['admin:read'])]
     public function getCreatedAtAgo(): string
     {
         return $this->getHowLongAgo($this->createdAt);

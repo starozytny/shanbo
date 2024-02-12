@@ -12,11 +12,10 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ApiConnect
 {
-    private $api_immo; //scope client
+    //scope client
 
-    public function __construct(HttpClientInterface $api_immo)
+    public function __construct(private readonly HttpClientInterface $api_immo)
     {
-        $this->api_immo = $api_immo;
     }
 
     /**

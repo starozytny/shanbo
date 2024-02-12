@@ -8,37 +8,27 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=GroupRepository::class)
- * @ORM\Table(name="`group`")
- */
+#[ORM\Table(name: '`group`')]
+#[ORM\Entity(repositoryClass: GroupRepository::class)]
 class Group
 {
-    const GROUP_REAAD = ['grp:read'];
+    public const GROUP_REAAD = ['grp:read'];
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"grp:read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['grp:read'])]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"grp:read"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['grp:read'])]
     private $name;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Album::class, inversedBy="groups")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: Album::class, inversedBy: 'groups')]
+    #[ORM\JoinColumn(nullable: false)]
     private $album;
 
-    /**
-     * @ORM\OneToMany(targetEntity=GroupPhotos::class, mappedBy="grp", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: GroupPhotos::class, mappedBy: 'grp', orphanRemoval: true)]
     private $groupPhotos;
 
     public function __construct()

@@ -12,24 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
-/**
- * @Route("/api/inform", name="api_inform_")
- */
+#[Route(path: '/api/inform', name: 'api_inform_')]
 class InformController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     /**
      * Admin - Delete a message contact
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -38,10 +31,10 @@ class InformController extends AbstractController
      *
      * @OA\Tag(name="Inform")
      *
-     * @param Inform $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Inform $obj, DataService $dataService): JsonResponse
     {
         return $dataService->delete($obj);
@@ -50,9 +43,7 @@ class InformController extends AbstractController
     /**
      * Admin - Delete a group of message contact
      *
-     * @Security("is_granted('ROLE_ADMIN')")
      *
-     * @Route("/", name="delete_group", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -61,10 +52,10 @@ class InformController extends AbstractController
      *
      * @OA\Tag(name="Inform")
      *
-     * @param Request $request
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Security("is_granted('ROLE_ADMIN')")]
+    #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {
         return $dataService->deleteSelected(Inform::class, json_decode($request->getContent()));

@@ -16,17 +16,10 @@ class FakeChangelogCreateCommand extends Command
 {
     protected static $defaultName = 'fake:changelog:create';
     protected static $defaultDescription = 'Create fake changelogs';
-    private $em;
-    private $databaseService;
-    private $dataChangelog;
 
-    public function __construct(EntityManagerInterface $entityManager, DatabaseService $databaseService, DataChangelog $dataChangelog)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly DatabaseService $databaseService, private readonly DataChangelog $dataChangelog)
     {
         parent::__construct();
-
-        $this->em = $entityManager;
-        $this->databaseService = $databaseService;
-        $this->dataChangelog = $dataChangelog;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

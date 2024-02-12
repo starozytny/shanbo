@@ -16,15 +16,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class AdminUsersCreateCommand extends Command
 {
     protected static $defaultName = 'admin:users:create';
-    private $em;
-    private $databaseService;
 
-    public function __construct(EntityManagerInterface $entityManager, DatabaseService $databaseService)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly DatabaseService $databaseService)
     {
         parent::__construct();
-
-        $this->em = $entityManager;
-        $this->databaseService = $databaseService;
     }
 
     protected function configure()
@@ -42,29 +37,25 @@ class AdminUsersCreateCommand extends Command
         $io->title('Reset des tables');
         $this->databaseService->resetTable($io, [Notification::class, User::class]);
 
-        $users = array(
-            [
-                'username' => 'shanbo',
-                'firstname' => 'Dev',
-                'lastname' => 'Shanbora',
-                'email' => 'chanbora.chhun@outlook.fr',
-                'roles' => ['ROLE_USER','ROLE_ADMIN', 'ROLE_DEVELOPER']
-            ],
-            [
-                'username' => 'staro',
-                'firstname' => 'Admin',
-                'lastname' => 'Starozytny',
-                'email' => 'starozytny@hotmail.fr',
-                'roles' => ['ROLE_USER','ROLE_ADMIN']
-            ],
-            [
-                'username' => 'shanks',
-                'firstname' => 'User',
-                'lastname' => 'Shanks',
-                'email' => 'shanks@hotmail.fr',
-                'roles' => ['ROLE_USER']
-            ]
-        );
+        $users = [[
+            'username' => 'shanbo',
+            'firstname' => 'Dev',
+            'lastname' => 'Shanbora',
+            'email' => 'chanbora.chhun@outlook.fr',
+            'roles' => ['ROLE_USER','ROLE_ADMIN', 'ROLE_DEVELOPER']
+        ], [
+            'username' => 'staro',
+            'firstname' => 'Admin',
+            'lastname' => 'Starozytny',
+            'email' => 'starozytny@hotmail.fr',
+            'roles' => ['ROLE_USER','ROLE_ADMIN']
+        ], [
+            'username' => 'shanks',
+            'firstname' => 'User',
+            'lastname' => 'Shanks',
+            'email' => 'shanks@hotmail.fr',
+            'roles' => ['ROLE_USER']
+        ]];
 
         $password = password_hash("azerty", PASSWORD_ARGON2I);
 

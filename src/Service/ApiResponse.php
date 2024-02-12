@@ -9,11 +9,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ApiResponse
 {
-    private $serializer;
-
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(private readonly SerializerInterface $serializer)
     {
-        $this->serializer = $serializer;
     }
 
     public function apiJsonResponse($data, $groups = [], $code = 200): JsonResponse
@@ -39,21 +36,21 @@ class ApiResponse
 
     public function apiJsonResponseSuccessful($message): JsonResponse
     {
-        return new JsonResponse(['message' => $message], 200);
+        return new JsonResponse(['message' => $message], \Symfony\Component\HttpFoundation\Response::HTTP_OK);
     }
 
     public function apiJsonResponseBadRequest($message): JsonResponse
     {
-        return new JsonResponse(['message' => $message], 400);
+        return new JsonResponse(['message' => $message], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     }
 
     public function apiJsonResponseForbidden(): JsonResponse
     {
-        return new JsonResponse(['message' => 'Vous n\'êtes pas autorisé à réaliser cette action.'], 403);
+        return new JsonResponse(['message' => 'Vous n\'êtes pas autorisé à réaliser cette action.'], \Symfony\Component\HttpFoundation\Response::HTTP_FORBIDDEN);
     }
 
     public function apiJsonResponseValidationFailed($errors): JsonResponse
     {
-        return new JsonResponse($errors, 400);
+        return new JsonResponse($errors, \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
     }
 }

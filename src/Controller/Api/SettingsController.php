@@ -17,34 +17,26 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @Route("/api/settings", name="api_settings_")
- * @Security("is_granted('ROLE_ADMIN')")
- */
+#[Route(path: '/api/settings', name: 'api_settings_')]
+#[Security("is_granted('ROLE_ADMIN')")]
 class SettingsController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     /**
      * Get settings data
      *
-     * @Route("/", name="index", options={"expose"=true}, methods={"GET"})
      *
      * @OA\Response(
      *     response=200,
      *     description="Returns settings",
      * )
      * @OA\Tag(name="Settings")
-     *
-     * @param ApiResponse $apiResponse
-     * @param SettingsRepository $repository
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(ApiResponse $apiResponse, SettingsRepository $repository): JsonResponse
     {
         $settings = $repository->findAll();
@@ -57,20 +49,15 @@ class SettingsController extends AbstractController
     /**
      * Update settings data
      *
-     * @Route("/update", name="update", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
      *     description="Returns settings",
      * )
      * @OA\Tag(name="Settings")
-     *
-     * @param Request $request
-     * @param ApiResponse $apiResponse
-     * @param SettingsRepository $repository
-     * @param ValidatorService $validatorService
      * @return JsonResponse
      */
+    #[Route(path: '/update', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ApiResponse $apiResponse, SettingsRepository $repository, ValidatorService $validatorService): JsonResponse
     {
         $em = $this->doctrine->getManager();
@@ -102,19 +89,15 @@ class SettingsController extends AbstractController
     /**
      * Test upload
      *
-     * @Route("/upload", name="test_upload", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
      *     description="Returns settings",
      * )
      * @OA\Tag(name="Settings")
-     *
-     * @param Request $request
-     * @param ApiResponse $apiResponse
-     * @param FileUploader $fileUploader
      * @return JsonResponse
      */
+    #[Route(path: '/upload', name: 'test_upload', options: ['expose' => true], methods: ['POST'])]
     public function testUpload(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {
         $file = $request->files->get('avatar');

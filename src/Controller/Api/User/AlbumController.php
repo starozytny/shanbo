@@ -15,23 +15,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @Route("/api/members/albums", name="api_members_albums_")
- */
+#[Route(path: '/api/members/albums', name: 'api_members_albums_')]
 class AlbumController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     public function submitForm($type, Album $obj, Request $request, ApiResponse $apiResponse,
                                ValidatorService $validator, DataAlbum $dataEntity, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();
-        $data = json_decode($request->get('data'));
+        $data = json_decode((string) $request->get('data'));
 
         if ($data === null) {
             return $apiResponse->apiJsonResponseBadRequest('Les données sont vides.');
@@ -66,7 +61,6 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -78,14 +72,9 @@ class AlbumController extends AbstractController
      * )
      *
      * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param FileUploader $fileUploader
-     * @param DataAlbum $dataEntity
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
                            FileUploader $fileUploader, DataAlbum $dataEntity): JsonResponse
     {
@@ -93,7 +82,6 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="update", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -105,15 +93,9 @@ class AlbumController extends AbstractController
      * )
      *
      * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param Album $obj
-     * @param FileUploader $fileUploader
-     * @param DataAlbum $dataEntity
      * @return JsonResponse
      */
+    #[Route(path: '/{id}', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ValidatorService $validator, ApiResponse $apiResponse, Album $obj,
                            FileUploader $fileUploader, DataAlbum $dataEntity): JsonResponse
     {
@@ -121,7 +103,6 @@ class AlbumController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -138,12 +119,9 @@ class AlbumController extends AbstractController
      * )
      *
      * @OA\Tag(name="Users")
-     *
-     * @param ApiResponse $apiResponse
-     * @param Album $obj
-     * @param FileUploader $fileUploader
      * @return JsonResponse
      */
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(ApiResponse $apiResponse, Album $obj, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();

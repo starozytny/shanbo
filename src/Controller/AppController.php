@@ -13,73 +13,54 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AppController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/", name="app_homepage")
-     */
+    #[Route(path: '/', name: 'app_homepage')]
     public function index(): Response
     {
         return $this->render('app/pages/index.html.twig');
     }
 
-    /**
-     * @Route("/legales/mentions-legales", name="app_mentions")
-     */
+    #[Route(path: '/legales/mentions-legales', name: 'app_mentions')]
     public function mentions(): Response
     {
         return $this->render('app/pages/legales/mentions.html.twig');
     }
 
-    /**
-     * @Route("/legales/politique-confidentialite", options={"expose"=true}, name="app_politique")
-     */
+    #[Route(path: '/legales/politique-confidentialite', options: ['expose' => true], name: 'app_politique')]
     public function politique(): Response
     {
         return $this->render('app/pages/legales/politique.html.twig');
     }
 
-    /**
-     * @Route("/legales/cookies", name="app_cookies")
-     */
+    #[Route(path: '/legales/cookies', name: 'app_cookies')]
     public function cookies(): Response
     {
         return $this->render('app/pages/legales/cookies.html.twig');
     }
 
-    /**
-     * @Route("/legales/rgpd", name="app_rgpd")
-     */
+    #[Route(path: '/legales/rgpd', name: 'app_rgpd')]
     public function rgpd(): Response
     {
         return $this->render('app/pages/legales/rgpd.html.twig');
     }
 
-    /**
-     * @Route("/contact", name="app_contact")
-     */
+    #[Route(path: '/contact', name: 'app_contact')]
     public function contact(): Response
     {
 //        return $this->render('app/pages/contact/index.html.twig');
         return $this->redirectToRoute('app_homepage', ['_fragment' => 'restons-en-contact']);
     }
 
-    /**
-     * @Route("/nous-contacter", name="app_contact_old")
-     */
+    #[Route(path: '/nous-contacter', name: 'app_contact_old')]
     public function contactOld(): Response
     {
         return $this->redirectToRoute('app_homepage', ['_fragment' => 'restons-en-contact']);
     }
 
-    /**
-     * @Route("/rester-informer", name="app_stay_touch")
-     */
+    #[Route(path: '/rester-informer', name: 'app_stay_touch')]
     public function inform(Request $request): RedirectResponse
     {
         if($request->isMethod("POST")){
@@ -104,9 +85,7 @@ class AppController extends AbstractController
         return $this->redirectToRoute('app_homepage');
     }
 
-    /**
-     * @Route("/photos", name="app_photos")
-     */
+    #[Route(path: '/photos', name: 'app_photos')]
     public function photos(PhotoRepository $repository): Response
     {
         return $this->render('app/pages/photos/index.html.twig', [

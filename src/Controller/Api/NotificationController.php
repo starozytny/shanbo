@@ -14,33 +14,25 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Annotations as OA;
 
-/**
- * @Route("/api/notifications", name="api_notifications_")
- */
+#[Route(path: '/api/notifications', name: 'api_notifications_')]
 class NotificationController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     /**
      * Get array of notifications
      *
-     * @Route("/", name="index", options={"expose"=true}, methods={"GET"})
      *
      * @OA\Response(
      *     response=200,
      *     description="Returns array of notifications",
      * )
      * @OA\Tag(name="Notification")
-     *
-     * @param NotificationRepository $repository
-     * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(NotificationRepository $repository, ApiResponse $apiResponse): JsonResponse
     {
         $objs = $repository->findAll();
@@ -50,7 +42,6 @@ class NotificationController extends AbstractController
     /**
      * Change isSeen to true
      *
-     * @Route("/{id}/is-seen", name="isSeen", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -58,11 +49,9 @@ class NotificationController extends AbstractController
      * )
      *
      * @OA\Tag(name="Notification")
-     *
-     * @param Notification $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/{id}/is-seen', name: 'isSeen', options: ['expose' => true], methods: ['POST'])]
     public function isSeen(Notification $obj, DataService $dataService): JsonResponse
     {
         return $dataService->isSeenToTrue($obj);
@@ -71,7 +60,6 @@ class NotificationController extends AbstractController
     /**
      * Set all to seen
      *
-     * @Route("/all/seen", name="isSeen_all", options={"expose"=true}, methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
@@ -79,11 +67,9 @@ class NotificationController extends AbstractController
      * )
      *
      * @OA\Tag(name="Notification")
-     *
-     * @param NotificationRepository $notificationRepository
-     * @param ApiResponse $apiResponse
      * @return JsonResponse
      */
+    #[Route(path: '/all/seen', name: 'isSeen_all', options: ['expose' => true], methods: ['POST'])]
     public function allSeen(NotificationRepository $notificationRepository, ApiResponse $apiResponse): JsonResponse
     {
         $em = $this->doctrine->getManager();
@@ -102,7 +88,6 @@ class NotificationController extends AbstractController
     /**
      * Delete a notification
      *
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -110,11 +95,9 @@ class NotificationController extends AbstractController
      * )
      *
      * @OA\Tag(name="Notification")
-     *
-     * @param Notification $obj
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(Notification $obj, DataService $dataService): JsonResponse
     {
         return $dataService->delete($obj);
@@ -123,7 +106,6 @@ class NotificationController extends AbstractController
     /**
      * Delete a group of message notification
      *
-     * @Route("/", name="delete_group", options={"expose"=true}, methods={"DELETE"})
      *
      * @OA\Response(
      *     response=200,
@@ -131,11 +113,9 @@ class NotificationController extends AbstractController
      * )
      *
      * @OA\Tag(name="Notification")
-     *
-     * @param Request $request
-     * @param DataService $dataService
      * @return JsonResponse
      */
+    #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteSelected(Request $request, DataService $dataService): JsonResponse
     {
         return $dataService->deleteSelected(Notification::class, json_decode($request->getContent()));

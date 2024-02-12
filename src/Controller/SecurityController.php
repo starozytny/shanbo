@@ -14,18 +14,14 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
     
     /**
-     * @Route("/login", options={"expose"=true}, name="app_login")
-     * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
+    #[Route(path: '/login', options: ['expose' => true], name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
          if ($this->getUser()) {
@@ -45,9 +41,7 @@ class SecurityController extends AbstractController
         return $this->render('app/pages/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    /**
-     * @Route("/connected", name="app_logged")
-     */
+    #[Route(path: '/connected', name: 'app_logged')]
     public function logged(ManagerRegistry $registry): RedirectResponse
     {
         /** @var User $user */
@@ -60,21 +54,18 @@ class SecurityController extends AbstractController
         return $this->redirectToRoute('app_login');
     }
 
-    /**
-     * @Route("/logout", name="app_logout")
-     */
-    public function logout()
+    #[Route(path: '/logout', name: 'app_logout')]
+    public function logout(): never
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
     /**
-     * @Route("/reinitialisation/mot-de-passe/{token}-{code}", name="app_password_reinit")
      * @param $token
      * @param $code
-     * @param Expiration $expiration
      * @return Response
      */
+    #[Route(path: '/reinitialisation/mot-de-passe/{token}-{code}', name: 'app_password_reinit')]
     public function reinit($token, $code, Expiration $expiration): Response
     {
         $em = $this->doctrine->getManager();

@@ -52,7 +52,6 @@ class DataEntity
      * return LLLL -> 5 janvier 2017 00:00
      *
      * @param $date
-     * @param string $format
      * @return string|null
      */
     public function getFullDateString($date, string $format = "ll"): ?string
@@ -133,7 +132,7 @@ class DataEntity
      */
     public function cryptBank($action, $data)
     {
-        $data = trim($data);
+        $data = trim((string) $data);
         $data = preg_replace('/\s+/', '', $data);
 
         $method = 'aes-256-cbc';
@@ -144,14 +143,14 @@ class DataEntity
         if ($action == 'encrypt') {
             return base64_encode(openssl_encrypt($data, $method, $passBank, OPENSSL_RAW_DATA, $iv));
         } elseif ($action == 'decrypt') {
-            return openssl_decrypt(base64_decode($data), $method, $passBank, OPENSSL_RAW_DATA, $iv);
+            return openssl_decrypt(base64_decode((string) $data), $method, $passBank, OPENSSL_RAW_DATA, $iv);
         }
     }
 
     public function toFormatIbanHidden($value): ?string
     {
         if($value != "" && $value != null){
-            $value = trim($value);
+            $value = trim((string) $value);
             $value = str_replace(" ", "", $value);
 
             $a = substr($value,0,4);

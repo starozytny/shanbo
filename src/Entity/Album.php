@@ -9,59 +9,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=AlbumRepository::class)
- */
+#[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album extends DataEntity
 {
-    const FOLDER_ALBUMS = 'albums';
+    public const FOLDER_ALBUMS = 'albums';
 
-    const ALBUMS_READ = ['album:read'];
+    public const ALBUMS_READ = ['album:read'];
 
-    const ACCESS_PRIVATE = 0;
-    const ACCESS_PUBLIC = 1;
+    public const ACCESS_PRIVATE = 0;
+    public const ACCESS_PUBLIC = 1;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"album:read"})
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['album:read'])]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"album:read"})
-     */
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['album:read'])]
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, unique=true)
      * @Gedmo\Slug(updatable=true, fields={"name"})
      */
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $slug;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"album:read"})
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['album:read'])]
     private $cover;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"album:read"})
-     */
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['album:read'])]
     private $access = self::ACCESS_PUBLIC;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="albums")
-     * @ORM\JoinColumn(nullable=false)
-     */
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'albums')]
+    #[ORM\JoinColumn(nullable: false)]
     private $user;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="album", orphanRemoval=true)
-     */
+    #[ORM\OneToMany(targetEntity: Group::class, mappedBy: 'album', orphanRemoval: true)]
     private $groups;
 
     public function __construct()
