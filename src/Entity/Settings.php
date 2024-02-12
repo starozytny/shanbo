@@ -7,59 +7,43 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=SettingsRepository::class)
- */
+#[ORM\Entity(repositoryClass: SettingsRepository::class)]
 class Settings
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"visitor:read"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['visitor:read'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"visitor:read"})
-     * @Assert\NotBlank()
-     */
-    private $websiteName;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $websiteName = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     */
-    private $urlHomepage;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    private ?string $urlHomepage = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"visitor:read"})
-     * @Assert\NotBlank()
-     */
-    private $emailGlobal;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $emailGlobal = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"visitor:read"})
-     * @Assert\NotBlank()
-     */
-    private $emailContact;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $emailContact = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"visitor:read"})
-     * @Assert\NotBlank()
-     */
-    private $emailRgpd;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $emailRgpd = null;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Groups({"visitor:read"})
-     * @Assert\NotBlank()
-     */
-    private $logoMail;
+    #[ORM\Column(type: 'text')]
+    #[Groups(['visitor:read'])]
+    #[Assert\NotBlank]
+    private ?string $logoMail = null;
 
     public function getId(): ?int
     {

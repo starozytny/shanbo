@@ -14,49 +14,28 @@ use App\Service\SettingsService;
 use App\Service\ValidatorService;
 use DateTime;
 use Doctrine\Persistence\ManagerRegistry;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-/**
- * @Route("/api/users", name="api_users_")
- */
+#[Route(path: '/api/users', name: 'api_users_')]
 class UserController extends AbstractController
 {
-    const FOLDER_AVATARS = User::FOLDER_AVATARS;
+    public const FOLDER_AVATARS = User::FOLDER_AVATARS;
 
-    const ICON = "user";
+    public const ICON = "user";
 
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
-    /**
-     * Admin - Get array of users
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @Route("/", name="index", options={"expose"=true}, methods={"GET"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns array"
-     * )
-     * @OA\Tag(name="Users")
-     *
-     * @param ApiResponse $apiResponse
-     * @param UserRepository $repository
-     * @return JsonResponse
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route(path: '/', name: 'index', options: ['expose' => true], methods: ['GET'])]
     public function index(ApiResponse $apiResponse, UserRepository $repository): JsonResponse
     {
         return $apiResponse->apiJsonResponse($repository->findAll(), User::ADMIN_READ);
@@ -68,7 +47,7 @@ class UserController extends AbstractController
                                NotificationService $notificationService): JsonResponse
     {
         $em = $this->doctrine->getManager();
-        $data = json_decode($request->get('data'));
+        $data = json_decode((string) $request->get('data'));
 
         if ($data === null) {
             return $apiResponse->apiJsonResponseBadRequest('Les données sont vides.');
@@ -121,70 +100,19 @@ class UserController extends AbstractController
         return $apiResponse->apiJsonResponse($obj, $groups);
     }
 
-    /**
-     * Admin - Create a user
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a new object"
-     * )
-     *
-     * @OA\Response(
-     *     response=400,
-     *     description="JSON empty or missing data or validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param FileUploader $fileUploader
-     * @param NotificationService $notificationService
-     * @param DataUser $dataEntity
-     * @return JsonResponse
-     */
-    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, UserPasswordHasherInterface $passwordHasher,
-                           FileUploader $fileUploader, NotificationService $notificationService, DataUser $dataEntity): JsonResponse
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
+    public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse,
+                           UserPasswordHasherInterface $passwordHasher, FileUploader $fileUploader,
+                           NotificationService $notificationService, DataUser $dataEntity): JsonResponse
     {
-        return $this->submitForm("create", new User(), $request, $apiResponse, $validator, $dataEntity, $passwordHasher, $fileUploader, $notificationService);
+        return $this->submitForm(
+            "create", new User(), $request, $apiResponse, $validator, $dataEntity,
+            $passwordHasher, $fileUploader, $notificationService
+        );
     }
 
-    /**
-     * Update a user
-     *
-     * @Route("/{id}", name="update", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns an object"
-     * )
-     * @OA\Response(
-     *     response=403,
-     *     description="Forbidden for not good role or user",
-     * )
-     * @OA\Response(
-     *     response=400,
-     *     description="Validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param NotificationService $notificationService
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ApiResponse $apiResponse
-     * @param User $obj
-     * @param FileUploader $fileUploader
-     * @param DataUser $dataEntity
-     * @return JsonResponse
-     */
+    #[Route(path: '/{id}', name: 'update', options: ['expose' => true], methods: ['POST'])]
     public function update(Request $request, ValidatorService $validator, NotificationService $notificationService,
                            UserPasswordHasherInterface $passwordHasher, ApiResponse $apiResponse, User $obj,
                            FileUploader $fileUploader, DataUser $dataEntity): JsonResponse
@@ -193,37 +121,14 @@ class UserController extends AbstractController
             return $apiResponse->apiJsonResponseForbidden();
         }
 
-        return $this->submitForm("update", $obj, $request, $apiResponse, $validator, $dataEntity, $passwordHasher, $fileUploader, $notificationService);
+        return $this->submitForm(
+            "update", $obj, $request, $apiResponse, $validator, $dataEntity,
+            $passwordHasher, $fileUploader, $notificationService
+        );
     }
 
-    /**
-     * Admin - Delete an user
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     * @OA\Response(
-     *     response=403,
-     *     description="Forbidden for not good role or user",
-     * )
-     *
-     * @OA\Response(
-     *     response=400,
-     *     description="Cannot delete me",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param ApiResponse $apiResponse
-     * @param User $obj
-     * @param FileUploader $fileUploader
-     * @return JsonResponse
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(ApiResponse $apiResponse, User $obj, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();
@@ -243,34 +148,8 @@ class UserController extends AbstractController
         return $apiResponse->apiJsonResponseSuccessful("Supression réussie !");
     }
 
-    /**
-     * Admin - Delete a group of user
-     *
-     * @Security("is_granted('ROLE_ADMIN')")
-     *
-     * @Route("/", name="delete_group", options={"expose"=true}, methods={"DELETE"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     * @OA\Response(
-     *     response=403,
-     *     description="Forbidden for not good role or user",
-     * )
-     *
-     * @OA\Response(
-     *     response=400,
-     *     description="Cannot delete me",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ApiResponse $apiResponse
-     * @param FileUploader $fileUploader
-     * @return JsonResponse
-     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route(path: '/', name: 'delete_group', options: ['expose' => true], methods: ['DELETE'])]
     public function deleteGroup(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();
@@ -304,25 +183,9 @@ class UserController extends AbstractController
         return $apiResponse->apiJsonResponseSuccessful("Supression de la sélection réussie !");
     }
 
-    /**
-     * Forget password
-     *
-     * @Route("/password/forget", name="password_forget", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ApiResponse $apiResponse
-     * @param MailerService $mailerService
-     * @param SettingsService $settingsService
-     * @return JsonResponse
-     */
-    public function passwordForget(Request $request, ApiResponse $apiResponse, MailerService $mailerService, SettingsService $settingsService): JsonResponse
+    #[Route(path: '/password/forget', name: 'password_forget', options: ['expose' => true], methods: ['POST'])]
+    public function passwordForget(Request $request, ApiResponse $apiResponse, MailerService $mailerService,
+                                   SettingsService $settingsService): JsonResponse
     {
         $em = $this->doctrine->getManager();
         $data = json_decode($request->getContent());
@@ -351,18 +214,22 @@ class UserController extends AbstractController
             }
         }
 
-        $code = uniqid($user->getId());
+        $code = uniqid((string) $user->getId());
 
         $user->setForgetAt(new \DateTime()); // no set timezone to compare expired
         $user->setForgetCode($code);
 
-        $url = $this->generateUrl('app_password_reinit', ['token' => $user->getToken(), 'code' => $code], UrlGeneratorInterface::ABSOLUTE_URL);
-        if($mailerService->sendMail(
-                $user->getEmail(),
-                "Mot de passe oublié pour le site " . $settingsService->getWebsiteName(),
-                "Lien de réinitialisation de mot de passe.",
-                'app/email/security/forget.html.twig',
-                ['url' => $url, 'user' => $user, 'settings' => $settingsService->getSettings()]) != true)
+        $url = $this->generateUrl(
+            'app_password_reinit',
+            ['token' => $user->getToken(), 'code' => $code],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+        if(!$mailerService->sendMail(
+            $user->getEmail(),
+            "Mot de passe oublié pour le site " . $settingsService->getWebsiteName(),
+            "Lien de réinitialisation de mot de passe.",
+            'app/email/security/forget.html.twig',
+            ['url' => $url, 'user' => $user, 'settings' => $settingsService->getSettings()]))
         {
             return $apiResponse->apiJsonResponseValidationFailed([[
                 'name' => 'fUsername',
@@ -371,28 +238,12 @@ class UserController extends AbstractController
         }
 
         $em->flush();
-        return $apiResponse->apiJsonResponseSuccessful(sprintf("Le lien de réinitialisation de votre mot de passe a été envoyé à : %s", $user->getHiddenEmail()));
+        return $apiResponse->apiJsonResponseSuccessful(
+            sprintf("Le lien de réinitialisation de votre mot de passe a été envoyé à : %s", $user->getHiddenEmail())
+        );
     }
 
-    /**
-     * Update password
-     *
-     * @Route("/password/update/{token}", name="password_update", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a message",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param $token
-     * @param ValidatorService $validator
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ApiResponse $apiResponse
-     * @return JsonResponse
-     */
+    #[Route(path: '/password/update/{token}', name: 'password_update', options: ['expose' => true], methods: ['POST'])]
     public function passwordUpdate(Request $request, $token, ValidatorService $validator, UserPasswordHasherInterface $passwordHasher,
                                    ApiResponse $apiResponse): JsonResponse
     {
@@ -414,27 +265,12 @@ class UserController extends AbstractController
         }
 
         $em->flush();
-        return $apiResponse->apiJsonResponseSuccessful("Modification réalisée avec success ! La page va se rafraichir automatiquement dans 5 secondes.");
+        return $apiResponse->apiJsonResponseSuccessful(
+            "Modification réalisée avec success ! La page va se rafraichir automatiquement dans 5 secondes."
+        );
     }
 
-    /**
-     * Reinitialize password
-     *
-     * @Route("/password/reinit/{token}", name="password_reinit", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a message",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param $token
-     * @param ValidatorService $validator
-     * @param UserPasswordHasherInterface $passwordHasher
-     * @param ApiResponse $apiResponse
-     * @return JsonResponse
-     */
+    #[Route(path: '/password/reinit/{token}', name: 'password_reinit', options: ['expose' => true], methods: ['POST'])]
     public function passwordReinit($token, ValidatorService $validator, UserPasswordHasherInterface $passwordHasher,
                                    ApiResponse $apiResponse): JsonResponse
     {
@@ -457,22 +293,7 @@ class UserController extends AbstractController
         return $apiResponse->apiJsonResponseSuccessful("Veuillez noter le nouveau mot de passe : " . $pass);
     }
 
-    /**
-     * Export list users
-     *
-     * @Route("/export/{format}", name="export", options={"expose"=true}, methods={"GET"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a new user object",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Export $export
-     * @param $format
-     * @return BinaryFileResponse
-     */
+    #[Route(path: '/export/{format}', name: 'export', options: ['expose' => true], methods: ['GET'])]
     public function export(Export $export, $format): BinaryFileResponse
     {
         $em = $this->doctrine->getManager();
@@ -491,16 +312,16 @@ class UserController extends AbstractController
                 date_format($obj->getCreatedAt(), 'd/m/Y'),
             ];
             if(!in_array($tmp, $data)){
-                array_push($data, $tmp);
+                $data[] = $tmp;
             }
         }
 
         if($format == 'excel'){
             $fileName = $nameFile . '.xlsx';
-            $header = array(array('ID', 'Nom utilisateur', 'Role', 'Email', 'Date de creation'));
+            $header = [['ID', 'Nom utilisateur', 'Role', 'Email', 'Date de creation']];
         }else{
             $fileName = $nameFile . '.csv';
-            $header = array(array('id', 'username', 'role', 'email', 'createAt'));
+            $header = [['id', 'username', 'role', 'email', 'createAt']];
 
             header('Content-Type: application/csv');
             header('Content-Disposition: attachment; filename="'.$fileName.'"');

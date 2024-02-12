@@ -11,13 +11,8 @@ use Symfony\Component\Mime\Address;
 
 class MailerService
 {
-    private $mailer;
-    private $settingsService;
-
-    public function __construct(MailerInterface $mailer, SettingsService $settingsService)
+    public function __construct(private readonly MailerInterface $mailer, private readonly SettingsService $settingsService)
     {
-        $this->mailer = $mailer;
-        $this->settingsService = $settingsService;
     }
 
     public function sendMail($to, $subject, $text, $html, $params, $from=null)
@@ -36,7 +31,7 @@ class MailerService
         try {
             $this->mailer->send($email);
             return true;
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportExceptionInterface) {
             return 'Le message n\'a pas pu être délivré. Veuillez contacter le support.';
         }
     }

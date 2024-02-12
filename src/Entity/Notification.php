@@ -7,56 +7,40 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=NotificationRepository::class)
- */
+#[ORM\Entity(repositoryClass: NotificationRepository::class)]
 class Notification extends DataEntity
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"admin:read"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['admin_read'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['admin_read'])]
+    #[Assert\NotBlank]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     */
-    private $icon;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['admin_read'])]
+    #[Assert\NotBlank]
+    private ?string $icon = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Groups({"admin:read"})
-     * @Assert\NotBlank()
-     */
-    private $createdAt;
+    #[ORM\Column(type: 'datetime')]
+    #[Groups(['admin_read'])]
+    #[Assert\NotBlank]
+    private ?\DateTime $createdAt = null;
 
-    /**
-     * @ORM\Column(type="boolean")
-     * @Groups({"admin:read"})
-     */
-    private $isSeen;
+    #[ORM\Column(type: 'boolean')]
+    #[Groups(['admin_read'])]
+    private ?bool $isSeen = false;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="notifications")
-     */
-    private $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'notifications')]
+    private ?User $user = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"admin:read"})
-     */
-    private $url;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['admin_read'])]
+    private ?string $url = null;
 
     public function __construct()
     {
@@ -105,11 +89,7 @@ class Notification extends DataEntity
         return $this;
     }
 
-    /**
-     * How long ago a user was logged for the last time.
-     *
-     * @Groups({"admin:read"})
-     */
+    #[Groups(['admin_read'])]
     public function getCreatedAtAgo(): ?string
     {
         return $this->getHowLongAgo($this->createdAt);

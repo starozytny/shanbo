@@ -12,13 +12,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DataService
 {
-    private $em;
-    private $apiResponse;
-
-    public function __construct(EntityManagerInterface $em, ApiResponse $apiResponse)
+    public function __construct(private readonly EntityManagerInterface $em, private readonly ApiResponse $apiResponse)
     {
-        $this->em = $em;
-        $this->apiResponse = $apiResponse;
     }
 
     public function isSeenToTrue($obj, $groups = User::ADMIN_READ): JsonResponse

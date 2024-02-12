@@ -8,21 +8,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/espace-membre/photos", name="user_photos_")
- */
+#[Route(path: '/espace-membre/photos', name: 'user_photos_')]
 class PhotoController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/", options={"expose"=true}, name="index")
-     */
+    #[Route(path: '/', name: 'index', options: ['expose' => true])]
     public function albums(): Response
     {
         $em = $this->doctrine->getManager();

@@ -10,11 +10,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class DatabaseService
 {
-    private $em;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $em)
     {
-        $this->em = $entityManager;
     }
 
     public function resetTable(SymfonyStyle $io, $list)

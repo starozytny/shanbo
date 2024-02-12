@@ -12,18 +12,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use OpenApi\Annotations as OA;
 
-/**
- * @Route("/api/members/groups", name="api_members_groups_")
- */
+#[Route(path: '/api/members/groups', name: 'api_members_groups_')]
 class GroupController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
     public function submitForm($type, Group $obj, Request $request, ApiResponse $apiResponse,
@@ -52,83 +46,22 @@ class GroupController extends AbstractController
         $em->persist($obj);
         $em->flush();
 
-        return $apiResponse->apiJsonResponse($obj, Group::GROUP_REAAD);
+        return $apiResponse->apiJsonResponse($obj, Group::GROUP_READ);
     }
 
-    /**
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns a new object"
-     * )
-     * @OA\Response(
-     *     response=400,
-     *     description="JSON empty or missing data or validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param DataAlbum $dataEntity
-     * @return JsonResponse
-     */
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ValidatorService $validator, ApiResponse $apiResponse, DataAlbum $dataEntity): JsonResponse
     {
         return $this->submitForm("create", new Group(), $request, $apiResponse, $validator, $dataEntity);
     }
 
-    /**
-     * @Route("/{id}", name="update", options={"expose"=true}, methods={"PUT"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Returns an object"
-     * )
-     * @OA\Response(
-     *     response=400,
-     *     description="Validation failed",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param Request $request
-     * @param ValidatorService $validator
-     * @param ApiResponse $apiResponse
-     * @param Group $obj
-     * @param DataAlbum $dataEntity
-     * @return JsonResponse
-     */
+    #[Route(path: '/{id}', name: 'update', options: ['expose' => true], methods: ['PUT'])]
     public function update(Request $request, ValidatorService $validator, ApiResponse $apiResponse, Group $obj, DataAlbum $dataEntity): JsonResponse
     {
         return $this->submitForm("update", $obj, $request, $apiResponse, $validator, $dataEntity);
     }
 
-    /**
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"DELETE"})
-     *
-     * @OA\Response(
-     *     response=200,
-     *     description="Return message successful",
-     * )
-     * @OA\Response(
-     *     response=403,
-     *     description="Forbidden for not good role or user",
-     * )
-     *
-     * @OA\Response(
-     *     response=400,
-     *     description="Cannot delete me",
-     * )
-     *
-     * @OA\Tag(name="Users")
-     *
-     * @param ApiResponse $apiResponse
-     * @param Group $obj
-     * @return JsonResponse
-     */
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['DELETE'])]
     public function delete(ApiResponse $apiResponse, Group $obj): JsonResponse
     {
         $em = $this->doctrine->getManager();
@@ -136,6 +69,6 @@ class GroupController extends AbstractController
         $em->remove($obj);
         $em->flush();
 
-        return $apiResponse->apiJsonResponseSuccessful("Supression réussie !");
+        return $apiResponse->apiJsonResponseSuccessful("Suppression réussie !");
     }
 }

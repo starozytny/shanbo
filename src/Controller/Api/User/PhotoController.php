@@ -14,25 +14,18 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/api/members/photos", name="api_members_photos_")
- */
+#[Route(path: '/api/members/photos', name: 'api_members_photos_')]
 class PhotoController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/", name="create", options={"expose"=true}, methods={"POST"})
-     */
+    #[Route(path: '/', name: 'create', options: ['expose' => true], methods: ['POST'])]
     public function create(Request $request, ApiResponse $apiResponse, FileUploader $fileUploader): JsonResponse
     {
         $em = $this->doctrine->getManager();
-        $dates = json_decode($request->get('dates'));
+        $dates = json_decode((string) $request->get('dates'));
 
         $files = $request->files->get('photos');
         if ($files) {
@@ -61,9 +54,7 @@ class PhotoController extends AbstractController
         return $apiResponse->apiJsonResponseSuccessful("ok");
     }
 
-    /**
-     * @Route("/{id}", name="delete", options={"expose"=true}, methods={"POST"})
-     */
+    #[Route(path: '/{id}', name: 'delete', options: ['expose' => true], methods: ['POST'])]
     public function delete(Photo $photo, FileUploader $fileUploader, PhotoRepository $repository): RedirectResponse
     {
         $fileUploader->deleteFile($photo->getFilename(), Photo::FOLDER_PHOTOS);

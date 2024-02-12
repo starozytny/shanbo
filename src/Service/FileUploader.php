@@ -13,15 +13,8 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
 {
-    private $publicDirectory;
-    private $privateDirectory;
-    private $slugger;
-
-    public function __construct($publicDirectory, $privateDirectory, SluggerInterface $slugger)
+    public function __construct(private $publicDirectory, private $privateDirectory, private readonly SluggerInterface $slugger)
     {
-        $this->publicDirectory = $publicDirectory;
-        $this->privateDirectory = $privateDirectory;
-        $this->slugger = $slugger;
     }
 
     public function upload(UploadedFile $file, $folder=null, $isPublic=true, $reducePixel=false): string
@@ -53,7 +46,7 @@ class FileUploader
             }
 
             $layer->save($directory, $fileName);
-        } catch (FileException|ImageWorkshopException|ImageWorkshopLayerException $e) {
+        } catch (FileException|ImageWorkshopException|ImageWorkshopLayerException) {
             return false;
         }
 
@@ -99,7 +92,7 @@ class FileUploader
         if($file){
             $oldFile = $this->getDirectory($isPublic) . $folderName . '/' . $oldFileName;
 
-            $fileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME); // useless because uniqid();
+            $fileName = pathinfo((string) $file->getClientOriginalName(), PATHINFO_FILENAME); // useless because uniqid();
             if($oldFileName && file_exists($oldFile) && $fileName !== $oldFileName){
                 unlink($oldFile);
             }

@@ -6,63 +6,47 @@ use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Mapping\Annotation\Slug;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=AlbumRepository::class)
- */
+#[ORM\Entity(repositoryClass: AlbumRepository::class)]
 class Album extends DataEntity
 {
-    const FOLDER_ALBUMS = 'albums';
+    public const FOLDER_ALBUMS = 'albums';
 
-    const ALBUMS_READ = ['album:read'];
+    public const ALBUMS_READ = ['album_read'];
 
-    const ACCESS_PRIVATE = 0;
-    const ACCESS_PUBLIC = 1;
+    public const ACCESS_PRIVATE = 0;
+    public const ACCESS_PUBLIC = 1;
 
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"album:read"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['album_read'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"album:read"})
-     */
-    private $name;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['album_read'])]
+    private ?string $name = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Gedmo\Slug(updatable=true, fields={"name"})
-     */
-    private $slug;
+    #[Slug(fields: ['name'], updatable: true)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    private ?string $slug = null;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"album:read"})
-     */
-    private $cover;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['album_read'])]
+    private ?string $cover = null;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"album:read"})
-     */
-    private $access = self::ACCESS_PUBLIC;
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['album_read'])]
+    private ?int $access = self::ACCESS_PUBLIC;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="albums")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'albums')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Group::class, mappedBy="album", orphanRemoval=true)
-     */
-    private $groups;
+    #[ORM\OneToMany(mappedBy: 'album', targetEntity: Group::class, orphanRemoval: true)]
+    private Collection $groups;
 
     public function __construct()
     {
@@ -134,9 +118,6 @@ class Album extends DataEntity
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getCoverFile(): string
     {
         return $this->getFileOrDefault($this->cover, self::FOLDER_ALBUMS);

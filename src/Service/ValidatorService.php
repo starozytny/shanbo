@@ -9,11 +9,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ValidatorService
 {
-    private $validator;
-
-    public function __construct(ValidatorInterface $validator)
+    public function __construct(private readonly ValidatorInterface $validator)
     {
-        $this->validator = $validator;
     }
 
     public function validate($object)
@@ -58,16 +55,12 @@ class ValidatorService
 
     private function switchCase($elem)
     {
-        switch ($elem['type']){
-            case 'array':
-                return $this->validateArray($elem['value']);
-            case 'uniqueLength':
-                return $this->validateUniqueLength($elem['value'], $elem['size']);
-            case 'length':
-                return $this->validateLength($elem['value'], $elem['min'], $elem['max']);
-            default:
-                return $this->validateText($elem['value']);
-        }
+        return match ($elem['type']) {
+            'array' => $this->validateArray($elem['value']),
+            'uniqueLength' => $this->validateUniqueLength($elem['value'], $elem['size']),
+            'length' => $this->validateLength($elem['value'], $elem['min'], $elem['max']),
+            default => $this->validateText($elem['value']),
+        };
     }
 
     private function validateArray($value)
@@ -81,7 +74,7 @@ class ValidatorService
 
     private function validateUniqueLength($value, $size)
     {
-        if(strlen($value) !== $size){
+        if(strlen((string) $value) !== $size){
             return 'Ce champ doit contenir ' . $size . ' caractères.';
         }
 
@@ -90,7 +83,7 @@ class ValidatorService
 
     private function validateLength($value, $min, $max)
     {
-        if(strlen($value) < $min || strlen($value) > $max){
+        if(strlen((string) $value) < $min || strlen((string) $value) > $max){
             return 'Ce champ doit contenir entre ' . ($min + 1) . ' et ' . $max . ' caractères.';
         }
 

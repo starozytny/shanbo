@@ -10,11 +10,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class DataUser
 {
-    private $sanitizeData;
-
-    public function __construct(SanitizeData $sanitizeData)
+    public function __construct(private readonly SanitizeData $sanitizeData)
     {
-        $this->sanitizeData = $sanitizeData;
     }
 
     public function setData(User $obj, $data): User
@@ -27,8 +24,8 @@ class DataUser
 
         return ($obj)
             ->setUsername($username)
-            ->setFirstname(ucfirst($this->sanitizeData->sanitizeString($data->firstname)))
-            ->setLastname(mb_strtoupper($this->sanitizeData->sanitizeString($data->lastname)))
+            ->setFirstname(ucfirst((string) $this->sanitizeData->sanitizeString($data->firstname)))
+            ->setLastname(mb_strtoupper((string) $this->sanitizeData->sanitizeString($data->lastname)))
             ->setEmail($data->email)
         ;
     }

@@ -6,29 +6,21 @@ use App\Repository\InformRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-/**
- * @ORM\Entity(repositoryClass=InformRepository::class)
- */
+#[ORM\Entity(repositoryClass: InformRepository::class)]
 class Inform extends DataEntity
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     * @Groups({"admin:read"})
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    #[Groups(['admin_read'])]
+    private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"admin:read"})
-     */
-    private $email;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Groups(['admin_read'])]
+    private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTime $createdAt = null;
 
     public function __construct()
     {
@@ -52,22 +44,19 @@ class Inform extends DataEntity
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    /**
-     * @return string|null
-     * @Groups({"admin:read"})
-     */
+    #[Groups(['admin_read'])]
     public function getCreatedAtAgo(): ?string
     {
         return $this->getHowLongAgo($this->createdAt);

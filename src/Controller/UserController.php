@@ -10,21 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
-/**
- * @Route("/espace-membre", name="user_")
- */
+#[Route(path: '/espace-membre', name: 'user_')]
 class UserController extends AbstractController
 {
-    private $doctrine;
-
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(private readonly ManagerRegistry $doctrine)
     {
-        $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route("/", options={"expose"=true}, name="homepage")
-     */
+    #[Route(path: '/', name: 'homepage', options: ['expose' => true])]
     public function index(): Response
     {
         $em = $this->doctrine->getManager();
@@ -36,9 +29,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profil", options={"expose"=true}, name="profil")
-     */
+    #[Route(path: '/profil', name: 'profil', options: ['expose' => true])]
     public function profil(): Response
     {
         /** @var User $obj */
@@ -49,9 +40,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/modifier-profil", name="profil_update")
-     */
+    #[Route(path: '/modifier-profil', name: 'profil_update')]
     public function profilUpdate(SerializerInterface $serializer): Response
     {
         /** @var User $data */
