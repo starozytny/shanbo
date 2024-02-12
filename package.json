@@ -31,7 +31,6 @@
         "leaflet-ajax": "^2.1.0",
         "lozad": "^1.16.0",
         "masonry-layout": "^4.2.2",
-        "node-sass": "4.14.1",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.7.2",
         "react": "^17.0.1",
@@ -44,14 +43,14 @@
         "react-selectize": "^3.0.1",
         "react-transition-group": "1.x",
         "react-trumbowyg": "^1.1.0",
+        "sass": "^1.69.7",
         "sweetalert2": "^10.12.4",
         "toastr": "^2.1.4",
         "uid": "^2.0.0"
     },
     "browserslist": [
-        "last 4 version",
-        "> 1%",
-        "maintained node versions",
-        "not dead"
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
     ]
 }
